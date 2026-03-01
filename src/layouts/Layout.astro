@@ -1,23 +1,182 @@
+---
+import type { Lang } from '../i18n/translations';
+
+interface Props {
+  title?: string;
+  lang?: Lang;
+}
+
+const { title = "Artin Studio — Photography & Videography", lang = 'en' } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-sans bg-ink-100 text-ink-900 antialiased">
+    <slot />
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  /* Custom base */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Section scroll offset for fixed nav */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  /* Navbar: dark when scrolled or over light sections */
+  #navbar.scrolled {
+    background: rgba(31, 29, 28, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  #navbar.scrolled .nav-logo,
+  #navbar.scrolled .nav-link {
+    color: #fff !important;
+  }
+
+  /* When over light section, nav text dark */
+  #navbar.nav-light .nav-logo,
+  #navbar.nav-light .nav-link {
+    color: #2c2a28 !important;
+  }
+
+  #navbar.nav-light.scrolled {
+    background: rgba(253, 252, 250, 0.95);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  #navbar.nav-light.scrolled .nav-logo,
+  #navbar.nav-light.scrolled .nav-link {
+    color: #2c2a28 !important;
+  }
+
+  #navbar.nav-light .nav-link:hover {
+    color: #ff7a55 !important;
+  }
+
+  #navbar.nav-light #mobile-menu-btn,
+  #navbar.nav-light #mobile-menu a {
+    color: #2c2a28 !important;
+  }
+
+  #navbar.nav-light #mobile-menu a:hover {
+    color: #ff7a55 !important;
+  }
+
+  /* Photo cards - modern retro style */
+  .photo-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 4px 20px rgba(255, 122, 85, 0.08);
+  }
+
+  .photo-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(255, 122, 85, 0.15);
+  }
+
+  .photo-card img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .photo-card:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Video cards */
+  .video-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 122, 85, 0.08);
+  }
+
+  .video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(255, 122, 85, 0.12);
+  }
+
+  /* Form focus */
+  input:focus,
+  textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 122, 85, 0.35);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #fdfcfa;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #a8a4a0;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #7a7572;
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Mobile menu */
+  #mobile-menu {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #mobile-menu.show {
+    display: block;
+  }
+
+  /* Section scroll reveal */
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .section-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Prose overrides for About */
+  .prose p {
+    margin-bottom: 0;
+  }
+
+  .prose p + p {
+    margin-top: 1rem;
+  }
 </style>

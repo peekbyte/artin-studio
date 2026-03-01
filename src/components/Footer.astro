@@ -1,0 +1,17 @@
+---
+import type { Translations } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+---
+
+<footer class="bg-ink-950 border-t border-white/5 py-8">
+  <div class="max-w-6xl mx-auto px-6 text-center text-ink-500 text-sm">
+    <p>{t.footer.copyright}</p>
+    <p class="mt-1">artin-studio.pl</p>
+    <p class="mt-4 text-ink-600">{t.footer.designedBy} <a href="https://parstech.pl" target="_blank" rel="noopener" class="text-brand-400 hover:text-brand-300 transition-colors">parstech.pl</a></p>
+  </div>
+</footer>

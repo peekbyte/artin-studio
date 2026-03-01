@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Hero from '../../components/Hero.astro';
+import Photography from '../../components/Photography.astro';
+import Videography from '../../components/Videography.astro';
+import About from '../../components/About.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+import { languages, getTranslations, type Lang } from '../../i18n/translations';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({
+    params: { lang },
+  }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = getTranslations(lang);
+---
+
+<Layout lang={lang} title="Artin Studio — Photography & Videography">
+  <Navigation lang={lang} t={t} />
+  <Hero t={t} />
+  <Photography t={t} />
+  <Videography t={t} />
+  <About t={t} />
+  <Contact t={t} />
+  <Footer t={t} />
+
+  <script>
+    // Navbar scroll and section-based style
+    const navbar = document.getElementById('navbar');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function updateNav() {
+      const scrollY = window.scrollY;
+      if (scrollY > 40) {
+        navbar?.classList.add('scrolled');
+      } else {
+        navbar?.classList.remove('scrolled');
+      }
+
+      // Light nav over light sections (photography, videography, about)
+      const lightSectionIds = ['photography', 'videography', 'about'];
+      let overLight = false;
+      sections.forEach((section) => {
+        const top = (section as HTMLElement).offsetTop - 100;
+        const height = (section as HTMLElement).offsetHeight;
+        const id = section.id;
+        if (scrollY >= top && scrollY < top + height && lightSectionIds.includes(id)) {
+          overLight = true;
+        }
+      });
+      if (overLight) {
+        navbar?.classList.add('nav-light');
+      } else {
+        navbar?.classList.remove('nav-light');
+      }
+
+      // Active nav link
+      let current = '';
+      sections.forEach((section) => {
+        const top = (section as HTMLElement).offsetTop - 120;
+        const height = (section as HTMLElement).offsetHeight;
+        if (scrollY >= top && scrollY < top + height) {
+          current = section.id;
+        }
+      });
+      navLinks.forEach((link) => {
+        link.classList.remove('text-brand-400');
+        link.classList.remove('font-semibold');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('text-brand-400');
+          link.classList.add('font-semibold');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateNav);
+    window.addEventListener('load', updateNav);
+
+    // Mobile menu
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('show');
+      });
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenu.classList.remove('show');
+        });
+      });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (e) => {
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(href!);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Fade-up on scroll for sections (except hero)
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('section[id]:not(#home)').forEach((section) => {
+      section.classList.add('section-reveal');
+      sectionObserver.observe(section);
+    });
+
+    // Contact form
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = (contactForm.querySelector('input[type="text"]') as HTMLInputElement)?.value || '';
+        const email = (contactForm.querySelector('input[type="email"]') as HTMLInputElement)?.value || '';
+        alert(`Thanks, ${name}! I'll get back to you at ${email} soon.`);
+        contactForm.reset();
+      });
+    }
+
+    // Optional: lazy load images
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target as HTMLImageElement;
+              if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+              }
+              imageObserver.unobserve(img);
+            }
+          });
+        },
+        { rootMargin: '50px' }
+      );
+      document.querySelectorAll('img[data-src]').forEach((img) => imageObserver.observe(img));
+    }
+
+    // Scroll restoration
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+  </script>
+</Layout>

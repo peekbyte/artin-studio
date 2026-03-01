@@ -1,0 +1,48 @@
+---
+import type { Translations } from '../i18n/translations';
+import LazyImage from './LazyImage.astro';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+const images = [
+  "01034900.JPG",
+  "11035239.JPG",
+  "11035312.JPG",
+  "11045319.JPG",
+  "11045368.JPG",
+  "11045382.JPG",
+  "11045397.JPG",
+  "11045397 2.JPG",
+  "11045406.JPG",
+  "11045412.JPG",
+  "11045412 2.JPG",
+  "11045418.JPG",
+  "11045420.JPG",
+  "11045421.JPG",
+  "11045421 2.JPG",
+  "11045421 3.JPG",
+  "11045440.JPG",
+];
+---
+
+<section id="photography" class="py-24 bg-ink-100 scroll-mt-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-display font-bold text-ink-950 mb-4">{t.photography.title}</h2>
+      <p class="text-ink-500 text-lg max-w-2xl mx-auto">{t.photography.description}</p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      {images.map((img) => (
+        <div class="photo-card group relative aspect-square overflow-hidden rounded-xl">
+          <LazyImage src={`/images/${img}`} alt={t.photography.title} class="transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+---
+import type { Translations } from '../i18n/translations';
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="videography" class="py-24 bg-ink-200 scroll-mt-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-display font-bold text-ink-950 mb-4">{t.videography.title}</h2>
+      <p class="text-ink-500 text-lg max-w-2xl mx-auto">{t.videography.description}</p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Example: YouTube embed — replace VIDEO_ID with your video ID from the share URL -->
+      <!-- <div class="video-card rounded-3xl overflow-hidden bg-ink-100 aspect-video">
+          <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID" title="Video 1" allowfullscreen></iframe>
+      </div> -->
+      <div class="video-card rounded-3xl overflow-hidden bg-ink-100 aspect-video flex items-center justify-center">
+        <div class="text-center p-8">
+          <svg class="w-16 h-16 text-brand-400 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"></path>
+            <path d="M4 3h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="2"></path>
+          </svg>
+          <p class="text-ink-700 font-medium">{t.videography.video1}</p>
+          <p class="text-ink-500 text-sm mt-1">{t.videography.placeholder}</p>
+        </div>
+      </div>
+      <div class="video-card rounded-3xl overflow-hidden bg-ink-100 aspect-video flex items-center justify-center">
+        <div class="text-center p-8">
+          <svg class="w-16 h-16 text-brand-400 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"></path>
+            <path d="M4 3h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="2"></path>
+          </svg>
+          <p class="text-ink-700 font-medium">{t.videography.video2}</p>
+          <p class="text-ink-500 text-sm mt-1">{t.videography.addEmbed}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
