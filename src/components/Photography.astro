@@ -9,23 +9,23 @@ interface Props {
 const { t } = Astro.props;
 
 const images = [
-  "01034900.JPG",
-  "11035239.JPG",
-  "11035312.JPG",
-  "11045319.JPG",
-  "11045368.JPG",
-  "11045382.JPG",
-  "11045397.JPG",
-  "11045397 2.JPG",
-  "11045406.JPG",
-  "11045412.JPG",
-  "11045412 2.JPG",
-  "11045418.JPG",
-  "11045420.JPG",
-  "11045421.JPG",
-  "11045421 2.JPG",
-  "11045421 3.JPG",
-  "11045440.JPG",
+  "01034900.webp",
+  "11035239.webp",
+  "11035312.webp",
+  "11045319.webp",
+  "11045368.webp",
+  "11045382.webp",
+  "11045397.webp",
+  "11045397 2.webp",
+  "11045406.webp",
+  "11045412.webp",
+  "11045412 2.webp",
+  "11045418.webp",
+  "11045420.webp",
+  "11045421.webp",
+  "11045421 2.webp",
+  "11045421 3.webp",
+  "11045440.webp",
 ];
 ---
 
@@ -39,7 +39,7 @@ const images = [
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
       {images.map((img) => (
         <div class="photo-card group relative aspect-square overflow-hidden rounded-xl">
-          <LazyImage src={`/images/${img}`} alt={t.photography.title} class="transition-transform duration-500 group-hover:scale-105" />
+          <LazyImage src={`/images/optimized/${img}`} alt={t.photography.title} class="transition-transform duration-500 group-hover:scale-105" />
           <div class="absolute inset-0 bg-gradient-to-t from-ink-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </div>
       ))}
