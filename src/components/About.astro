@@ -13,7 +13,9 @@ const { t } = Astro.props;
   <!-- Stats bar -->
   <div class="bg-ink-950 border-b border-white/5">
     <div class="max-w-6xl mx-auto px-6 py-10">
-      <div class="grid grid-cols-4 gap-4 divide-x divide-white/10">
+      <div
+        class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:divide-x divide-white/10"
+      >
         <div class="text-center">
           <p
             class="font-display font-extrabold text-3xl md:text-4xl text-white"
@@ -68,7 +70,7 @@ const { t } = Astro.props;
             number="03"
             subtitle="The person behind the lens"
             title={t.about.title}
-            numberClass="text-[5rem] text-ink-200"
+            numberClass="text-[3.5rem] md:text-[5rem] text-ink-200"
             titleClass="text-3xl md:text-4xl text-ink-950"
             gap="gap-5"
             marginBottom="mb-10"
@@ -126,7 +128,7 @@ const { t } = Astro.props;
             />
           </div>
           <div
-            class="absolute -bottom-4 -left-4 bg-ink-950 text-white rounded-2xl px-5 py-3 shadow-xl"
+            class="absolute -bottom-4 left-2 sm:-left-4 bg-ink-950 text-white rounded-2xl px-5 py-3 shadow-xl"
           >
             <p class="font-display font-bold text-sm">Artin Studio</p>
             <p class="text-ink-300 text-xs">Warsaw, Poland &middot; 2024</p>
