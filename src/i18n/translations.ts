@@ -8,11 +8,18 @@ export type Lang = keyof typeof languages;
 
 export const defaultLang: Lang = "en";
 
+export const langFlags: Record<Lang, string> = {
+  en: "🇬🇧",
+  pl: "🇵🇱",
+  uk: "🇺🇦",
+};
+
 export const translations = {
   en: {
     // Navigation
     nav: {
       home: "Home",
+      services: "Services",
       photography: "Photography",
       videography: "Videography",
       about: "About",
@@ -20,11 +27,11 @@ export const translations = {
     },
     // Hero
     hero: {
-      subtitle: "Photographer & Videographer",
-      title: "Stories through<br/>light & motion",
-      description: "Amateur photographer and videographer capturing product, portrait, and moving moments.",
-      viewPhotography: "View Photography",
-      watchVideos: "Watch Videos",
+      subtitle: "Creative Studio · Branding & Growth",
+      title: "Your brand,<br/><span class='hero-line2'>built to move.</span>",
+      description: "Photography, video, brand identity and marketing strategy — everything a growing business needs, in one studio.",
+      viewPhotography: "See Our Work",
+      watchVideos: "View Services",
     },
     // Photography
     photography: {
@@ -64,9 +71,34 @@ export const translations = {
       messagePlaceholder: "Tell me about your project...",
       send: "Send message",
     },
+    // Services
+    services: {
+      sectionTitle: "What we do",
+      sectionDesc: "Everything a business needs to launch, grow and stand out — photography, video, branding, web and marketing, all under one roof.",
+      photoTitle: "Photography",
+      photoDesc: "Product shots, portraits and brand imagery that make your business look its best — online and in print.",
+      videoTitle: "Videography",
+      videoDesc: "Reels, brand films and video campaigns that move your audience and keep your brand in their mind.",
+      brandTitle: "Branding",
+      brandDesc: "Visual identity, logo design and brand systems built to communicate who you are and built to grow.",
+      webTitle: "Web & Digital",
+      webDesc: "Websites, online shops and web apps built to convert visitors into customers and represent your brand online.",
+      marketTitle: "Marketing",
+      marketDesc: "Content strategy, social campaigns and a clear roadmap to turn your audience into paying customers.",
+      process: "How we work",
+      step1: "Discover",
+      step1Desc: "We learn your goals, audience and market position.",
+      step2: "Create",
+      step2Desc: "Photography, video and brand identity — all aligned.",
+      step3: "Launch",
+      step3Desc: "Every asset delivered, ready for your brand to go live.",
+      step4: "Grow",
+      step4Desc: "Ongoing content strategy to build momentum over time.",
+      cta: "Start a project",
+    },
     // Footer
     footer: {
-      copyright: "© 2026 Artin Studio · Photography & Videography",
+      copyright: "© 2026 Artin Studio · Creative Branding Studio",
       designedBy: "Designed & developed by",
     },
   },
@@ -74,6 +106,7 @@ export const translations = {
     // Navigation
     nav: {
       home: "Strona główna",
+      services: "Usługi",
       photography: "Fotografia",
       videography: "Wideo",
       about: "O mnie",
@@ -81,11 +114,11 @@ export const translations = {
     },
     // Hero
     hero: {
-      subtitle: "Fotograf i Filmowiec",
-      title: "Historie poprzez<br/>światło i ruch",
-      description: "Amatorski fotograf i filmowiec uchwytujący produkty, portrety i momenty w ruchu.",
-      viewPhotography: "Zobacz Fotografie",
-      watchVideos: "Obejrzyj Filmy",
+      subtitle: "Studio Kreatywne · Branding i Wzrost",
+      title: "Twoja marka,<br/><span class='hero-line2'>stworzona by ruszyć.</span>",
+      description: "Fotografia, wideo, identyfikacja wizualna i marketing — wszystko, czego potrzebuje rozwijający się biznes, w jednym studiu.",
+      viewPhotography: "Zobacz nasze prace",
+      watchVideos: "Zobacz usługi",
     },
     // Photography
     photography: {
@@ -125,9 +158,34 @@ export const translations = {
       messagePlaceholder: "Opowiedz mi o swoim projekcie...",
       send: "Wyślij wiadomość",
     },
+    // Services
+    services: {
+      sectionTitle: "Co robimy",
+      sectionDesc: "Wszystko, czego potrzebuje biznes, aby wystartować, rozwinąć się i wybić się — fotografia, wideo, branding, strony internetowe i marketing pod jednym dachem.",
+      photoTitle: "Fotografia",
+      photoDesc: "Zdjęcia produktowe, portrety i fotografia brandingowa, które wyróżnią Twój biznes.",
+      videoTitle: "Wideo",
+      videoDesc: "Rolki, filmy brandingowe i kampanie wideo, które trafiają do odbiorcy i zostają w pamięci.",
+      brandTitle: "Branding",
+      brandDesc: "Identyfikacja wizualna, logo i system marki gotowe na wzrost Twojego biznesu.",
+      webTitle: "Web i Cyfrowe",
+      webDesc: "Strony internetowe, sklepy online i aplikacje webowe zbudowane tak, by zamieniać odwiedzających w klientów.",
+      marketTitle: "Marketing",
+      marketDesc: "Strategia treści, kampanie w mediach społecznościowych i plan zamiany obserwujących w klientów.",
+      process: "Jak pracujemy",
+      step1: "Odkrywamy",
+      step1Desc: "Poznajemy Twoje cele, grupę docelową i rynek.",
+      step2: "Tworzymy",
+      step2Desc: "Fotografia, wideo i identyfikacja — wszystko spójne z marką.",
+      step3: "Wdrażamy",
+      step3Desc: "Wszystkie materiały gotowe, marka wychodzi na świat.",
+      step4: "Rozwijamy",
+      step4Desc: "Strategia treści, która buduje momentum z czasem.",
+      cta: "Zacznij projekt",
+    },
     // Footer
     footer: {
-      copyright: "© 2026 Artin Studio · Fotografia i Wideo",
+      copyright: "© 2026 Artin Studio · Kreatywne Studio Brandingowe",
       designedBy: "Zaprojektowane i wykonane przez",
     },
   },
@@ -135,6 +193,7 @@ export const translations = {
     // Navigation
     nav: {
       home: "Головна",
+      services: "Послуги",
       photography: "Фотографія",
       videography: "Відео",
       about: "Про мене",
@@ -142,11 +201,11 @@ export const translations = {
     },
     // Hero
     hero: {
-      subtitle: "Фотограф і Відеограф",
-      title: "Історії через<br/>світло і рух",
-      description: "Фотограф-аматор і відеограф, який фіксує продукти, портрети та моменти в русі.",
-      viewPhotography: "Переглянути Фотографії",
-      watchVideos: "Дивитися Відео",
+      subtitle: "Креативна студія · Брендинг і Зростання",
+      title: "Ваш бренд,<br/><span class='hero-line2'>створений рухатися.</span>",
+      description: "Фотографія, відео, фірмовий стиль і маркетинг — усе необхідне для бізнесу, що росте, в одній студії.",
+      viewPhotography: "Переглянути роботи",
+      watchVideos: "Переглянути послуги",
     },
     // Photography
     photography: {
@@ -186,9 +245,34 @@ export const translations = {
       messagePlaceholder: "Розкажіть про ваш проект...",
       send: "Надіслати повідомлення",
     },
+    // Services
+    services: {
+      sectionTitle: "Що ми робимо",
+      sectionDesc: "Усе, що потрібно бізнесу для запуску, зростання і виділення — фото, відео, брендинг, веб та маркетинг під одним дахом.",
+      photoTitle: "Фотографія",
+      photoDesc: "Предметні зйомки, портрети та брендова фотографія, що виділяють ваш бізнес.",
+      videoTitle: "Відеографія",
+      videoDesc: "Короткі ролики, брендові фільми та відеокампанії, що залишаються в пам'яті.",
+      brandTitle: "Брендинг",
+      brandDesc: "Фірмовий стиль, логотип та бренд-система, що комунікують хто ви є і ростуть разом із вами.",
+      webTitle: "Веб і Цифрове",
+      webDesc: "Сайти, інтернет-магазини та веб-додатки, створені з метою перетворювати відвідувачів на клієнтів.",
+      marketTitle: "Маркетинг",
+      marketDesc: "Контент-стратегія та соцмережі, що перетворюють підписників на клієнтів.",
+      process: "Як ми працюємо",
+      step1: "Досліджуємо",
+      step1Desc: "Вивчаємо ваші цілі, аудиторію та ринок.",
+      step2: "Створюємо",
+      step2Desc: "Фото, відео та стиль — все узгоджено з брендом.",
+      step3: "Запускаємо",
+      step3Desc: "Всі матеріали готові, бренд виходить у світ.",
+      step4: "Розвиваємо",
+      step4Desc: "Контент-стратегія, що підтримує зростання з часом.",
+      cta: "Розпочати проект",
+    },
     // Footer
     footer: {
-      copyright: "© 2026 Artin Studio · Фотографія та Відео",
+      copyright: "© 2026 Artin Studio · Креативна Брендингова Студія",
       designedBy: "Розроблено та створено",
     },
   },

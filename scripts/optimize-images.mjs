@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-import { readdir, mkdir } from 'fs/promises';
+import { readdir, mkdir, stat } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 
@@ -29,8 +29,8 @@ async function optimizeImages() {
     const outputPath = path.join(OUTPUT_DIR, outputName);
 
     try {
-      const inputStats = await sharp(inputPath).metadata();
-      
+      const inputFileStat = await stat(inputPath);
+
       await sharp(inputPath)
         .resize(THUMBNAIL_WIDTH, null, {
           withoutEnlargement: true,
@@ -39,14 +39,14 @@ async function optimizeImages() {
         .webp({ quality: QUALITY })
         .toFile(outputPath);
 
-      const outputStats = await sharp(outputPath).metadata();
-      const inputSize = inputStats.size / 1024;
-      const outputSize = outputStats.size / 1024;
+      const outputFileStat = await stat(outputPath);
+      const inputSize = inputFileStat.size / 1024;   // KB
+      const outputSize = outputFileStat.size / 1024; // KB
       const saved = ((1 - outputSize / inputSize) * 100).toFixed(1);
 
       console.log(`✓ ${file}`);
       console.log(`  ${(inputSize / 1024).toFixed(1)}MB → ${outputSize.toFixed(0)}KB (${saved}% smaller)\n`);
-      
+
       totalSaved += inputSize - outputSize;
     } catch (err) {
       console.error(`✗ ${file}: ${err.message}`);

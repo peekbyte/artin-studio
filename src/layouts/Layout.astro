@@ -30,6 +30,35 @@ const { title = "Artin Studio — Photography & Videography", lang = 'en' } = As
   </body>
 </html>
 
+<script>
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+      if (!href || href === '#') return;
+      e.preventDefault();
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Fade-up on scroll for sections (except hero)
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('revealed');
+      });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('section[id]:not(#home)').forEach((section) => {
+    section.classList.add('section-reveal');
+    sectionObserver.observe(section);
+  });
+
+  // Restore manual scroll
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+</script>
+
 <style is:global>
   /* Custom base */
   html {
@@ -169,6 +198,20 @@ const { title = "Artin Studio — Photography & Videography", lang = 'en' } = As
   .section-reveal.revealed {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Marquee ticker */
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-25%); }
+  }
+
+  .ticker-track {
+    animation: ticker 28s linear infinite;
+  }
+
+  .ticker-track:hover {
+    animation-play-state: paused;
   }
 
   /* Prose overrides for About */

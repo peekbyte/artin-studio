@@ -1,46 +1,59 @@
 ---
 import type { Translations } from '../i18n/translations';
 import LazyImage from './LazyImage.astro';
+import { photos } from '../data/photos';
 
 interface Props {
   t: Translations;
 }
 
 const { t } = Astro.props;
-
-const images = [
-  "01034900.webp",
-  "11035239.webp",
-  "11035312.webp",
-  "11045319.webp",
-  "11045368.webp",
-  "11045382.webp",
-  "11045397.webp",
-  "11045397 2.webp",
-  "11045406.webp",
-  "11045412.webp",
-  "11045412 2.webp",
-  "11045418.webp",
-  "11045420.webp",
-  "11045421.webp",
-  "11045421 2.webp",
-  "11045421 3.webp",
-  "11045440.webp",
-];
 ---
 
-<section id="photography" class="py-24 bg-ink-100 scroll-mt-20">
+<section id="photography" class="py-24 bg-ink-100 scroll-mt-20 overflow-hidden">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-5xl font-display font-bold text-ink-950 mb-4">{t.photography.title}</h2>
-      <p class="text-ink-500 text-lg max-w-2xl mx-auto">{t.photography.description}</p>
+
+    <!-- Editorial header -->
+    <div class="flex items-end gap-6 mb-14">
+      <span class="font-display font-extrabold text-[6rem] leading-none text-ink-200 select-none">01</span>
+      <div class="pb-2">
+        <p class="text-brand-500 text-xs tracking-[0.3em] uppercase font-semibold mb-1">{t.photography.description}</p>
+        <h2 class="font-display font-bold text-3xl md:text-5xl text-ink-950">{t.photography.title}</h2>
+      </div>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-      {images.map((img) => (
-        <div class="photo-card group relative aspect-square overflow-hidden rounded-xl">
-          <LazyImage src={`/images/optimized/${img}`} alt={t.photography.title} class="transition-transform duration-500 group-hover:scale-105" />
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+    <!-- Editorial grid: first photo featured (2x2), rest normal -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 auto-rows-[160px] md:auto-rows-[180px]">
+      {photos.map((photo, index) => (
+        <div
+          class:list={[
+            "photo-card group relative overflow-hidden rounded-xl cursor-pointer",
+            index === 0 && "col-span-2 row-span-2",
+          ]}
+          data-lightbox-trigger
+          data-index={index}
+          data-src={`/images/${photo.fullFile}`}
+          data-title={photo.title}
+          data-story={photo.story}
+          data-location={photo.location}
+          data-date={photo.date}
+        >
+          <LazyImage src={`/images/optimized/${photo.file}`} alt={photo.title} class="transition-transform duration-500 group-hover:scale-105" />
+
+          <!-- Story indicator -->
+          <div class="absolute top-2 right-2 z-10 bg-black/40 backdrop-blur-sm p-1.5 rounded-full text-white/80 group-hover:bg-orange-500/80 group-hover:text-white transition-all duration-300">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+
+          <!-- Hover overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div class="absolute bottom-3 left-3 right-3">
+              <p class="text-white text-sm font-semibold truncate">{photo.title}</p>
+              <p class="text-white/60 text-xs">{photo.location}</p>
+            </div>
+          </div>
         </div>
       ))}
     </div>

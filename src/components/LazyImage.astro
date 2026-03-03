@@ -8,90 +8,41 @@ interface Props {
 const { src, alt, class: className } = Astro.props;
 ---
 
-<div class="lazy-image-wrapper">
-  <div class="lazy-placeholder">
-    <svg class="lazy-spinner" viewBox="0 0 24 24" fill="none">
+<div class="relative w-full h-full overflow-hidden bg-[#e8e5e1]">
+  <div class="lazy-placeholder absolute inset-0 flex items-center justify-center bg-[#e8e5e1] z-[1] transition-opacity duration-300">
+    <svg class="w-7 h-7 text-brand-400 animate-spin" viewBox="0 0 24 24" fill="none">
       <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-dasharray="32" stroke-linecap="round" />
     </svg>
   </div>
-  <img 
-    src={src} 
-    alt={alt} 
-    class:list={["lazy-image", className]}
+  <img
+    src={src}
+    alt={alt}
+    class:list={["lazy-image opacity-0 transition-opacity duration-[400ms] w-full h-full object-cover", className]}
     loading="lazy"
     decoding="async"
   />
 </div>
 
 <style>
-  .lazy-image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #e8e5e1;
-  }
-
-  .lazy-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #e8e5e1;
-    z-index: 1;
-    transition: opacity 0.3s ease;
-  }
-
-  .lazy-placeholder.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .lazy-spinner {
-    width: 28px;
-    height: 28px;
-    color: #ff7a55;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  .lazy-image {
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .lazy-image.loaded {
-    opacity: 1;
-  }
+  .lazy-placeholder.hidden { opacity: 0; pointer-events: none; }
+  .lazy-image.loaded { opacity: 1; }
 </style>
 
 <script>
-  // Handle image loading state
-  document.querySelectorAll('.lazy-image-wrapper').forEach((wrapper) => {
+  document.querySelectorAll('.lazy-placeholder').forEach((placeholder) => {
+    const wrapper = placeholder.parentElement!;
     const img = wrapper.querySelector('.lazy-image') as HTMLImageElement;
-    const placeholder = wrapper.querySelector('.lazy-placeholder');
-    
-    if (img && placeholder) {
+
+    if (img) {
       const showImage = () => {
         img.classList.add('loaded');
         placeholder.classList.add('hidden');
       };
-
-      // Check if already loaded (cached images)
       if (img.complete && img.naturalHeight !== 0) {
         showImage();
       } else {
         img.addEventListener('load', showImage);
-        img.addEventListener('error', () => {
-          placeholder.classList.add('hidden');
-        });
+        img.addEventListener('error', () => placeholder.classList.add('hidden'));
       }
     }
   });

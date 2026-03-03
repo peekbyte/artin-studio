@@ -8,6 +8,15 @@ interface Props {
 }
 
 const { lang, t } = Astro.props;
+
+const navItems = [
+  { href: '#home',        label: t.nav.home },
+  { href: '#services',    label: t.nav.services },
+  { href: '#photography', label: t.nav.photography },
+  { href: '#videography', label: t.nav.videography },
+  { href: '#about',       label: t.nav.about },
+  { href: '#contact',     label: t.nav.contact },
+];
 ---
 
 <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent">
@@ -15,11 +24,9 @@ const { lang, t } = Astro.props;
     <div class="flex justify-between items-center">
       <a href="#home" class="nav-logo text-xl font-display font-bold text-white tracking-tight">Artin Studio</a>
       <div class="hidden md:flex items-center gap-8">
-        <a href="#home" class="nav-link text-white/90 hover:text-white text-sm font-medium transition">{t.nav.home}</a>
-        <a href="#photography" class="nav-link text-white/90 hover:text-white text-sm font-medium transition">{t.nav.photography}</a>
-        <a href="#videography" class="nav-link text-white/90 hover:text-white text-sm font-medium transition">{t.nav.videography}</a>
-        <a href="#about" class="nav-link text-white/90 hover:text-white text-sm font-medium transition">{t.nav.about}</a>
-        <a href="#contact" class="nav-link text-white/90 hover:text-white text-sm font-medium transition">{t.nav.contact}</a>
+        {navItems.map(({ href, label }) => (
+          <a href={href} class="nav-link text-white/90 hover:text-white text-sm font-medium transition">{label}</a>
+        ))}
         <LanguageSwitcher currentLang={lang} />
       </div>
       <div class="flex items-center gap-4 md:hidden">
@@ -32,11 +39,62 @@ const { lang, t } = Astro.props;
       </div>
     </div>
     <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 space-y-2">
-      <a href="#home" class="block py-2 text-white/90 hover:text-white text-sm">{t.nav.home}</a>
-      <a href="#photography" class="block py-2 text-white/90 hover:text-white text-sm">{t.nav.photography}</a>
-      <a href="#videography" class="block py-2 text-white/90 hover:text-white text-sm">{t.nav.videography}</a>
-      <a href="#about" class="block py-2 text-white/90 hover:text-white text-sm">{t.nav.about}</a>
-      <a href="#contact" class="block py-2 text-white/90 hover:text-white text-sm">{t.nav.contact}</a>
+      {navItems.map(({ href, label }) => (
+        <a href={href} class="block py-2 text-white/90 hover:text-white text-sm">{label}</a>
+      ))}
     </div>
   </div>
 </nav>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const lightSectionIds = ['photography', 'videography', 'about'];
+
+  function updateNav() {
+    const scrollY = window.scrollY;
+
+    navbar?.classList.toggle('scrolled', scrollY > 40);
+
+    let overLight = false;
+    sections.forEach((section) => {
+      const el = section as HTMLElement;
+      const top = el.offsetTop - 100;
+      if (scrollY >= top && scrollY < top + el.offsetHeight && lightSectionIds.includes(section.id)) {
+        overLight = true;
+      }
+    });
+    navbar?.classList.toggle('nav-light', overLight);
+
+    let current = '';
+    sections.forEach((section) => {
+      const el = section as HTMLElement;
+      const top = el.offsetTop - 120;
+      if (scrollY >= top && scrollY < top + el.offsetHeight) current = section.id;
+    });
+    navLinks.forEach((link) => {
+      link.classList.toggle('text-brand-400', link.getAttribute('href') === `#${current}`);
+      link.classList.toggle('font-semibold', link.getAttribute('href') === `#${current}`);
+    });
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  window.addEventListener('load', updateNav);
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('show');
+    });
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('show');
+      });
+    });
+  }
+</script>

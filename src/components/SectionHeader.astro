@@ -1,0 +1,38 @@
+---
+type Variant = 'dark' | 'light';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** 'dark' = light background (default), 'light' = dark background (white text) */
+  variant?: Variant;
+  descMaxWidth?: string;
+}
+
+const {
+  title,
+  description,
+  variant = 'dark',
+  descMaxWidth = 'max-w-2xl',
+} = Astro.props;
+
+const isLight = variant === 'light';
+---
+
+<div class="text-center mb-16">
+  <h2 class:list={[
+    "text-3xl md:text-5xl font-display font-bold mb-4",
+    isLight ? "text-white" : "text-ink-950",
+  ]}>
+    {title}
+  </h2>
+  {description && (
+    <p class:list={[
+      "text-lg mx-auto",
+      descMaxWidth,
+      isLight ? "text-ink-400" : "text-ink-500",
+    ]}>
+      {description}
+    </p>
+  )}
+</div>
