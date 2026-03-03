@@ -1,5 +1,5 @@
 ---
-import type { Translations } from '../i18n/translations';
+import type { Translations } from "../i18n/translations";
 
 interface Props {
   t: Translations;
@@ -10,16 +10,29 @@ const { t } = Astro.props;
 
 <footer class="bg-ink-950 border-t border-white/5">
   <!-- Large wordmark strip -->
-  <div class="border-b border-white/5 overflow-hidden py-6 select-none">
-    <p class="font-display font-extrabold whitespace-nowrap text-center leading-none tracking-tight text-white/[0.04]" style="font-size:clamp(3rem,12vw,9rem)">ARTIN STUDIO</p>
+  <div class="border-b border-white/5 overflow-hidden py-10 select-none">
+    <p
+      class="font-display font-extrabold whitespace-nowrap text-center leading-none tracking-tight text-white/[0.06]"
+      style="font-size:clamp(3rem,12vw,9rem)"
+    >
+      ARTIN STUDIO
+    </p>
   </div>
 
   <!-- Bottom bar -->
-  <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-ink-600 text-xs">
+  <div
+    class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-ink-400 text-xs"
+  >
     <p>{t.footer.copyright}</p>
     <p>
       {t.footer.designedBy}
-      <a href="https://parstech.pl" target="_blank" rel="noopener" class="text-brand-400 hover:text-brand-300 transition-colors ml-1">parstech.pl</a>
+      <a
+        href="https://parstech.pl"
+        target="_blank"
+        rel="noopener"
+        class="text-brand-400 hover:text-brand-300 transition-colors ml-1"
+        >parstech.pl</a
+      >
     </p>
   </div>
 </footer>

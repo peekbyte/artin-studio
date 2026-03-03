@@ -1,38 +1,40 @@
 ---
-type Variant = 'dark' | 'light';
-
 interface Props {
+  number: string;
+  subtitle: string;
   title: string;
-  description?: string;
-  /** 'dark' = light background (default), 'light' = dark background (white text) */
-  variant?: Variant;
-  descMaxWidth?: string;
+  numberClass?: string;
+  titleClass?: string;
+  gap?: string;
+  marginBottom?: string;
+  pb?: string;
 }
 
 const {
+  number,
+  subtitle,
   title,
-  description,
-  variant = 'dark',
-  descMaxWidth = 'max-w-2xl',
+  numberClass = "text-[6rem] text-white/[0.07]",
+  titleClass = "text-3xl md:text-5xl text-white",
+  gap = "gap-6",
+  marginBottom = "mb-14",
+  pb = "pb-2",
 } = Astro.props;
-
-const isLight = variant === 'light';
 ---
 
-<div class="text-center mb-16">
-  <h2 class:list={[
-    "text-3xl md:text-5xl font-display font-bold mb-4",
-    isLight ? "text-white" : "text-ink-950",
-  ]}>
-    {title}
-  </h2>
-  {description && (
-    <p class:list={[
-      "text-lg mx-auto",
-      descMaxWidth,
-      isLight ? "text-ink-400" : "text-ink-500",
-    ]}>
-      {description}
+<div class:list={["flex items-end", gap, marginBottom]}>
+  <span
+    class:list={[
+      "font-display font-extrabold leading-none select-none",
+      numberClass,
+    ]}>{number}</span
+  >
+  <div class={pb}>
+    <p
+      class="text-brand-500 text-sm tracking-[0.25em] uppercase font-semibold mb-1"
+    >
+      {subtitle}
     </p>
-  )}
+    <h2 class:list={["font-display font-bold", titleClass]}>{title}</h2>
+  </div>
 </div>
