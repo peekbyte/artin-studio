@@ -9,18 +9,18 @@ interface Props {
 const { t } = Astro.props;
 
 const services = [
-  { label: "Branding & Identity", href: "#journey" },
-  { label: "Photography",         href: "#photography" },
-  { label: "Videography",         href: "#videography" },
-  { label: "Web & Online Shops",  href: "#journey" },
-  { label: "Marketing & Growth",  href: "#journey" },
+  { label: t.services.brandingTitle, href: "#journey" },
+  { label: t.nav.photography,         href: "#photography" },
+  { label: t.nav.videography,         href: "#videography" },
+  { label: t.services.webTitle,  href: "#journey" },
+  { label: t.services.marketTitle,  href: "#journey" },
 ];
 const quickLinks = [
-  { href: "#home",        label: "Home" },
-  { href: "#journey",     label: "Services" },
-  { href: "#photography", label: "Photography" },
-  { href: "#about",       label: "About" },
-  { href: "#contact",     label: "Contact" },
+  { href: "#home",        label: t.nav.home },
+  { href: "#journey",     label: t.nav.services },
+  { href: "#photography", label: t.nav.photography },
+  { href: "#about",       label: t.nav.about },
+  { href: "#contact",     label: t.nav.contact },
 ];
 ---
 
@@ -40,7 +40,7 @@ const quickLinks = [
 
       <!-- Services column -->
       <div>
-        <p class="text-warm-400 text-[10px] font-bold tracking-[0.2em] uppercase mb-5">Services</p>
+        <p class="text-warm-400 text-[10px] font-bold tracking-[0.2em] uppercase mb-5">{t.footer.servicesLabel}</p>
         <ul class="space-y-2.5">
           {services.map(s => (
             <li>
@@ -55,7 +55,7 @@ const quickLinks = [
 
       <!-- Quick links column -->
       <div>
-        <p class="text-brand-400 text-[10px] font-bold tracking-[0.2em] uppercase mb-5">Quick links</p>
+        <p class="text-brand-400 text-[10px] font-bold tracking-[0.2em] uppercase mb-5">{t.footer.quickLinksLabel}</p>
         <ul class="space-y-2.5">
           {quickLinks.map(({ href, label }) => (
             <li>

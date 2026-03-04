@@ -65,7 +65,7 @@ const socials: SocialLink[] = [
       <!-- Floating section label -->
       <div class="inline-flex items-center gap-3 mb-6">
         <div class="w-8 h-px bg-warm-500/50"></div>
-        <span class="text-warm-400 text-xs tracking-[0.25em] uppercase font-semibold">Get in touch</span>
+        <span class="text-warm-400 text-xs tracking-[0.25em] uppercase font-semibold">{t.contact.getInTouch}</span>
         <div class="w-8 h-px bg-warm-500/50"></div>
       </div>
       <h2 class="font-display font-extrabold text-4xl md:text-6xl text-white leading-tight mb-4">
@@ -133,9 +133,9 @@ const socials: SocialLink[] = [
 
         <!-- Service selector -->
         <div>
-          <label class="block text-ink-300 text-xs font-semibold tracking-wider uppercase mb-2">What do you need?</label>
+          <label class="block text-ink-300 text-xs font-semibold tracking-wider uppercase mb-2">{t.contact.whatDoYouNeed}</label>
           <div class="flex flex-wrap gap-2" id="service-chips">
-            {["Branding","Photography","Videography","Website / Shop","Marketing","Not sure yet"].map(s => (
+            {[t.contact.serviceBranding, t.contact.servicePhotography, t.contact.serviceVideography, t.contact.serviceWebsite, t.contact.serviceMarketing, t.contact.serviceNotSure].map(s => (
               <button
                 type="button"
                 data-chip

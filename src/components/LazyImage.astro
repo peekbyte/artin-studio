@@ -26,6 +26,16 @@ const { src, alt, class: className } = Astro.props;
 <style>
   .lazy-placeholder.hidden { opacity: 0; pointer-events: none; }
   .lazy-image.loaded { opacity: 1; }
+  
+  /* Warm brand-matching filter for images */
+  .lazy-image {
+    filter: sepia(8%) saturate(105%) brightness(102%) contrast(98%);
+  }
+  
+  /* Optional: slightly more vivid on hover */
+  .lazy-image:hover {
+    filter: sepia(0%) saturate(110%) brightness(105%) contrast(100%);
+  }
 </style>
 
 <script>

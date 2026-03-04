@@ -18,7 +18,7 @@ const photoBlobs = [
 ];
 ---
 
-<section id="photography" class="py-24 bg-cream dark:bg-ink-950 scroll-mt-24 overflow-hidden relative">
+<section id="photography" class="py-24 bg-cream dark:bg-ink-950 scroll-mt-24 overflow-x-hidden relative">
 
   <AmbientBlobs blobs={photoBlobs} />
 
@@ -26,7 +26,7 @@ const photoBlobs = [
 
     <SectionHeader
       emoji="📸"
-      kicker="Portfolio"
+      kicker={t.photography.kicker}
       title={t.photography.title}
       subtitle={t.photography.sub}
       accent="warm"
@@ -39,24 +39,28 @@ const photoBlobs = [
       <div class="group relative rounded-3xl overflow-hidden bg-amber-50 dark:bg-ink-800 border border-amber-200/60 dark:border-white/6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="absolute inset-0 bg-gradient-to-br from-amber-100/60 to-orange-50/40 dark:from-amber-900/20 dark:to-transparent pointer-events-none"></div>
         <div class="absolute -top-8 -right-8 w-28 h-28 rounded-full border-2 border-amber-300/30 dark:border-amber-500/15 group-hover:scale-125 transition-transform duration-500 pointer-events-none"></div>
-        <div class="relative p-6 pb-4 flex items-start gap-4">
-          <div class="w-12 h-12 rounded-2xl bg-amber-400/20 dark:bg-amber-500/15 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300">🥐</div>
-          <div>
-            <h3 class="font-display font-bold text-ink-900 dark:text-white text-lg mb-1">Bakery &amp; Pastry</h3>
-            <p class="text-ink-500 dark:text-ink-400 text-sm leading-relaxed">Product shots, menu boards, packaging and social content for bakeries, cafés and patisseries.</p>
-          </div>
+        <!-- Row 1: Kicker (left) + Icon (right) -->
+        <div class="relative p-6 pb-4 flex items-center justify-between">
+          <span class="text-lg font-extrabold tracking-[0.08em] uppercase text-amber-600 dark:text-amber-400">Bakery</span>
+          <div class="w-14 h-14 rounded-2xl bg-amber-400/20 dark:bg-amber-500/15 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300">🥐</div>
+        </div>
+        <!-- Title & Description -->
+        <div class="relative px-6 pb-4">
+          <h3 class="font-display font-extrabold text-ink-900 dark:text-white text-2xl leading-tight mb-2">{t.photography.bakeryTitle}</h3>
+          <p class="text-ink-500 dark:text-ink-400 text-base leading-relaxed">{t.photography.bakeryDesc}</p>
         </div>
         <div class="relative px-6 pb-4">
           <div class="grid grid-cols-2 gap-2 rounded-xl overflow-hidden">
             {photos.filter(p => p.category === 'bakery').slice(0, 4).map(p => (
-              <div class="aspect-[4/3] overflow-hidden rounded-lg">
+              <div class="aspect-[4/3] overflow-hidden rounded-lg relative">
                 <LazyImage src={`/images/optimized/${p.file}`} alt={p.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/10 pointer-events-none mix-blend-multiply"></div>
               </div>
             ))}
           </div>
         </div>
         <div class="relative px-6 pb-5">
-          <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-amber-600 dark:text-amber-400">{photos.filter(p => p.category === 'bakery').length} samples</span>
+          <span class="text-xs font-bold tracking-[0.15em] uppercase text-amber-600 dark:text-amber-400">{photos.filter(p => p.category === 'bakery').length} {t.photography.samples}</span>
         </div>
       </div>
 
@@ -64,24 +68,28 @@ const photoBlobs = [
       <div class="group relative rounded-3xl overflow-hidden bg-rose-50 dark:bg-ink-800 border border-rose-200/60 dark:border-white/6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="absolute inset-0 bg-gradient-to-br from-rose-100/50 to-pink-50/30 dark:from-rose-900/15 dark:to-transparent pointer-events-none"></div>
         <div class="absolute -top-8 -right-8 w-28 h-28 rounded-full border-2 border-rose-300/30 dark:border-rose-500/15 group-hover:scale-125 transition-transform duration-500 pointer-events-none"></div>
-        <div class="relative p-6 pb-4 flex items-start gap-4">
-          <div class="w-12 h-12 rounded-2xl bg-rose-400/20 dark:bg-rose-500/15 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300">🍽️</div>
-          <div>
-            <h3 class="font-display font-bold text-ink-900 dark:text-white text-lg mb-1">Food &amp; Drink</h3>
-            <p class="text-ink-500 dark:text-ink-400 text-sm leading-relaxed">Restaurant menus, beverage brands, delis and catering — food photography that drives orders.</p>
-          </div>
+        <!-- Row 1: Kicker (left) + Icon (right) -->
+        <div class="relative p-6 pb-4 flex items-center justify-between">
+          <span class="text-lg font-extrabold tracking-[0.08em] uppercase text-rose-600 dark:text-rose-400">Food</span>
+          <div class="w-14 h-14 rounded-2xl bg-rose-400/20 dark:bg-rose-500/15 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300">🍽️</div>
+        </div>
+        <!-- Title & Description -->
+        <div class="relative px-6 pb-4">
+          <h3 class="font-display font-extrabold text-ink-900 dark:text-white text-2xl leading-tight mb-2">{t.photography.foodTitle}</h3>
+          <p class="text-ink-500 dark:text-ink-400 text-base leading-relaxed">{t.photography.foodDesc}</p>
         </div>
         <div class="relative px-6 pb-4">
           <div class="grid grid-cols-2 gap-2 rounded-xl overflow-hidden">
             {photos.filter(p => p.category === 'food').slice(0, 4).map(p => (
-              <div class="aspect-[4/3] overflow-hidden rounded-lg">
+              <div class="aspect-[4/3] overflow-hidden rounded-lg relative">
                 <LazyImage src={`/images/optimized/${p.file}`} alt={p.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-br from-rose-500/5 to-orange-500/8 pointer-events-none mix-blend-multiply"></div>
               </div>
             ))}
           </div>
         </div>
         <div class="relative px-6 pb-5">
-          <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-rose-600 dark:text-rose-400">{photos.filter(p => p.category === 'food').length} samples</span>
+          <span class="text-xs font-bold tracking-[0.15em] uppercase text-rose-600 dark:text-rose-400">{photos.filter(p => p.category === 'food').length} {t.photography.samples}</span>
         </div>
       </div>
 
@@ -89,32 +97,36 @@ const photoBlobs = [
       <div class="group relative rounded-3xl overflow-hidden bg-sky-50 dark:bg-ink-800 border border-sky-200/60 dark:border-white/6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="absolute inset-0 bg-gradient-to-br from-sky-100/50 to-blue-50/30 dark:from-sky-900/15 dark:to-transparent pointer-events-none"></div>
         <div class="absolute -top-8 -right-8 w-28 h-28 rounded-full border-2 border-sky-300/30 dark:border-sky-500/15 group-hover:scale-125 transition-transform duration-500 pointer-events-none"></div>
-        <div class="relative p-6 pb-4 flex items-start gap-4">
-          <div class="w-12 h-12 rounded-2xl bg-sky-400/20 dark:bg-sky-500/15 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300">🎯</div>
-          <div>
-            <h3 class="font-display font-bold text-ink-900 dark:text-white text-lg mb-1">Brand &amp; Campaign</h3>
-            <p class="text-ink-500 dark:text-ink-400 text-sm leading-relaxed">Hero imagery, founder portraits and campaign visuals — photography that tells your brand story.</p>
-          </div>
+        <!-- Row 1: Kicker (left) + Icon (right) -->
+        <div class="relative p-6 pb-4 flex items-center justify-between">
+          <span class="text-lg font-extrabold tracking-[0.08em] uppercase text-sky-600 dark:text-sky-400">Brand</span>
+          <div class="w-14 h-14 rounded-2xl bg-sky-400/20 dark:bg-sky-500/15 flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300">🎯</div>
+        </div>
+        <!-- Title & Description -->
+        <div class="relative px-6 pb-4">
+          <h3 class="font-display font-extrabold text-ink-900 dark:text-white text-2xl leading-tight mb-2">{t.photography.brandTitle}</h3>
+          <p class="text-ink-500 dark:text-ink-400 text-base leading-relaxed">{t.photography.brandDesc}</p>
         </div>
         <div class="relative px-6 pb-4">
           <div class="grid grid-cols-2 gap-2 rounded-xl overflow-hidden">
             {photos.filter(p => p.category === 'brand').slice(0, 4).map(p => (
-              <div class="aspect-[4/3] overflow-hidden rounded-lg">
+              <div class="aspect-[4/3] overflow-hidden rounded-lg relative">
                 <LazyImage src={`/images/optimized/${p.file}`} alt={p.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div class="absolute inset-0 bg-gradient-to-br from-sky-500/5 to-brand-500/8 pointer-events-none mix-blend-multiply"></div>
               </div>
             ))}
           </div>
         </div>
         <div class="relative px-6 pb-5">
-          <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-sky-600 dark:text-sky-400">{photos.filter(p => p.category === 'brand').length} samples</span>
+          <span class="text-xs font-bold tracking-[0.15em] uppercase text-sky-600 dark:text-sky-400">{photos.filter(p => p.category === 'brand').length} {t.photography.samples}</span>
         </div>
       </div>
 
       <!-- Quiet CTA nudge -->
       <CtaNudge
-        kicker="Your products next?"
-        title="Let's plan your shoot"
-        description="Tell us your product and goal — we'll suggest the right setup and send a flat-rate quote."
+        kicker={t.photography.ctaKicker}
+        title={t.photography.ctaTitle}
+        description={t.photography.ctaDesc}
       />
     </div>
 

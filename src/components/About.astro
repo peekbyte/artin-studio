@@ -8,26 +8,26 @@ const { t } = Astro.props;
 const pillars = [
   {
     icon: "🧠",
-    title: "Business-first thinking",
-    desc: "Every creative choice — colour, composition, copy — is made with a commercial goal in mind, not just aesthetics.",
+    title: t.about.pillar1Title,
+    desc: t.about.pillar1Desc,
     accent: "border-brand-200 dark:border-brand-800 hover:border-brand-400 dark:hover:border-brand-500",
   },
   {
     icon: "🤝",
-    title: "You deal with one person",
-    desc: "No account managers, no handoffs. The person you brief is the person who creates your work, start to finish.",
+    title: t.about.pillar2Title,
+    desc: t.about.pillar2Desc,
     accent: "border-warm-200 dark:border-warm-800 hover:border-warm-400 dark:hover:border-warm-500",
   },
   {
     icon: "⚡",
-    title: "Fast turnarounds",
-    desc: "Small studio, no bureaucracy. We move quickly, communicate clearly and hit deadlines.",
+    title: t.about.pillar3Title,
+    desc: t.about.pillar3Desc,
     accent: "border-violet-200 dark:border-violet-800 hover:border-violet-400 dark:hover:border-violet-500",
   },
   {
     icon: "🤲",
-    title: "Honest, flat-rate pricing",
-    desc: "You get a clear quote before any work starts. No hourly billing creep, no surprise extras.",
+    title: t.about.pillar4Title,
+    desc: t.about.pillar4Desc,
     accent: "border-emerald-200 dark:border-emerald-800 hover:border-emerald-400 dark:hover:border-emerald-500",
   },
 ];
@@ -39,16 +39,16 @@ const pillars = [
   <div class="bg-ink-950 relative overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_120%_at_50%_0%,rgba(245,166,35,0.07),transparent)] pointer-events-none"></div>
     <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
-      <div class="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/8">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-y-8 sm:gap-y-0 sm:divide-x divide-white/8">
         {[
-          { value: "2022", label: "Est.",             color: "text-brand-400"  },
-          { value: "100+", label: "Projects",         color: "text-warm-400"   },
-          { value: "3",    label: "Languages",        color: "text-violet-400" },
-          { value: "1",    label: "Point of contact", color: "text-sky-400"    },
+          { value: "2022", label: t.about.statEst,      color: "text-brand-400"  },
+          { value: "100+", label: t.about.statProjects, color: "text-warm-400"   },
+          { value: "3",    label: t.about.statLanguages, color: "text-violet-400" },
+          { value: "1",    label: t.about.statContact,  color: "text-sky-400"    },
         ].map(s => (
           <div class="text-center px-4 group cursor-default">
-            <p class:list={["font-display font-extrabold text-4xl md:text-5xl transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1", s.color]}>{s.value}</p>
-            <p class="text-ink-400 text-[10px] tracking-widest uppercase mt-2 font-semibold">{s.label}</p>
+            <p class:list={["font-display font-extrabold text-4xl sm:text-5xl md:text-6xl transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1", s.color]}>{s.value}</p>
+            <p class="text-ink-400 text-xs sm:text-sm tracking-widest uppercase mt-3 font-semibold leading-tight">{s.label}</p>
           </div>
         ))}
       </div>
@@ -70,7 +70,7 @@ const pillars = [
         <div class="flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-warm-400/20 dark:bg-warm-500/15 border border-warm-400/30 dark:border-warm-500/25 text-warm-600 dark:text-warm-400 font-display font-extrabold text-sm tracking-wider">🖐️</span>
           <div class="w-8 h-px bg-warm-400/50"></div>
-          <span class="text-warm-600 dark:text-warm-400 text-xs tracking-[0.2em] uppercase font-semibold">The studio</span>
+          <span class="text-warm-600 dark:text-warm-400 text-xs tracking-[0.2em] uppercase font-semibold">{t.about.kicker}</span>
         </div>
       </div>
       <h2 class="font-display font-extrabold text-ink-950 dark:text-white leading-tight mb-4" style="font-size:clamp(2.2rem,5vw,3.5rem)">
@@ -90,16 +90,16 @@ const pillars = [
           </div>
 
           <!-- Why us pillars -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {pillars.map(v => (
-              <div class:list={["rounded-2xl border bg-white dark:bg-ink-800 p-5 transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 group", v.accent]}>
-                <div class="flex items-start gap-3">
-                  <span class="text-2xl mt-0.5 shrink-0">{v.icon}</span>
-                  <div>
-                    <p class="font-display font-bold text-ink-900 dark:text-white text-sm mb-1">{v.title}</p>
-                    <p class="text-ink-500 dark:text-ink-400 text-xs leading-relaxed">{v.desc}</p>
-                  </div>
+              <div class:list={["rounded-2xl border bg-white dark:bg-ink-800 p-6 transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 group", v.accent]}>
+                <!-- Row 1: Title (left) + Icon (right) -->
+                <div class="flex items-center justify-between mb-4">
+                  <p class="font-display font-extrabold text-ink-900 dark:text-white text-lg">{v.title}</p>
+                  <span class="text-2xl shrink-0">{v.icon}</span>
                 </div>
+                <!-- Description -->
+                <p class="text-ink-500 dark:text-ink-400 text-base leading-relaxed">{v.desc}</p>
               </div>
             ))}
           </div>
@@ -119,16 +119,16 @@ const pillars = [
           <!-- Floating: studio card -->
           <div class="absolute -bottom-5 -left-4 sm:-left-8 bg-white dark:bg-ink-800 rounded-2xl px-5 py-4 shadow-2xl border border-ink-100 dark:border-ink-700">
             <p class="font-display font-extrabold text-sm text-ink-900 dark:text-white">Artin Studio</p>
-            <p class="text-ink-500 dark:text-ink-400 text-xs mt-0.5">Warsaw, Poland · Est. 2022</p>
+            <p class="text-ink-500 dark:text-ink-400 text-xs mt-0.5">{t.about.location}</p>
             <div class="flex items-center gap-1.5 mt-2">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-              <span class="text-[10px] text-ink-500 dark:text-ink-400 font-medium">Available for new projects</span>
+              <span class="text-[10px] text-ink-500 dark:text-ink-400 font-medium">{t.about.availableProjects}</span>
             </div>
           </div>
           <!-- Floating: social proof -->
           <div class="absolute -top-4 -right-4 sm:-right-8 bg-ink-950 dark:bg-white rounded-2xl px-4 py-3 shadow-xl rotate-3 border-2 border-white dark:border-ink-900">
-            <p class="text-xs font-extrabold text-white dark:text-ink-900 uppercase tracking-wide">100+ projects</p>
-            <p class="text-[10px] text-ink-400 dark:text-ink-600 mt-0.5">delivered on time</p>
+            <p class="text-xs font-extrabold text-white dark:text-ink-900 uppercase tracking-wide">{t.about.projectsDelivered}</p>
+            <p class="text-[10px] text-ink-400 dark:text-ink-600 mt-0.5">{t.about.onTime}</p>
           </div>
         </div>
 

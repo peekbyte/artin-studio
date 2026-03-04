@@ -33,12 +33,12 @@ const {
 } = Astro.props;
 ---
 
-<div class="relative rounded-3xl overflow-hidden bg-ink-950 dark:bg-ink-900 border border-white/6 p-8 flex flex-col justify-between shadow-sm min-h-[280px]">
+<div class="relative rounded-3xl overflow-hidden bg-ink-950 dark:bg-ink-900 border border-white/6 p-6 flex flex-col justify-between shadow-sm min-h-[280px]">
   <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(255,122,85,0.12),transparent)] pointer-events-none"></div>
   <div class="relative">
-    <p class:list={["text-[10px] tracking-[0.25em] uppercase font-bold mb-3", kickerColor]}>{kicker}</p>
-    <h3 class="font-display font-extrabold text-white text-xl leading-tight mb-3">{title}</h3>
-    <p class="text-ink-400 text-sm leading-relaxed">{description}</p>
+    <p class:list={["text-xs tracking-[0.15em] uppercase font-bold mb-4", kickerColor]}>{kicker}</p>
+    <h3 class="font-display font-extrabold text-white text-2xl leading-tight mb-4">{title}</h3>
+    <p class="text-ink-400 text-base leading-relaxed">{description}</p>
   </div>
   <a href={href} class:list={["mt-6 inline-flex items-center gap-2 font-bold text-sm transition-colors self-start", linkColor]}>
     {linkText}

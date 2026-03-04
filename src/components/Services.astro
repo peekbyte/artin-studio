@@ -9,9 +9,9 @@ const { t } = Astro.props;
 const services = [
   {
     num: '01', emoji: '🎨',
-    title: 'Branding & Identity',
-    desc: 'Logo, colour palette, typography and brand guidelines — a complete visual system built to last and grow with you.',
-    tags: ['Logo design', 'Brand colours', 'Typography', 'Product labels'],
+    title: t.services.brandingTitle,
+    desc: t.services.brandingDesc,
+    tags: t.services.brandingTags,
     bg:     'bg-violet-50 dark:bg-violet-950/30',
     border: 'border-violet-200/70 dark:border-violet-800/60',
     badge:  'bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300',
@@ -20,9 +20,9 @@ const services = [
   },
   {
     num: '02', emoji: '📸',
-    title: 'Photography',
-    desc: 'Turn products into bestsellers and businesses into brands — with imagery built for e-commerce, ads and social.',
-    tags: ['Product photography', 'Brand portraits', 'Campaign visuals', 'Social content'],
+    title: t.services.photoTitle,
+    desc: t.services.photoDesc,
+    tags: t.services.photoTags,
     bg:     'bg-orange-50 dark:bg-brand-950/30',
     border: 'border-orange-200/70 dark:border-brand-800/60',
     badge:  'bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300',
@@ -31,9 +31,9 @@ const services = [
   },
   {
     num: '03', emoji: '🎬',
-    title: 'Videography',
-    desc: 'Give customers a reason to stop scrolling and start trusting — short films and reels that convert on every platform.',
-    tags: ['Brand films', 'Product videos', 'Instagram Reels', 'Meta ads'],
+    title: t.services.videoTitle,
+    desc: t.services.videoDesc,
+    tags: t.services.videoTags,
     bg:     'bg-amber-50 dark:bg-amber-950/30',
     border: 'border-amber-200/70 dark:border-amber-800/60',
     badge:  'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300',
@@ -42,9 +42,9 @@ const services = [
   },
   {
     num: '04', emoji: '🌐',
-    title: 'Website & Online Shop',
-    desc: 'Fast, beautiful websites and e-commerce stores built to convert visitors into customers — not just look good.',
-    tags: ['Business websites', 'Online shops', 'Landing pages', 'SEO foundations'],
+    title: t.services.webTitle,
+    desc: t.services.webDesc,
+    tags: t.services.webTags,
     bg:     'bg-sky-50 dark:bg-sky-950/30',
     border: 'border-sky-200/70 dark:border-sky-800/60',
     badge:  'bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300',
@@ -53,22 +53,15 @@ const services = [
   },
   {
     num: '05', emoji: '📣',
-    title: 'Marketing & Growth',
-    desc: 'Content strategy and social campaigns that turn followers into customers — built around your business goals.',
-    tags: ['Content strategy', 'Social campaigns', 'Ad creatives', 'Analytics'],
+    title: t.services.marketTitle,
+    desc: t.services.marketDesc,
+    tags: t.services.marketTags,
     bg:     'bg-emerald-50 dark:bg-emerald-950/30',
     border: 'border-emerald-200/70 dark:border-emerald-800/60',
     badge:  'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300',
     num_bg: 'bg-emerald-500',
     accent: 'text-emerald-600 dark:text-emerald-400',
   },
-];
-
-const steps = [
-  { num: '1', label: 'Discovery', desc: 'Free call — we learn your goals, audience and market.', color: 'bg-violet-500' },
-  { num: '2', label: 'Create',    desc: 'We produce everything: brand, content, web.',           color: 'bg-brand-500'  },
-  { num: '3', label: 'Launch',    desc: 'Full asset handoff. Your brand goes live.',              color: 'bg-amber-500'  },
-  { num: '4', label: 'Grow',      desc: 'Ongoing strategy to keep building momentum.',           color: 'bg-emerald-500'},
 ];
 ---
 
@@ -81,13 +74,13 @@ const steps = [
     <!-- Section header -->
     <div class="mb-14">
       <div class="inline-flex items-center gap-2 bg-brand-100 dark:bg-brand-900/40 border border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-400 rounded-full px-4 py-1.5 text-xs font-bold tracking-widest uppercase mb-5">
-        Our services
+        {t.services.sectionBadge}
       </div>
       <h2 class="font-display font-extrabold text-ink-950 dark:text-white mb-4 leading-tight" style="font-size:clamp(2rem,4.5vw,3.4rem)">
-        Five services. <span class="text-brand-500">One studio.</span>
+        {t.services.sectionHeading} <span class="text-brand-500">{t.services.sectionHeadingAccent}</span>
       </h2>
       <p class="text-ink-500 dark:text-ink-400 text-lg max-w-2xl leading-relaxed">
-        Pick one service or combine them — everything is scoped to your stage and budget, with no agency overhead.
+        {t.services.sectionSubtext}
       </p>
     </div>
 
@@ -95,60 +88,44 @@ const steps = [
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
 
       {services.map((s, i) => (
-        <div class:list={["service-card group relative rounded-3xl border p-7 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 opacity-0", s.bg, s.border]}>
+        <div class:list={["service-card group relative rounded-3xl border p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 opacity-0", s.bg, s.border]}>
+          <!-- Row 1: Step number (left) + Emoji icon (right) -->
           <div class="flex items-center justify-between mb-5">
-            <span class:list={["w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-extrabold shrink-0", s.num_bg]}>{s.num}</span>
-            <span class="text-2xl group-hover:scale-110 transition-transform duration-300 inline-block">{s.emoji}</span>
+            <span class:list={["text-xl font-extrabold tracking-[0.08em] uppercase", s.accent]}>{s.num}</span>
+            <div class:list={["w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300", s.badge]}>{s.emoji}</div>
           </div>
-          <h3 class="font-display font-extrabold text-ink-900 dark:text-white text-lg leading-tight mb-2">{s.title}</h3>
-          <p class="text-ink-500 dark:text-ink-400 text-[13px] leading-relaxed mb-4">{s.desc}</p>
+          <!-- Title -->
+          <h3 class="font-display font-extrabold text-ink-900 dark:text-white text-2xl leading-tight mb-3">{s.title}</h3>
+          <!-- Description -->
+          <p class="text-ink-500 dark:text-ink-400 text-base leading-relaxed mb-5">{s.desc}</p>
+          <!-- Tags -->
           <div class="flex flex-wrap gap-1.5 mb-4">
             {s.tags.map((tag: string) => (
-              <span class:list={["text-[10px] font-semibold px-2.5 py-0.5 rounded-full", s.badge]}>{tag}</span>
+              <span class:list={["text-[11px] font-semibold px-3 py-1 rounded-full", s.badge]}>{tag}</span>
             ))}
           </div>
-          <a href="#contact" class:list={["inline-flex items-center gap-1.5 text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-200", s.accent]}>
+          <a href="#contact" class:list={["inline-flex items-center gap-1.5 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-200", s.accent]}>
             Get a quote
-            <ArrowIcon class="w-3 h-3" />
+            <ArrowIcon class="w-3.5 h-3.5" />
           </a>
         </div>
       ))}
 
       <!-- CTA card -->
-      <div class="service-card relative rounded-3xl overflow-hidden bg-ink-950 dark:bg-ink-800 p-7 flex flex-col justify-between shadow-md min-h-[220px] opacity-0">
+      <div class="service-card relative rounded-3xl overflow-hidden bg-ink-950 dark:bg-ink-800 p-6 flex flex-col justify-between shadow-md min-h-[260px] opacity-0">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_10%_90%,rgba(255,122,85,0.2),transparent)] pointer-events-none"></div>
         <div class="absolute -top-8 -right-8 w-28 h-28 rounded-full bg-brand-500/10 pointer-events-none"></div>
         <div class="relative">
-          <p class="text-brand-400 text-[10px] font-extrabold tracking-[0.2em] uppercase mb-2">Not sure where to start?</p>
-          <h3 class="font-display font-extrabold text-white text-xl leading-tight mb-3">Tell us your goal — we'll scope the rest</h3>
-          <p class="text-ink-400 text-xs leading-relaxed">Free 20-minute call. No commitment. We'll figure out what you need and give you a clear quote.</p>
+          <p class="text-brand-400 text-xs font-extrabold tracking-[0.15em] uppercase mb-3">{t.services.ctaKicker}</p>
+          <h3 class="font-display font-extrabold text-white text-2xl leading-tight mb-4">{t.services.ctaTitle}</h3>
+          <p class="text-ink-400 text-base leading-relaxed">{t.services.ctaDesc}</p>
         </div>
-        <a href="#contact" class="relative mt-5 inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold text-xs px-5 py-2.5 rounded-full transition-all hover:shadow-lg hover:shadow-brand-500/30 self-start">
-          Book a free call
-          <ArrowIcon class="w-3.5 h-3.5" />
+        <a href="#contact" class="relative mt-6 inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold text-sm px-6 py-3 rounded-full transition-all hover:shadow-lg hover:shadow-brand-500/30 self-start">
+          {t.services.ctaButton}
+          <ArrowIcon class="w-4 h-4" />
         </a>
       </div>
 
-    </div>
-
-    <!-- How it works: compact 4-step strip -->
-    <div class="process-strip rounded-3xl bg-white dark:bg-ink-800 border border-ink-100 dark:border-ink-700 shadow-sm px-6 md:px-10 py-8 opacity-0">
-      <p class="text-[10px] font-extrabold tracking-[0.22em] uppercase text-ink-400 dark:text-ink-500 mb-7">How it works</p>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 relative">
-        <!-- Connector line desktop -->
-        <div class="hidden md:block absolute top-5 left-[calc(12.5%+1.25rem)] right-[calc(12.5%+1.25rem)] h-px z-0 pointer-events-none"
-          style="background:linear-gradient(to right,#8b5cf6,#ff7a55,#f59e0b,#10b981);"
-        ></div>
-        {steps.map((step, i) => (
-          <div class="flex flex-col items-start md:items-center relative z-10">
-            <div class:list={["w-10 h-10 rounded-full flex items-center justify-center text-white font-extrabold text-sm mb-3 shadow-md border-2 border-white dark:border-ink-800", step.color]}>
-              {step.num}
-            </div>
-            <p class="font-display font-bold text-ink-900 dark:text-white text-sm mb-1 md:text-center">{step.label}</p>
-            <p class="text-ink-500 dark:text-ink-400 text-[11px] leading-snug md:text-center max-w-[140px]">{step.desc}</p>
-          </div>
-        ))}
-      </div>
     </div>
 
   </div>
@@ -156,7 +133,6 @@ const steps = [
 
 <script>
   const cards = document.querySelectorAll<HTMLElement>('.service-card');
-  const strip = document.querySelector<HTMLElement>('.process-strip');
 
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -175,9 +151,4 @@ const steps = [
     card.dataset.delay = `${i * 0.07}s`;
     obs.observe(card);
   });
-
-  if (strip) {
-    strip.style.transform = 'translateY(16px)';
-    obs.observe(strip);
-  }
 </script>

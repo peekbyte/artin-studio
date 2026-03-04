@@ -3,6 +3,14 @@ import type { Translations } from "../i18n/translations";
 import ArrowIcon from './ui/ArrowIcon.astro';
 interface Props { t: Translations; }
 const { t } = Astro.props;
+
+// Prepare process steps data for client-side script
+const processSteps = JSON.stringify({
+  step1: { num: t.services.step1Num, title: t.services.step1, desc: t.services.step1Desc },
+  step2: { num: t.services.step2Num, title: t.services.step2, desc: t.services.step2Desc },
+  step3: { num: t.services.step3Num, title: t.services.step3, desc: t.services.step3Desc },
+  step4: { num: t.services.step4Num, title: t.services.step4, desc: t.services.step4Desc },
+});
 ---
 
 <section id="home" class="relative min-h-screen flex flex-col overflow-hidden bg-cream dark:bg-ink-950">
@@ -36,12 +44,12 @@ const { t } = Astro.props;
       </h1>
 
       <p class="text-ink-600 dark:text-ink-300 text-lg leading-relaxed max-w-md mb-10 animate-fade-up opacity-0" style="animation-delay:.32s;animation-fill-mode:forwards">
-        From first logo to full campaign — we give small businesses the sharp visual identity they need to compete and win.
+        {t.hero.description}
       </p>
 
       <div class="flex flex-wrap items-center gap-4 animate-fade-up opacity-0" style="animation-delay:.46s;animation-fill-mode:forwards">
         <a href="#journey" class="group inline-flex items-center gap-3 bg-brand-500 hover:bg-brand-600 text-white px-7 py-3.5 rounded-full font-bold text-sm tracking-wide transition-all hover:shadow-2xl hover:shadow-brand-500/40 hover:-translate-y-0.5">
-          Start your project
+          {t.hero.startProject}
           <ArrowIcon class="w-4 h-4 transition-transform group-hover:translate-x-1" />
         </a>
       </div>
@@ -49,19 +57,19 @@ const { t } = Astro.props;
     </div>
 
     <!-- RIGHT: How it works — D3 + Motion flow chart -->
-    <div class="w-full lg:w-[45%] relative flex items-center justify-center min-h-[400px] lg:min-h-[560px]">
+    <div class="w-full lg:w-[45%] relative flex items-center justify-center min-h-[500px] lg:min-h-[680px]">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="w-[340px] h-[340px] rounded-full bg-brand-400/10 dark:bg-brand-500/10 blur-3xl"></div>
+        <div class="w-[440px] h-[440px] rounded-full bg-brand-400/10 dark:bg-brand-500/10 blur-3xl"></div>
       </div>
       <!-- D3 renders the SVG chart into this container -->
-      <div id="process-chart" class="relative w-full max-w-[520px]" style="aspect-ratio:1/1"></div>
+      <div id="process-chart" class="relative w-full max-w-[680px]" style="aspect-ratio:1/1" data-steps={processSteps}></div>
     </div>
   </div>
 
   <!-- Scroll cue -->
   <div class="relative z-10 flex justify-center pb-8 animate-fade-in opacity-0" style="animation-delay:1.3s;animation-fill-mode:forwards">
     <a href="#journey" class="flex flex-col items-center gap-1.5 text-ink-400 hover:text-brand-500 transition-colors">
-      <span class="text-[10px] tracking-[0.22em] uppercase font-semibold">Explore</span>
+      <span class="text-[10px] tracking-[0.22em] uppercase font-semibold">{t.hero.explore}</span>
       <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
       </svg>
@@ -100,10 +108,14 @@ const { t } = Astro.props;
 <script>
 import * as d3 from 'd3';
 
+// ── Get translations from data attribute ──
+const chartEl = document.getElementById('process-chart');
+const stepsData = JSON.parse(chartEl?.dataset.steps || '{}');
+
 // ── Data ──────────────────────────────────────────────────────────────────
-const W = 620, H = 620;
-const NW = 270, NH = 225; // node rect size
-const GAP = 20;           // gap between nodes and edges of canvas
+const W = 740, H = 740;
+const NW = 340, NH = 300; // node rect size (increased more)
+const GAP = 10;           // gap between nodes and edges of canvas
 
 // 2×2 positions (top-left corners)
 const col0 = GAP;
@@ -120,20 +132,20 @@ type NodeDef = {
 const isDark = () => document.documentElement.classList.contains('dark');
 
 const nodes: NodeDef[] = [
-  { id:'discovery', step:'Step 1', title:'Discovery',
-    desc:'Free consultation — we learn your goals, audience & market.',
+  { id:'discovery', step: stepsData.step1?.num || 'Step 1', title: stepsData.step1?.title || 'Discovery',
+    desc: stepsData.step1?.desc || 'Free consultation — we learn your goals, audience & market.',
     emoji:'🔍', iconBg:'#ede9fe', stepColor:'#8b5cf6', border:'#c4b5fd', cardBg:'#faf8ff',
     x: col0, y: row0 },
-  { id:'create', step:'Step 2', title:'Create',
-    desc:'We produce everything: brand, content, web.',
+  { id:'create', step: stepsData.step2?.num || 'Step 2', title: stepsData.step2?.title || 'Create',
+    desc: stepsData.step2?.desc || 'We produce everything: brand, content, web.',
     emoji:'✏️', iconBg:'#ffede6', stepColor:'#ff7a55', border:'#ffc2ad', cardBg:'#fffaf8',
     x: col1, y: row0 },
-  { id:'launch', step:'Step 3', title:'Launch',
-    desc:'Full asset handoff. Your brand goes live.',
+  { id:'launch', step: stepsData.step3?.num || 'Step 3', title: stepsData.step3?.title || 'Launch',
+    desc: stepsData.step3?.desc || 'Full asset handoff. Your brand goes live.',
     emoji:'🚀', iconBg:'#fef3c7', stepColor:'#f59e0b', border:'#fde68a', cardBg:'#fffef5',
     x: col1, y: row1 },
-  { id:'grow', step:'Step 4', title:'Grow',
-    desc:'Ongoing strategy to keep building momentum.',
+  { id:'grow', step: stepsData.step4?.num || 'Step 4', title: stepsData.step4?.title || 'Grow',
+    desc: stepsData.step4?.desc || 'Ongoing strategy to keep building momentum.',
     emoji:'📈', iconBg:'#d1fae5', stepColor:'#10b981', border:'#6ee7b7', cardBg:'#f0fdf8',
     x: col0, y: row1 },
 ];
@@ -234,9 +246,9 @@ function buildChart() {
   }, 800);
 
   // ── Nodes ──
-  const R = 20; // corner radius
-  const ICON_SIZE = 56;
-  const PAD_X = 20, PAD_Y = 18;
+  const R = 24; // corner radius
+  const ICON_SIZE = 72;
+  const PAD_X = 24, PAD_Y = 22;
 
   nodes.forEach((n, i) => {
     const g = svg.append('g')
@@ -253,45 +265,49 @@ function buildChart() {
       .attr('stroke-width', 1.5)
       .attr('filter', 'url(#card-shadow)');
 
-    // icon pill background
-    g.append('rect')
-      .attr('x', n.x + PAD_X).attr('y', n.y + PAD_Y)
-      .attr('width', ICON_SIZE).attr('height', ICON_SIZE)
-      .attr('rx', 11).attr('ry', 11)
-      .attr('fill', dark ? 'rgba(255,255,255,0.12)' : n.iconBg);
-
-    // emoji
-    g.append('text')
-      .attr('x', n.x + PAD_X + ICON_SIZE / 2)
-      .attr('y', n.y + PAD_Y + ICON_SIZE / 2 + 8)
-      .attr('text-anchor', 'middle')
-      .attr('font-size', '32')
-      .text(n.emoji);
-
-    // step label  (e.g. "STEP 1")
+    // Row 1: Step label (left) + Icon pill (right)
+    const ROW1_Y = n.y + PAD_Y;
+    
+    // step label  (e.g. "STEP 1") - left side, vertically centered with icon
     g.append('text')
       .attr('x', n.x + PAD_X)
-      .attr('y', n.y + PAD_Y + ICON_SIZE + 24)
-      .attr('font-size', '14')
+      .attr('y', ROW1_Y + ICON_SIZE / 2 + 10)
+      .attr('font-size', '26')
       .attr('font-weight', '800')
       .attr('font-family', 'DM Sans, system-ui, sans-serif')
       .attr('letter-spacing', '0.10em')
       .attr('fill', n.stepColor)
       .text(n.step.toUpperCase());
 
+    // icon pill background - right side
+    const iconX = n.x + NW - PAD_X - ICON_SIZE;
+    g.append('rect')
+      .attr('x', iconX).attr('y', ROW1_Y)
+      .attr('width', ICON_SIZE).attr('height', ICON_SIZE)
+      .attr('rx', 16).attr('ry', 16)
+      .attr('fill', dark ? 'rgba(255,255,255,0.12)' : n.iconBg);
+
+    // emoji - inside icon pill
+    g.append('text')
+      .attr('x', iconX + ICON_SIZE / 2)
+      .attr('y', ROW1_Y + ICON_SIZE / 2 + 12)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '44')
+      .text(n.emoji);
+
     // title
     g.append('text')
       .attr('x', n.x + PAD_X)
-      .attr('y', n.y + PAD_Y + ICON_SIZE + 48)
-      .attr('font-size', '26')
+      .attr('y', n.y + PAD_Y + ICON_SIZE + 54)
+      .attr('font-size', '38')
       .attr('font-weight', '800')
       .attr('font-family', 'Syne, system-ui, sans-serif')
       .attr('fill', titleColor)
       .text(n.title);
 
-    // desc — wrap into 2 lines at ~30 chars
-    const descY = n.y + PAD_Y + ICON_SIZE + 68;
-    const maxW = 30;
+    // desc — wrap into 2 lines at ~32 chars
+    const descY = n.y + PAD_Y + ICON_SIZE + 96;
+    const maxW = 32;
     const words = n.desc.split(' ');
     const lines: string[] = [];
     let cur = '';
@@ -304,8 +320,8 @@ function buildChart() {
     lines.slice(0, 3).forEach((line, li) => {
       g.append('text')
         .attr('x', n.x + PAD_X)
-        .attr('y', descY + li * 19)
-        .attr('font-size', '15.5')
+        .attr('y', descY + li * 26)
+        .attr('font-size', '20')
         .attr('font-weight', '500')
         .attr('font-family', 'DM Sans, system-ui, sans-serif')
         .attr('fill', descColor)

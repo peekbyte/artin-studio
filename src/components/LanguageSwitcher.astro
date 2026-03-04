@@ -10,19 +10,18 @@ const { currentLang } = Astro.props;
 
 <div class="relative lang-switcher">
   <button 
-    id="lang-btn" 
-    class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium"
+    class="lang-btn flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium"
     aria-label="Select language"
+    type="button"
   >
     <span class="lang-flag">{langFlags[currentLang]}</span>
     <span class="hidden sm:inline">{languages[currentLang]}</span>
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg class="w-4 h-4 transition-transform duration-200 lang-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
     </svg>
   </button>
   <div 
-    id="lang-dropdown" 
-    class="hidden absolute right-0 top-full mt-2 py-2 w-40 rounded-xl bg-white dark:bg-ink-900 border border-ink-200 dark:border-white/10 shadow-xl z-50"
+    class="lang-dropdown hidden absolute right-0 top-full mt-2 py-2 w-40 rounded-xl bg-white dark:bg-ink-900 border border-ink-200 dark:border-white/10 shadow-xl z-[100]"
   >
     {Object.entries(languages).map(([code, name]) => (
       <a 
@@ -47,15 +46,42 @@ const { currentLang } = Astro.props;
 </div>
 
 <script>
-  const langBtn = document.getElementById('lang-btn');
-  const langDropdown = document.getElementById('lang-dropdown');
-  
-  langBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    langDropdown?.classList.toggle('hidden');
+  // Use class selectors and handle all instances
+  document.querySelectorAll('.lang-switcher').forEach((switcher) => {
+    const btn = switcher.querySelector('.lang-btn') as HTMLButtonElement;
+    const dropdown = switcher.querySelector('.lang-dropdown') as HTMLElement;
+    const chevron = switcher.querySelector('.lang-chevron') as SVGElement;
+    
+    if (!btn || !dropdown) return;
+    
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Close all other dropdowns first
+      document.querySelectorAll('.lang-dropdown').forEach((d) => {
+        if (d !== dropdown) {
+          d.classList.add('hidden');
+          d.previousElementSibling?.querySelector('.lang-chevron')?.classList.remove('rotate-180');
+        }
+      });
+      
+      // Toggle this dropdown
+      dropdown.classList.toggle('hidden');
+      chevron?.classList.toggle('rotate-180');
+    });
   });
   
-  document.addEventListener('click', () => {
-    langDropdown?.classList.add('hidden');
+  // Close all dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('.lang-switcher')) {
+      document.querySelectorAll('.lang-dropdown').forEach((d) => {
+        d.classList.add('hidden');
+      });
+      document.querySelectorAll('.lang-chevron').forEach((c) => {
+        c.classList.remove('rotate-180');
+      });
+    }
   });
 </script>

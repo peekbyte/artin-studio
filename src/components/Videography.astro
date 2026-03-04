@@ -14,30 +14,30 @@ const { t } = Astro.props;
 const industries = [
   {
     id: "brand",
-    title: "Brand Films",
-    desc: "Cinematic short films that introduce your business, tell your story and build trust with new customers.",
+    title: t.videography.brandFilmsTitle,
+    desc: t.videography.brandFilmsDesc,
     emoji: "🎬",
     color: "warm",
-    uses: ["Company story", "Product launch", "Founder intro"],
-    formats: "2–4 min · YouTube / website hero",
+    uses: t.videography.brandFilmsUses,
+    formats: t.videography.brandFilmsFormats,
   },
   {
     id: "product",
-    title: "Product & E-commerce",
-    desc: "Scroll-stopping product videos for ads, landing pages and online shops — built to convert.",
+    title: t.videography.productTitle,
+    desc: t.videography.productDesc,
     emoji: "📦",
     color: "brand",
-    uses: ["Hero product shots", "Unboxing videos", "Feature demos"],
-    formats: "15–60 sec · web & e-commerce",
+    uses: t.videography.productUses,
+    formats: t.videography.productFormats,
   },
   {
     id: "social",
-    title: "Social Reels & Ads",
-    desc: "Fast-paced short-form content optimised for Instagram, TikTok and Meta ad campaigns.",
+    title: t.videography.socialTitle,
+    desc: t.videography.socialDesc,
     emoji: "📱",
     color: "sky",
-    uses: ["Instagram Reels", "TikTok content", "Meta paid ads"],
-    formats: "7–30 sec · vertical & square",
+    uses: t.videography.socialUses,
+    formats: t.videography.socialFormats,
   },
 ];
 
@@ -53,7 +53,7 @@ const videoBlobs = [
 ];
 ---
 
-<section id="videography" class="py-24 bg-sand dark:bg-ink-900 scroll-mt-24 overflow-hidden relative">
+<section id="videography" class="py-24 bg-sand dark:bg-ink-900 scroll-mt-24 overflow-x-hidden relative">
 
   <AmbientBlobs blobs={videoBlobs} />
   <DotGrid color="#8c520a" opacity="0.03" />
@@ -78,12 +78,16 @@ const videoBlobs = [
             <div class:list={["absolute inset-0 bg-gradient-to-br pointer-events-none", c.grad]}></div>
             <div class:list={["absolute -top-8 -right-8 w-28 h-28 rounded-full border-2 group-hover:scale-125 transition-transform duration-500 pointer-events-none", c.ring]}></div>
 
-            <div class="relative p-6 pb-4 flex items-start gap-4">
-              <div class:list={["w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300", `bg-${ind.color === 'warm' ? 'amber' : ind.color === 'brand' ? 'brand' : ind.color}-400/20 dark:bg-${ind.color === 'warm' ? 'amber' : ind.color === 'brand' ? 'brand' : ind.color}-500/15`]}>{ind.emoji}</div>
-              <div>
-                <h3 class="font-display font-bold text-ink-900 dark:text-white text-lg mb-1">{ind.title}</h3>
-                <p class="text-ink-500 dark:text-ink-400 text-sm leading-relaxed">{ind.desc}</p>
-              </div>
+            <!-- Row 1: Kicker (left) + Icon (right) -->
+            <div class="relative p-6 pb-4 flex items-center justify-between">
+              <span class:list={["text-lg font-extrabold tracking-[0.08em] uppercase", c.badge]}>{ind.id.toUpperCase()}</span>
+              <div class:list={["w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300", `bg-${ind.color === 'warm' ? 'amber' : ind.color === 'brand' ? 'brand' : ind.color}-400/20 dark:bg-${ind.color === 'warm' ? 'amber' : ind.color === 'brand' ? 'brand' : ind.color}-500/15`]}>{ind.emoji}</div>
+            </div>
+
+            <!-- Title & Description -->
+            <div class="relative px-6 pb-4">
+              <h3 class="font-display font-extrabold text-ink-900 dark:text-white text-2xl leading-tight mb-2">{ind.title}</h3>
+              <p class="text-ink-500 dark:text-ink-400 text-base leading-relaxed">{ind.desc}</p>
             </div>
 
             <!-- Use case tags -->
@@ -95,16 +99,16 @@ const videoBlobs = [
 
             <!-- Format row -->
             <div class="relative px-6 pb-5">
-              <span class:list={["text-[10px] font-bold tracking-[0.15em] uppercase", c.badge]}>{ind.formats}</span>
+              <span class:list={["text-xs font-bold tracking-[0.15em] uppercase", c.badge]}>{ind.formats}</span>
             </div>
           </div>
         );
       })}
 
       <CtaNudge
-        kicker="Your brand next?"
-        title="Let's plan your video"
-        description="Tell us your goal — we'll propose the right format and length for your audience and platform."
+        kicker={t.videography.ctaKicker}
+        title={t.videography.ctaTitle}
+        description={t.videography.ctaDesc}
         kickerColor="text-brand-400"
       />
     </div>

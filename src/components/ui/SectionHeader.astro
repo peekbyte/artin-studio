@@ -72,20 +72,20 @@ const gradient = barGradient ?? c.bar;
   <div class="flex items-center gap-4 mb-5">
     <div class="flex items-center gap-3">
       <span class:list={[
-        'inline-flex items-center justify-center w-11 h-11 rounded-xl border font-display font-extrabold text-sm tracking-wider',
+        'inline-flex items-center justify-center w-11 h-11 rounded-xl border font-display font-extrabold text-sm tracking-wider shrink-0',
         c.badgeBg, c.badgeBorder, c.text
       ]}>{emoji}</span>
-      <div class:list={['w-8 h-px', c.dash]}></div>
+      <div class:list={['w-8 h-px shrink-0', c.dash]}></div>
       <span class:list={['text-xs tracking-[0.2em] uppercase font-semibold', c.text]}>{kicker}</span>
     </div>
   </div>
-  <h2 class="font-display font-extrabold text-4xl md:text-6xl text-ink-950 dark:text-white leading-tight">
+  <h2 class="font-display font-extrabold text-3xl sm:text-4xl md:text-6xl text-ink-950 dark:text-white leading-tight break-words">
     {title}
     {showBar && (
       <span class:list={['block w-24 h-1.5 mt-3 rounded-full bg-gradient-to-r animate-pulse-soft', gradient]}></span>
     )}
   </h2>
   {subtitle && (
-    <p class="mt-5 text-ink-600 dark:text-ink-300 text-lg max-w-2xl leading-relaxed">{subtitle}</p>
+    <p class="mt-5 text-ink-600 dark:text-ink-300 text-base sm:text-lg max-w-2xl leading-relaxed break-words">{subtitle}</p>
   )}
 </div>
