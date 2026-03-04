@@ -1,6 +1,5 @@
 ---
 import type { Translations } from '../i18n/translations';
-import SectionHeader from './SectionHeader.astro';
 import LazyImage from './LazyImage.astro';
 import { photos } from '../data/photos';
 
@@ -11,24 +10,38 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section id="photography" class="py-24 bg-ink-100 scroll-mt-20 overflow-hidden">
-  <div class="max-w-6xl mx-auto px-6">
+<section id="photography" class="py-24 bg-cream dark:bg-ink-950 scroll-mt-24 overflow-hidden relative">
 
-    <!-- Editorial header -->
-    <SectionHeader
-      number="01"
-      subtitle={t.photography.description}
-      title={t.photography.title}
-      numberClass="text-[4rem] md:text-[6rem] text-ink-200"
-      titleClass="text-3xl md:text-5xl text-ink-950"
-    />
+  <!-- Warm retro ambient blobs -->
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-warm-200/25 dark:bg-warm-900/10 blur-3xl pointer-events-none -translate-y-1/4 translate-x-1/4" aria-hidden="true"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-brand-100/30 dark:bg-brand-900/10 blur-3xl pointer-events-none translate-y-1/4 -translate-x-1/4" aria-hidden="true"></div>
 
-    <!-- Editorial grid: first photo featured (2x2), rest normal -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 auto-rows-[165px] md:auto-rows-[190px]">
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+
+    <!-- Retro warm section header -->
+    <div class="mb-14">
+      <div class="flex items-center gap-4 mb-5">
+        <!-- Retro number badge -->
+        <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-warm-400/20 dark:bg-warm-500/15 border border-warm-400/30 dark:border-warm-500/25 text-warm-600 dark:text-warm-400 font-display font-extrabold text-sm tracking-wider">01</span>
+        <!-- Kicker line -->
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-px bg-warm-400/50 dark:bg-warm-500/40"></div>
+          <span class="text-warm-600 dark:text-warm-400 text-xs tracking-[0.2em] uppercase font-semibold">{t.photography.description}</span>
+        </div>
+      </div>
+      <h2 class="font-display font-extrabold text-4xl md:text-6xl text-ink-950 dark:text-white leading-tight">
+        {t.photography.title}
+        <!-- Animated squiggle under title -->
+        <span class="block w-24 h-1.5 mt-3 rounded-full bg-gradient-to-r from-warm-400 to-brand-400 animate-pulse-soft"></span>
+      </h2>
+    </div>
+
+    <!-- Editorial grid: first photo featured (2×2), rest normal -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4 auto-rows-[165px] md:auto-rows-[190px]">
       {photos.map((photo, index) => (
         <div
           class:list={[
-            "photo-card group relative overflow-hidden rounded-xl cursor-pointer",
+            "photo-card group relative overflow-hidden rounded-2xl cursor-pointer ring-1 ring-ink-200/60 dark:ring-white/8",
             index === 0 && "col-span-2 row-span-2",
           ]}
           data-lightbox-trigger
@@ -39,24 +52,32 @@ const { t } = Astro.props;
           data-location={photo.location}
           data-date={photo.date}
         >
-          <LazyImage src={`/images/optimized/${photo.file}`} alt={photo.title} class="transition-transform duration-500 group-hover:scale-105" />
+          <LazyImage
+            src={`/images/optimized/${photo.file}`}
+            alt={photo.title}
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
 
-          <!-- Story indicator -->
-          <div class="absolute top-2 right-2 z-10 bg-black/40 backdrop-blur-sm p-1.5 rounded-full text-white/80 group-hover:bg-orange-500/80 group-hover:text-white transition-all duration-300">
+          <!-- Warm retro story indicator dot -->
+          <div class="absolute top-2.5 right-2.5 z-10 w-7 h-7 flex items-center justify-center rounded-full bg-black/30 backdrop-blur-sm text-white/70 group-hover:bg-warm-500 group-hover:text-white transition-all duration-300 shadow-sm">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
             </svg>
           </div>
 
-          <!-- Hover overlay -->
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <!-- Warm gradient hover overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/75 via-ink-950/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div class="absolute bottom-3 left-3 right-3">
-              <p class="text-white text-sm font-semibold truncate">{photo.title}</p>
-              <p class="text-white/70 text-xs">{photo.location}</p>
+              <p class="text-white text-sm font-semibold truncate drop-shadow-sm">{photo.title}</p>
+              <p class="text-white/65 text-xs mt-0.5">{photo.location}</p>
             </div>
           </div>
+
+          <!-- Warm accent border on hover -->
+          <div class="absolute inset-0 rounded-2xl ring-2 ring-warm-400/0 group-hover:ring-warm-400/50 transition-all duration-300 pointer-events-none"></div>
         </div>
       ))}
     </div>
+
   </div>
 </section>

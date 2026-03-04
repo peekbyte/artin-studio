@@ -49,11 +49,19 @@ export const translations = {
     },
     // About
     about: {
-      title: "About Me",
-      p1: "I'm an amateur photographer and videographer based in Poland. What started as a curiosity for how light and composition tell a story has turned into a constant chase for the right moment — in both stills and motion.",
-      p2: "I focus on product photography for brands and small businesses, and portrait work that feels natural and honest. On the video side, I love short-form content, reels, and anything that moves.",
-      p3: "Every project is a chance to learn and push what I can do with the gear I have. If you have an idea or want to collaborate, say hello.",
-      photoPlaceholder: "Add your photo here",
+      title: "Why Artin Studio?",
+      lead: "We're a small creative studio that does the work big agencies charge ten times more for — branding, photography, video, websites and online shops, all under one roof.",
+      p1: "We started because small businesses deserve great creative work too. Not stock photos, not generic templates — real brand identity built to last.",
+      p2: "Every project we take on gets the same attention: we dig into your business, understand your audience, and build something that actually works — visually and commercially.",
+      cta: "Start a project",
+      val1Title: "One studio, everything",
+      val1Desc: "Brand, photos, video, web — no need to juggle five different freelancers.",
+      val2Title: "Built for business",
+      val2Desc: "Every creative decision is tied to a commercial goal. Looks great and converts.",
+      val3Title: "Fast & focused",
+      val3Desc: "Clear process, tight timelines, no endless revision cycles.",
+      val4Title: "Honest pricing",
+      val4Desc: "Transparent quotes, no hidden fees, no surprise invoices.",
     },
     // Contact
     contact: {
@@ -136,11 +144,19 @@ export const translations = {
     },
     // About
     about: {
-      title: "O mnie",
-      p1: "Jestem amatorskim fotografem i filmowcem mieszkającym w Polsce. To, co zaczęło się jako ciekawość, jak światło i kompozycja opowiadają historię, zamieniło się w ciągłe poszukiwanie odpowiedniego momentu — zarówno w kadrach, jak i w ruchu.",
-      p2: "Skupiam się na fotografii produktowej dla marek i małych firm oraz na portretach, które wyglądają naturalnie i szczerze. Po stronie wideo uwielbiam krótkie treści, rolki i wszystko, co się porusza.",
-      p3: "Każdy projekt to szansa na naukę i rozwijanie tego, co mogę zrobić ze sprzętem, który mam. Jeśli masz pomysł lub chcesz współpracować, napisz do mnie.",
-      photoPlaceholder: "Dodaj swoje zdjęcie tutaj",
+      title: "Dlaczego Artin Studio?",
+      lead: "Jesteśmy małym studiem kreatywnym, które robi to, za co duże agencje biorą dziesięć razy więcej — branding, fotografia, wideo, strony internetowe i sklepy online pod jednym dachem.",
+      p1: "Zaczęliśmy, bo małe firmy też zasługują na świetną pracę kreatywną. Nie zdjęcia stockowe, nie szablony — prawdziwa tożsamość marki zbudowana na lata.",
+      p2: "Do każdego projektu podchodzimy z taką samą uwagą: zagłębiamy się w Twój biznes, rozumiemy Twoją grupę docelową i tworzymy coś, co naprawdę działa — wizualnie i komercyjnie.",
+      cta: "Zacznij projekt",
+      val1Title: "Jedno studio, wszystko",
+      val1Desc: "Marka, zdjęcia, wideo, web — nie musisz żonglować pięcioma freelancerami.",
+      val2Title: "Stworzone dla biznesu",
+      val2Desc: "Każda decyzja kreatywna jest powiązana z celem biznesowym. Wygląda świetnie i konwertuje.",
+      val3Title: "Szybko i konkretnie",
+      val3Desc: "Jasny proces, krótkie terminy, bez nieskończonych rund poprawek.",
+      val4Title: "Uczciwe ceny",
+      val4Desc: "Przejrzyste wyceny, bez ukrytych kosztów i niespodziewanych faktur.",
     },
     // Contact
     contact: {
@@ -223,11 +239,19 @@ export const translations = {
     },
     // About
     about: {
-      title: "Про мене",
-      p1: "Я фотограф-аматор і відеограф з Польщі. Те, що почалося як цікавість до того, як світло і композиція розповідають історію, перетворилося на постійне полювання за правильним моментом — як у фото, так і в русі.",
-      p2: "Я спеціалізуюся на предметній фотографії для брендів і малого бізнесу, а також на портретах, які виглядають природно і щиро. З відео я люблю короткий контент, ролики та все, що рухається.",
-      p3: "Кожен проект — це можливість навчитися і розвинути те, що я можу зробити з технікою, яка у мене є. Якщо у вас є ідея або ви хочете співпрацювати, напишіть мені.",
-      photoPlaceholder: "Додайте своє фото тут",
+      title: "Чому Artin Studio?",
+      lead: "Ми невелика креативна студія, яка робить те, за що великі агенції беруть у десять разів більше — брендинг, фотографія, відео, сайти та інтернет-магазини під одним дахом.",
+      p1: "Ми почали, бо малий бізнес теж заслуговує на якісну творчу роботу. Не стокові фото, не шаблони — справжня фірмова ідентичність, побудована на роки.",
+      p2: "До кожного проекту ми підходимо однаково уважно: вивчаємо ваш бізнес, розуміємо аудиторію та будуємо щось, що справді працює — візуально і комерційно.",
+      cta: "Розпочати проект",
+      val1Title: "Одна студія — всі послуги",
+      val1Desc: "Бренд, фото, відео, веб — не потрібно шукати п'ять різних фрілансерів.",
+      val2Title: "Для бізнесу",
+      val2Desc: "Кожне творче рішення пов'язане з бізнес-метою. Виглядає чудово і конвертує.",
+      val3Title: "Швидко і по суті",
+      val3Desc: "Чіткий процес, стислі терміни, без нескінченних раундів правок.",
+      val4Title: "Чесні ціни",
+      val4Desc: "Прозорі кошториси, без прихованих витрат і несподіваних рахунків.",
     },
     // Contact
     contact: {

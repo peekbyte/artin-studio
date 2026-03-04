@@ -24,8 +24,18 @@ const { title = "Artin Studio — Photography & Videography", lang = 'en' } = As
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Prevent flash of wrong theme -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
-  <body class="font-sans bg-ink-100 text-ink-900 antialiased">
+  <body class="font-sans bg-cream dark:bg-ink-950 text-ink-900 dark:text-ink-100 antialiased transition-colors duration-300">
     <slot />
   </body>
 </html>
@@ -67,36 +77,87 @@ const { title = "Artin Studio — Photography & Videography", lang = 'en' } = As
 
   /* Section scroll offset for fixed nav */
   section[id] {
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 6rem;
   }
 
-  /* Navbar: dark when scrolled or over light sections */
-  #navbar.scrolled {
-    background: rgba(31, 29, 28, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+  /* Light mode: nav text is dark at ALL times (hero is cream, not dark) */
+  :not(.dark) #navbar .nav-logo span:last-child,
+  :not(.dark) #navbar .nav-link,
+  :not(.dark) #navbar #mobile-menu-btn {
+    color: #2c2a28 !important;
   }
 
-  #navbar.scrolled .nav-logo,
-  #navbar.scrolled .nav-link {
+  /* Dark mode default: keep text white */
+  .dark #navbar .nav-logo span:last-child,
+  .dark #navbar .nav-link,
+  .dark #navbar #mobile-menu-btn {
     color: #fff !important;
   }
 
-  /* When over light section, nav text dark */
+  /* Navbar: warm cream glass when scrolled in light mode */
+  #navbar.scrolled {
+    background: rgba(254, 249, 244, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06), 0 2px 16px rgba(245, 166, 35, 0.05);
+  }
+
+  #navbar.scrolled .nav-logo span:last-child,
+  #navbar.scrolled .nav-link {
+    color: #2c2a28 !important;
+  }
+
+  /* Legacy selector kept for safety */
+  #navbar.scrolled .nav-logo {
+    color: #2c2a28 !important;
+  }
+
+  /* Dark mode scrolled */
+  .dark #navbar.scrolled {
+    background: rgba(31, 29, 28, 0.95);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .dark #navbar.scrolled .nav-logo span:last-child,
+  .dark #navbar.scrolled .nav-link {
+    color: #fff !important;
+  }
+
+  .dark #navbar.scrolled .nav-logo {
+    color: #fff !important;
+  }
+
+  /* nav-light = over a light section — text dark in light mode, white in dark mode */
+  #navbar.nav-light .nav-logo span:last-child,
   #navbar.nav-light .nav-logo,
   #navbar.nav-light .nav-link {
     color: #2c2a28 !important;
   }
 
   #navbar.nav-light.scrolled {
-    background: rgba(253, 252, 250, 0.95);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    background: rgba(253, 252, 250, 0.97);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.07);
   }
 
   #navbar.nav-light.scrolled .nav-logo,
   #navbar.nav-light.scrolled .nav-link {
     color: #2c2a28 !important;
+  }
+
+  /* Dark mode: all sections are dark, keep text white */
+  .dark #navbar.nav-light .nav-logo,
+  .dark #navbar.nav-light .nav-link {
+    color: #fff !important;
+  }
+
+  .dark #navbar.nav-light.scrolled {
+    background: rgba(31, 29, 28, 0.95);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .dark #navbar.nav-light.scrolled .nav-logo,
+  .dark #navbar.nav-light.scrolled .nav-link {
+    color: #fff !important;
   }
 
   #navbar.nav-light .nav-link:hover {
@@ -110,6 +171,41 @@ const { title = "Artin Studio — Photography & Videography", lang = 'en' } = As
 
   #navbar.nav-light #mobile-menu a:hover {
     color: #ff7a55 !important;
+  }
+
+  .dark #navbar.nav-light #mobile-menu-btn,
+  .dark #navbar.nav-light #mobile-menu a {
+    color: #fff !important;
+  }
+
+  /* Theme toggle over light section */
+  #navbar.nav-light [data-theme-toggle] {
+    border-color: rgba(44, 42, 40, 0.25);
+    background: rgba(44, 42, 40, 0.08);
+    color: #2c2a28;
+  }
+
+  #navbar.nav-light [data-theme-toggle]:hover {
+    background: rgba(44, 42, 40, 0.15);
+  }
+
+  .dark #navbar.nav-light [data-theme-toggle] {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+
+  /* Scrolled nav: theme toggle adapts */
+  #navbar.scrolled [data-theme-toggle] {
+    border-color: rgba(44, 42, 40, 0.2);
+    background: rgba(44, 42, 40, 0.06);
+    color: #2c2a28;
+  }
+
+  .dark #navbar.scrolled [data-theme-toggle] {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
   }
 
   /* Photo cards - modern retro style */
@@ -142,11 +238,11 @@ const { title = "Artin Studio — Photography & Videography", lang = 'en' } = As
     box-shadow: 0 20px 40px rgba(255, 122, 85, 0.12);
   }
 
-  /* Form focus */
+  /* Form focus — warm glow */
   input:focus,
   textarea:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 122, 85, 0.35);
+    box-shadow: 0 0 0 2px rgba(245, 166, 35, 0.35);
   }
 
   /* Scrollbar */
@@ -156,7 +252,11 @@ const { title = "Artin Studio — Photography & Videography", lang = 'en' } = As
   }
 
   ::-webkit-scrollbar-track {
-    background: #fdfcfa;
+    background: #fef9f4;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: #1f1d1c;
   }
 
   ::-webkit-scrollbar-thumb {

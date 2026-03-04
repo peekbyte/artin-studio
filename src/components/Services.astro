@@ -1,283 +1,212 @@
 ---
 import type { Translations } from '../i18n/translations';
-import SectionHeader from './SectionHeader.astro';
 
-interface Props {
-  t: Translations;
-}
-
+interface Props { t: Translations; }
 const { t } = Astro.props;
 
-// Services ordered as the brand journey: identity → content → digital → growth
-const services = [
+const steps = [
   {
     num: '01',
-    phase: 1,
-    key: 'brand',
-    title: t.services.brandTitle,
-    desc: t.services.brandDesc,
-    tags: ['Logo', 'Identity', 'Brand system'],
-    accent: 'from-violet-500/20 to-violet-500/5',
-    border: 'hover:border-violet-500/60',
-    numColor: 'text-violet-500/15',
-    tagColor: 'bg-violet-500/10 text-violet-400',
-    phaseDot: 'bg-violet-500',
+    emoji: '💡',
+    color: 'violet',
+    bg: 'bg-violet-50 dark:bg-violet-950/40',
+    border: 'border-violet-200 dark:border-violet-800',
+    accent: 'bg-violet-500',
+    textAccent: 'text-violet-600 dark:text-violet-400',
+    tagBg: 'bg-violet-100 dark:bg-violet-900/50 text-violet-700 dark:text-violet-300',
+    title: 'Brand Identity',
+    subtitle: 'We start with who you are',
+    desc: 'A strong business starts with a clear identity. We design your logo, colour palette, typography and brand guidelines so every touchpoint feels consistent and professional.',
+    deliverables: ['Logo design', 'Brand colours', 'Typography', 'Brand guidelines', 'Product labels'],
     icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>`,
-    href: '#contact',
   },
   {
     num: '02',
-    phase: 2,
-    key: 'photo',
-    title: t.services.photoTitle,
-    desc: t.services.photoDesc,
-    tags: ['Product', 'Portrait', 'Brand imagery'],
-    accent: 'from-brand-500/20 to-brand-500/5',
-    border: 'hover:border-brand-500/60',
-    numColor: 'text-brand-500/15',
-    tagColor: 'bg-brand-500/10 text-brand-400',
-    phaseDot: 'bg-brand-500',
+    emoji: '📸',
+    color: 'brand',
+    bg: 'bg-orange-50 dark:bg-brand-950/40',
+    border: 'border-orange-200 dark:border-brand-800',
+    accent: 'bg-brand-500',
+    textAccent: 'text-brand-600 dark:text-brand-400',
+    tagBg: 'bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300',
+    title: 'Photography & Video',
+    subtitle: 'We make your products look irresistible',
+    desc: 'Professional product photography, brand portraits and short-form videos that tell your story. Content that stops the scroll and builds trust with your audience.',
+    deliverables: ['Product photography', 'Brand portraits', 'Reels & short films', 'Social media content', 'Campaign visuals'],
     icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>`,
-    href: '#photography',
   },
   {
     num: '03',
-    phase: 2,
-    key: 'video',
-    title: t.services.videoTitle,
-    desc: t.services.videoDesc,
-    tags: ['Reels', 'Brand films', 'Campaigns'],
-    accent: 'from-amber-500/20 to-amber-500/5',
-    border: 'hover:border-amber-500/60',
-    numColor: 'text-amber-500/15',
-    tagColor: 'bg-amber-500/10 text-amber-400',
-    phaseDot: 'bg-amber-500',
-    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>`,
-    href: '#videography',
+    emoji: '🌐',
+    color: 'sky',
+    bg: 'bg-sky-50 dark:bg-sky-950/40',
+    border: 'border-sky-200 dark:border-sky-800',
+    accent: 'bg-sky-500',
+    textAccent: 'text-sky-600 dark:text-sky-400',
+    tagBg: 'bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300',
+    title: 'Website & Online Shop',
+    subtitle: 'We put you on the map — online',
+    desc: 'Fast, beautiful websites and online shops built to convert. From a landing page to a full e-commerce store, we make sure your digital home represents your brand perfectly.',
+    deliverables: ['Landing pages', 'Business websites', 'Online shops', 'Web applications', 'SEO foundations'],
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>`,
   },
   {
     num: '04',
-    phase: 3,
-    key: 'web',
-    title: t.services.webTitle,
-    desc: t.services.webDesc,
-    tags: ['Website', 'Online shop', 'Web app'],
-    accent: 'from-sky-500/20 to-sky-500/5',
-    border: 'hover:border-sky-500/60',
-    numColor: 'text-sky-500/15',
-    tagColor: 'bg-sky-500/10 text-sky-400',
-    phaseDot: 'bg-sky-500',
-    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>`,
-    href: '#contact',
-  },
-  {
-    num: '05',
-    phase: 4,
-    key: 'market',
-    title: t.services.marketTitle,
-    desc: t.services.marketDesc,
-    tags: ['Strategy', 'Social media', 'Growth'],
-    accent: 'from-emerald-500/20 to-emerald-500/5',
-    border: 'hover:border-emerald-500/60',
-    numColor: 'text-emerald-500/15',
-    tagColor: 'bg-emerald-500/10 text-emerald-400',
-    phaseDot: 'bg-emerald-500',
+    emoji: '🚀',
+    color: 'emerald',
+    bg: 'bg-emerald-50 dark:bg-emerald-950/40',
+    border: 'border-emerald-200 dark:border-emerald-800',
+    accent: 'bg-emerald-500',
+    textAccent: 'text-emerald-600 dark:text-emerald-400',
+    tagBg: 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300',
+    title: 'Grow & Market',
+    subtitle: 'We help you reach more people',
+    desc: 'Ongoing content strategy, social media campaigns and marketing that turns your audience into loyal customers. We keep your brand alive and growing long after launch.',
+    deliverables: ['Content strategy', 'Social campaigns', 'Email marketing', 'Ad creatives', 'Analytics & growth'],
     icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>`,
-    href: '#contact',
-  },
-];
-
-// Journey phases — 4 stages that map to the services above
-const phases = [
-  {
-    step: '01',
-    label: 'Build Identity',
-    caption: 'Define who you are before anything else.',
-    services: ['Branding'],
-    dotColors: ['bg-violet-500'],
-    ringColor: 'ring-violet-500/40',
-    borderColor: 'border-violet-500/25',
-    textColor: 'text-violet-400',
-    bgColor: 'bg-violet-500/5',
-  },
-  {
-    step: '02',
-    label: 'Create Content',
-    caption: 'Shoot photos and videos that tell your story.',
-    services: ['Photography', 'Videography'],
-    dotColors: ['bg-brand-500', 'bg-amber-500'],
-    ringColor: 'ring-brand-500/40',
-    borderColor: 'border-brand-500/25',
-    textColor: 'text-brand-400',
-    bgColor: 'bg-brand-500/5',
-  },
-  {
-    step: '03',
-    label: 'Go Online',
-    caption: 'Launch your website, shop or web app.',
-    services: ['Web & Digital'],
-    dotColors: ['bg-sky-500'],
-    ringColor: 'ring-sky-500/40',
-    borderColor: 'border-sky-500/25',
-    textColor: 'text-sky-400',
-    bgColor: 'bg-sky-500/5',
-  },
-  {
-    step: '04',
-    label: 'Grow',
-    caption: 'Build audience, run campaigns, scale.',
-    services: ['Marketing'],
-    dotColors: ['bg-emerald-500'],
-    ringColor: 'ring-emerald-500/40',
-    borderColor: 'border-emerald-500/25',
-    textColor: 'text-emerald-400',
-    bgColor: 'bg-emerald-500/5',
   },
 ];
 ---
 
-<section id="services" class="py-24 bg-ink-950 scroll-mt-20 overflow-hidden">
-  <div class="max-w-6xl mx-auto px-6">
+<section id="journey" class="py-28 bg-sand dark:bg-ink-900 scroll-mt-24 overflow-hidden relative">
+
+  <!-- Background decoration -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <svg class="absolute inset-0 w-full h-full opacity-[0.03] dark:opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="2" fill="#ff7a55"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dots)" />
+    </svg>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
 
     <!-- Section header -->
-    <SectionHeader
-      number="00"
-      subtitle={t.services.sectionDesc}
-      title={t.services.sectionTitle}
-    />
+    <div class="text-center mb-20">
+      <div class="inline-flex items-center gap-2 bg-brand-100 dark:bg-brand-900/40 border border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-400 rounded-full px-4 py-1.5 text-xs font-bold tracking-widest uppercase mb-5">
+        How we work
+      </div>
+      <h2 class="font-display font-extrabold text-ink-950 dark:text-white mb-4" style="font-size:clamp(2rem,4.5vw,3.5rem)">
+        Your journey from <span class="text-brand-500">idea</span> to <span class="text-warm-500">growing brand</span>
+      </h2>
+      <p class="text-ink-500 dark:text-ink-400 text-lg max-w-xl mx-auto">
+        We walk with you through every step — no jargon, no guesswork, just results.
+      </p>
+    </div>
 
-    <!-- ═══ BRAND JOURNEY FLOW ═══ -->
-    <div class="mb-20">
-      <p class="text-white/50 text-[11px] tracking-[0.35em] uppercase font-semibold mb-8">Your brand journey — step by step</p>
+    <!-- Steps -->
+    <div class="relative">
+      <!-- Vertical timeline line -->
+      <div class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-ink-200 dark:via-ink-700 to-transparent -translate-x-1/2 z-0"></div>
 
-      <!-- Phase nodes + connectors -->
-      <div class="relative">
-        <!-- Horizontal connector line (desktop only) -->
-        <div class="hidden lg:block absolute top-[44px] left-[calc(12.5%)] right-[calc(12.5%)] h-px">
-          <div class="w-full h-full bg-gradient-to-r from-violet-500/30 via-brand-500/20 via-sky-500/20 to-emerald-500/30"></div>
-        </div>
+      <div class="space-y-16">
+        {steps.map((step, i) => (
+          <div class:list={["journey-step relative grid lg:grid-cols-2 gap-8 lg:gap-16 items-center", i % 2 === 1 && "lg:[&>:first-child]:order-2 lg:[&>:last-child]:order-1"]}>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {phases.map((ph, i) => (
-            <div class:list={["relative group rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg", ph.borderColor, ph.bgColor]}>
-
-              <!-- Step number + dot row -->
-              <div class="flex items-center gap-3 mb-4">
-                <!-- Pulsing dot(s) -->
-                <div class="flex items-center gap-1.5 shrink-0">
-                  {ph.dotColors.map((dc) => (
-                    <span class:list={["w-2.5 h-2.5 rounded-full ring-2 ring-offset-2 ring-offset-ink-950 transition-all duration-300 group-hover:scale-125", dc, ph.ringColor]}></span>
-                  ))}
-                </div>
-                <!-- Step label -->
-                <span class:list={["text-[10px] tracking-[0.3em] uppercase font-bold", ph.textColor]}>{ph.step}</span>
-                <!-- Arrow between phases (desktop only, not last) -->
-                {i < phases.length - 1 && (
-                  <svg class="hidden lg:block absolute -right-[7px] top-[38px] w-3.5 h-3.5 text-white/20 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-                  </svg>
-                )}
+            <!-- Content card -->
+            <div class:list={["rounded-3xl border p-8 md:p-10 shadow-sm hover:shadow-lg transition-shadow duration-300", step.bg, step.border]}>
+              <!-- Step badge -->
+              <div class="flex items-center gap-3 mb-5">
+                <span class:list={["w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-extrabold shrink-0", step.accent]}>{step.num}</span>
+                <span class:list={["text-xs font-bold tracking-widest uppercase", step.textAccent]}>{step.subtitle}</span>
               </div>
 
-              <!-- Phase title -->
-              <h4 class="font-display font-bold text-white text-base mb-2 leading-tight">{ph.label}</h4>
-              <p class="text-ink-300 text-xs leading-relaxed mb-4">{ph.caption}</p>
+              <!-- Icon + Title row -->
+              <div class="flex items-start gap-4 mb-4">
+                <div class:list={["w-12 h-12 rounded-2xl flex items-center justify-center shrink-0", step.tagBg.split(' ').slice(0,2).join(' ')]}>
+                  <svg class:list={["w-6 h-6", step.textAccent]} fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={step.icon}/>
+                </div>
+                <div>
+                  <h3 class="font-display font-extrabold text-ink-950 dark:text-white text-xl md:text-2xl leading-tight">{step.title}</h3>
+                </div>
+              </div>
 
-              <!-- Service badges -->
-              <div class="flex flex-wrap gap-1.5">
-                {ph.services.map((svc, si) => (
-                  <span class:list={["text-[11px] px-2.5 py-1 rounded-full font-semibold",
-                    si === 0 ? `bg-white/6 ${ph.textColor}` : "bg-white/6 text-amber-400"
-                  ]}>{svc}</span>
+              <p class="text-ink-600 dark:text-ink-300 text-sm leading-relaxed mb-6">{step.desc}</p>
+
+              <!-- Deliverables -->
+              <div class="flex flex-wrap gap-2">
+                {step.deliverables.map((d: string) => (
+                  <span class:list={["text-xs px-3 py-1 rounded-full font-semibold", step.tagBg]}>{d}</span>
                 ))}
               </div>
 
+              <a href="#contact" class:list={["mt-6 inline-flex items-center gap-2 text-sm font-bold transition-colors group", step.textAccent]}>
+                Start this step
+                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
             </div>
-          ))}
-        </div>
-      </div>
 
-      <!-- Flow summary bar -->
-      <div class="mt-4 hidden sm:flex items-center gap-3 text-[11px] text-white/35 font-medium overflow-x-auto pb-1">
-        <span class="text-violet-400/50 shrink-0">Branding</span>
-        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        <span class="text-brand-400/50 shrink-0">Photography</span>
-        <span class="text-white/25 shrink-0">+</span>
-        <span class="text-amber-400/50 shrink-0">Videography</span>
-        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        <span class="text-sky-400/50 shrink-0">Web & Digital</span>
-        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        <span class="text-emerald-400/50 shrink-0">Marketing</span>
-        <svg class="w-3 h-3 shrink-0 text-emerald-400/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z"/></svg>
-        <span class="text-white/30 shrink-0 italic">Your brand, live and growing.</span>
+            <!-- Visual side -->
+            <div class="flex flex-col items-center justify-center gap-6">
+              <!-- Big emoji in retro badge -->
+              <div class="relative">
+                <div class:list={["w-32 h-32 rounded-full flex items-center justify-center text-6xl shadow-xl border-4 border-white dark:border-ink-800 animate-float", step.bg]} style={`animation-delay:${i * 0.4}s`}>
+                  {step.emoji}
+                </div>
+                <!-- Timeline node -->
+                <div class:list={["absolute top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-5 h-5 rounded-full border-4 border-white dark:border-ink-900 shadow", step.accent,
+                  i % 2 === 0 ? "-right-[calc(50%+2.5rem+10px)] lg:left-auto" : "-left-[calc(50%+2.5rem+10px)] lg:right-auto"
+                ]}></div>
+              </div>
+
+              <!-- Stat chips -->
+              <div class="flex gap-3 flex-wrap justify-center">
+                <div class="bg-white dark:bg-ink-800 rounded-2xl px-5 py-3 shadow-sm border border-ink-100 dark:border-ink-700 text-center">
+                  <p class:list={["font-display font-extrabold text-xl", step.textAccent]}>∞</p>
+                  <p class="text-xs text-ink-500 dark:text-ink-400 font-medium">Revisions</p>
+                </div>
+                <div class="bg-white dark:bg-ink-800 rounded-2xl px-5 py-3 shadow-sm border border-ink-100 dark:border-ink-700 text-center">
+                  <p class:list={["font-display font-extrabold text-xl", step.textAccent]}>100%</p>
+                  <p class="text-xs text-ink-500 dark:text-ink-400 font-medium">Yours</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        ))}
       </div>
     </div>
 
-    <!-- ═══ SERVICE CARDS — Staggered Diamond ═══ -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 mb-4">
-      {services.map((s, i) => {
-        /* Staggered layout: top 3 = col-span-2 each, bottom 2 offset and centered */
-        const gridPlacement =
-          i === 0 ? "lg:col-start-1 lg:col-span-2" :
-          i === 1 ? "lg:col-start-3 lg:col-span-2" :
-          i === 2 ? "lg:col-start-5 lg:col-span-2" :
-          i === 3 ? "lg:col-start-2 lg:col-span-2" :
-                    "lg:col-start-4 lg:col-span-2";
-        return (
-        <a
-          href={s.href}
-          class:list={[
-            "service-card group relative overflow-hidden rounded-3xl border border-white/8 bg-ink-900 p-8 transition-all duration-500 cursor-pointer",
-            "hover:bg-ink-800 hover:shadow-2xl hover:-translate-y-1",
-            s.border,
-            gridPlacement,
-          ]}
-        >
-          <!-- Ghost number background -->
-          <span class:list={["absolute -top-4 -right-2 font-display font-extrabold text-[5rem] md:text-[7.5rem] leading-none select-none pointer-events-none transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-1", s.numColor]}>
-            {s.num}
-          </span>
-
-          <!-- Gradient wash on hover -->
-          <div class:list={["absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl", s.accent]}></div>
-
-          <div class="relative z-10">
-            <!-- Phase indicator dot + step label -->
-            <div class="flex items-center gap-2 mb-5">
-              <span class:list={["w-2 h-2 rounded-full", s.phaseDot]}></span>
-              <span class="text-[10px] text-white/50 tracking-[0.3em] uppercase font-semibold">Step {s.num}</span>
-            </div>
-
-            <!-- Icon -->
-            <div class="w-12 h-12 rounded-2xl bg-white/5 border border-white/8 flex items-center justify-center mb-6 group-hover:border-white/15 transition-colors duration-300">
-              <svg class="w-6 h-6 text-white/70 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={s.icon} />
-            </div>
-
-            <!-- Title -->
-            <h3 class="font-display font-bold text-xl text-white mb-3">{s.title}</h3>
-
-            <!-- Description -->
-            <p class="text-ink-300 text-sm leading-relaxed mb-6 group-hover:text-ink-200 transition-colors duration-300">{s.desc}</p>
-
-            <!-- Tags -->
-            <div class="flex flex-wrap gap-2 mb-6">
-              {s.tags.map((tag) => (
-                <span class:list={["text-xs px-3 py-1 rounded-full font-medium", s.tagColor]}>{tag}</span>
-              ))}
-            </div>
-
-            <!-- CTA — slides in on hover -->
-            <div class="flex items-center gap-2 text-white/0 group-hover:text-white/70 transition-all duration-300 translate-y-2 group-hover:translate-y-0 text-sm font-medium">
-              {t.services.cta}
-              <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-              </svg>
-            </div>
-          </div>
+    <!-- Bottom CTA banner -->
+    <div class="mt-24 relative rounded-3xl overflow-hidden bg-ink-950 dark:bg-ink-800 p-10 md:p-14 text-center">
+      <!-- Glow -->
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_50%_50%,rgba(255,122,85,0.18),transparent)] pointer-events-none"></div>
+      <div class="relative z-10">
+        <p class="text-brand-400 text-sm font-bold tracking-widest uppercase mb-3">Ready to start?</p>
+        <h3 class="font-display font-extrabold text-white mb-4" style="font-size:clamp(1.8rem,4vw,3rem)">Let's build your brand together</h3>
+        <p class="text-ink-300 max-w-md mx-auto mb-8">Tell us about your business and we'll put together a plan that fits your goals and budget.</p>
+        <a href="#contact" class="inline-flex items-center gap-3 bg-brand-500 hover:bg-brand-400 text-white px-8 py-4 rounded-full font-bold text-sm tracking-wide transition-all hover:shadow-2xl hover:shadow-brand-500/40 hover:-translate-y-0.5">
+          Start a free conversation
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-      );
-      })}
+      </div>
     </div>
 
   </div>
 </section>
+
+<script>
+  // Animate steps on scroll
+  const journeySteps = document.querySelectorAll('.journey-step');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, idx) => {
+      if (e.isIntersecting) {
+        (e.target as HTMLElement).style.animationDelay = `${idx * 0.05}s`;
+        e.target.classList.add('step-visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  journeySteps.forEach(s => {
+    s.classList.add('step-hidden');
+    obs.observe(s);
+  });
+</script>
+
+<style>
+  .step-hidden { opacity:0; transform:translateY(32px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .step-visible { opacity:1; transform:translateY(0); }
+</style>

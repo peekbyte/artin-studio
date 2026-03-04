@@ -1,6 +1,5 @@
 ---
 import type { Translations } from "../i18n/translations";
-import SectionHeader from "./SectionHeader.astro";
 
 interface Props {
   t: Translations;
@@ -9,50 +8,111 @@ interface Props {
 const { t } = Astro.props;
 
 const videoPlaceholders = [
-  { label: t.videography.video1, caption: t.videography.placeholder },
-  { label: t.videography.video2, caption: t.videography.addEmbed },
+  {
+    label: t.videography.video1,
+    caption: t.videography.placeholder,
+    tag: "Brand Film",
+    emoji: "🎬",
+    color: "warm",
+  },
+  {
+    label: t.videography.video2,
+    caption: t.videography.addEmbed,
+    tag: "Reel",
+    emoji: "🎥",
+    color: "brand",
+  },
 ];
 ---
 
-<section id="videography" class="py-24 bg-ink-200 scroll-mt-20 overflow-hidden">
-  <div class="max-w-6xl mx-auto px-6">
-    <!-- Editorial header -->
-    <SectionHeader
-      number="02"
-      subtitle={t.videography.description}
-      title={t.videography.title}
-      numberClass="text-[4rem] md:text-[6rem] text-ink-300"
-      titleClass="text-3xl md:text-5xl text-ink-950"
-    />
+<section id="videography" class="py-24 bg-sand dark:bg-ink-900 scroll-mt-24 overflow-hidden relative">
 
-    <!-- To embed a real video, replace a placeholder div with:
-         <div class="video-card rounded-3xl overflow-hidden bg-ink-100 aspect-video">
-           <iframe class="w-full h-full" src="https://www.youtube.com/embed/VIDEO_ID" title="..." allowfullscreen></iframe>
-         </div> -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <!-- Ambient blobs -->
+  <div class="absolute top-1/4 left-0 w-[450px] h-[450px] rounded-full bg-warm-200/20 dark:bg-warm-900/10 blur-3xl pointer-events-none -translate-x-1/3" aria-hidden="true"></div>
+  <div class="absolute bottom-0 right-0 w-[350px] h-[350px] rounded-full bg-brand-200/20 dark:bg-brand-900/10 blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" aria-hidden="true"></div>
+
+  <!-- Retro dot-grid overlay -->
+  <div
+    class="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.04]"
+    style="background-image: radial-gradient(circle, #8c520a 1px, transparent 1px); background-size: 28px 28px;"
+    aria-hidden="true"
+  ></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+
+    <!-- Retro warm section header -->
+    <div class="mb-14">
+      <div class="flex items-center gap-4 mb-5">
+        <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand-100 dark:bg-brand-500/15 border border-brand-200 dark:border-brand-500/25 text-brand-600 dark:text-brand-400 font-display font-extrabold text-sm tracking-wider">02</span>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-px bg-brand-300 dark:bg-brand-500/50"></div>
+          <span class="text-brand-600 dark:text-brand-400 text-xs tracking-[0.2em] uppercase font-semibold">{t.videography.description}</span>
+        </div>
+      </div>
+      <h2 class="font-display font-extrabold text-4xl md:text-6xl text-ink-950 dark:text-white leading-tight">
+        {t.videography.title}
+        <span class="block w-24 h-1.5 mt-3 rounded-full bg-gradient-to-r from-brand-400 to-warm-400 animate-pulse-soft"></span>
+      </h2>
+    </div>
+
+    <!-- Video cards grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
       {
-        videoPlaceholders.map(({ label, caption }) => (
-          <div class="video-card rounded-3xl overflow-hidden bg-ink-100 aspect-video flex items-center justify-center">
-            <div class="text-center p-8">
-              <svg
-                class="w-16 h-16 text-brand-400 mx-auto mb-4"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M8 5v14l11-7z" />
-                <path
-                  d="M4 3h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                />
-              </svg>
-              <p class="text-ink-800 font-medium">{label}</p>
-              <p class="text-ink-600 text-sm mt-1">{caption}</p>
+        videoPlaceholders.map(({ label, caption, tag, emoji, color }) => (
+          <div class:list={[
+            "video-card group relative rounded-3xl overflow-hidden aspect-video ring-1",
+            color === 'warm'
+              ? "bg-gradient-to-br from-warm-50 to-warm-100 dark:from-ink-800 dark:to-ink-800/80 ring-warm-200/60 dark:ring-warm-500/15"
+              : "bg-gradient-to-br from-brand-50 to-brand-100/60 dark:from-ink-800 dark:to-ink-800/80 ring-brand-200/60 dark:ring-brand-500/15",
+          ]}>
+
+            <!-- Floating decorative ring -->
+            <div class:list={[
+              "absolute -top-8 -right-8 w-32 h-32 rounded-full border-2 opacity-20 dark:opacity-10 transition-transform duration-700 group-hover:scale-125",
+              color === 'warm' ? "border-warm-400" : "border-brand-400",
+            ]}></div>
+            <div class:list={[
+              "absolute -bottom-12 -left-12 w-48 h-48 rounded-full border border-dashed opacity-15 dark:opacity-8 transition-transform duration-700 group-hover:scale-110",
+              color === 'warm' ? "border-warm-500" : "border-brand-500",
+            ]}></div>
+
+            <!-- Center content -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+
+              <!-- Floating emoji -->
+              <div class="text-5xl mb-5 animate-float" style={`animation-delay:${color === 'warm' ? '0' : '1.2'}s`}>{emoji}</div>
+
+              <!-- Play button ring -->
+              <div class:list={[
+                "w-16 h-16 rounded-full flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110",
+                color === 'warm'
+                  ? "bg-warm-400/20 dark:bg-warm-500/20 group-hover:bg-warm-400/30 ring-2 ring-warm-400/30 dark:ring-warm-500/30"
+                  : "bg-brand-400/20 dark:bg-brand-500/20 group-hover:bg-brand-400/30 ring-2 ring-brand-400/30 dark:ring-brand-500/30",
+              ]}>
+                <svg class:list={[
+                  "w-6 h-6 ml-1",
+                  color === 'warm' ? "text-warm-600 dark:text-warm-400" : "text-brand-600 dark:text-brand-400"
+                ]} fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+
+              <!-- Tag pill -->
+              <span class:list={[
+                "text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1 rounded-full mb-3",
+                color === 'warm'
+                  ? "bg-warm-400/20 dark:bg-warm-500/20 text-warm-700 dark:text-warm-400"
+                  : "bg-brand-400/20 dark:bg-brand-500/20 text-brand-700 dark:text-brand-400",
+              ]}>{tag}</span>
+
+              <p class="text-ink-800 dark:text-ink-100 font-display font-bold text-lg leading-snug">{label}</p>
+              <p class="text-ink-500 dark:text-ink-400 text-xs mt-2 max-w-[220px] leading-relaxed">{caption}</p>
             </div>
+
           </div>
         ))
       }
     </div>
+
   </div>
 </section>
