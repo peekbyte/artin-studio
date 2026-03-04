@@ -35,6 +35,9 @@ export const translations = {
       line1: "Your brand,",
       line2: "built",
       line3: "to grow.",
+    },
+    // Photography
+    photography: {
       title: "Photography",
       description: "Product & brand photography for businesses",
       kicker: "Our work, by industry",
