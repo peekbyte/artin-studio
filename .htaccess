@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Redirect root to /en/
+  RewriteRule ^$ /en/ [R=301,L]
+</IfModule>

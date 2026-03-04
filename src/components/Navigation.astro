@@ -12,7 +12,7 @@ const { lang, t } = Astro.props;
 
 const navItems = [
   { href: '#home',        label: t.nav.home },
-  { href: '#services',    label: t.nav.services },
+  { href: '#journey',     label: t.nav.services },
   { href: '#photography', label: t.nav.photography },
   { href: '#videography', label: t.nav.videography },
   { href: '#about',       label: t.nav.about },
@@ -23,11 +23,16 @@ const navItems = [
 <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent">
   <div class="max-w-6xl mx-auto px-6 py-5">
     <div class="flex justify-between items-center">
-      <a href="#home" class="nav-logo flex items-center gap-2 group">
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-warm-400 to-brand-500 flex items-center justify-center shadow-md transition-transform group-hover:scale-105 shrink-0">
-          <span class="text-white font-display font-extrabold text-xs leading-none">A</span>
-        </div>
-        <span class="text-white font-display font-bold text-lg tracking-tight">Artin Studio</span>
+      <a href="#home" class="nav-logo group relative">
+        <!-- Background glow effect -->
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl pointer-events-none" style="background: radial-gradient(circle at center, rgba(255, 122, 85, 0.15) 0%, transparent 70%); filter: blur(12px);"></div>
+        
+        <!-- Logo text with premium styling -->
+        <span class="relative font-display font-black text-2xl tracking-tighter transition-all duration-300 flex items-center">
+          <span class="logo-a inline-block origin-left relative transition-all duration-300 group-hover:scale-125" style="color: rgb(255, 122, 85);">
+            A
+          </span><span class="text-white ml-0.5 transition-all duration-300 group-hover:tracking-normal">rtin Studio</span>
+        </span>
       </a>
       <div class="hidden md:flex items-center gap-8">
         {navItems.map(({ href, label }) => (
@@ -64,7 +69,7 @@ const navItems = [
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  const lightSectionIds = ['photography', 'videography', 'about'];
+  const lightSectionIds = ['home', 'photography', 'videography', 'about'];
 
   function updateNav() {
     const scrollY = window.scrollY;
@@ -109,3 +114,143 @@ const navItems = [
     });
   }
 </script>
+
+<style>
+  @keyframes letterGlow {
+    0%, 100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.15);
+    }
+  }
+
+  @keyframes floatUp {
+    0%, 100% {
+      transform: translateY(0px) rotateZ(0deg);
+    }
+    50% {
+      transform: translateY(-3px) rotateZ(0.5deg);
+    }
+  }
+
+  @keyframes shimmerWave {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes floatUp {
+    0%, 100% {
+      transform: translateY(0px) rotateZ(0deg);
+    }
+    50% {
+      transform: translateY(-3px) rotateZ(0.5deg);
+    }
+  }
+
+  @keyframes bgPulse {
+    0%, 100% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 0.15;
+      transform: scale(1.05);
+    }
+  }
+
+  :global(.nav-logo) {
+    position: relative;
+    perspective: 1000px;
+  }
+
+  :global(.nav-logo .logo-a) {
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    position: relative;
+    display: inline-block;
+    font-size: 1.25em;
+    font-family: 'Clash Display', system-ui, sans-serif;
+  }
+
+  :global(.nav-logo:hover .logo-a) {
+    animation: letterGlow 0.6s ease-in-out;
+  }
+
+  :global(.nav-logo:hover) {
+    animation: floatUp 0.5s ease-out;
+  }
+
+  /* Light mode adjustments */
+  :global(.nav-light .nav-logo .logo-a) {
+    /* Pure orange color preserved - no darkening filters */
+  }
+
+  :global(.nav-light .nav-logo) {
+    /* Keep text contrast in light mode */
+  }
+
+  /* Dark mode enhancements */
+  :global(.dark .nav-logo .logo-a) {
+    filter: brightness(1.2) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+  }
+
+  :global(.dark .nav-logo) {
+    filter: brightness(1.1);
+  }
+
+  /* Responsive text sizing */
+  @media (max-width: 1024px) {
+    :global(.nav-logo span) {
+      font-size: 1.125rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    :global(.nav-logo span) {
+      font-size: 1rem;
+    }
+  }
+
+  /* Reduce motion support */
+  @media (prefers-reduced-motion: reduce) {
+    :global(.nav-logo .logo-a) {
+      animation: none;
+      transition: none;
+    }
+
+    :global(.nav-logo:hover .logo-a) {
+      animation: none;
+    }
+
+    :global(.nav-logo:hover) {
+      animation: none;
+    }
+
+    :global(.nav-logo) {
+      transition: none;
+    }
+
+    :global(.nav-logo .absolute) {
+      animation: none;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: more) {
+    :global(.nav-logo .logo-a) {
+      filter: saturate(1.4) drop-shadow(0 1px 4px rgba(0, 0, 0, 0.4));
+    }
+  }
+
+  /* Focus states for accessibility */
+  :global(.nav-logo:focus-visible) {
+    outline: 2px solid rgba(255, 122, 85, 0.5);
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
+</style>

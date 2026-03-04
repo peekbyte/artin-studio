@@ -1,0 +1,3 @@
+# Netlify redirects configuration
+# Redirect root to default language (English)
+/  /en/  301

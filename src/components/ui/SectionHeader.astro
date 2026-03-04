@@ -1,0 +1,91 @@
+---
+/**
+ * Reusable section header with emoji badge, kicker, title, underline bar, and subtitle.
+ *
+ * Pattern: emoji badge → dash → kicker text → h2 title → gradient underline → subtitle.
+ * Used in Photography, Videography, About.
+ */
+interface Props {
+  /** Emoji shown in the badge, e.g. '📸' */
+  emoji: string;
+  /** Short uppercase kicker text, e.g. 'Portfolio' */
+  kicker: string;
+  /** Main heading text */
+  title: string;
+  /** Optional subtitle paragraph */
+  subtitle?: string;
+  /** Accent colour key — maps to Tailwind colour tokens */
+  accent?: 'warm' | 'brand' | 'violet' | 'sky';
+  /** Whether to show the animated gradient underline bar below the title */
+  showBar?: boolean;
+  /** Gradient direction for the bar, e.g. 'from-warm-400 to-brand-400' */
+  barGradient?: string;
+}
+
+const {
+  emoji,
+  kicker,
+  title,
+  subtitle,
+  accent = 'warm',
+  showBar = true,
+  barGradient,
+} = Astro.props;
+
+/* Colour maps per accent key */
+const accentMap: Record<string, { badgeBg: string; badgeBorder: string; text: string; dash: string; bar: string }> = {
+  warm: {
+    badgeBg:     'bg-warm-400/20 dark:bg-warm-500/15',
+    badgeBorder: 'border-warm-400/30 dark:border-warm-500/25',
+    text:        'text-warm-600 dark:text-warm-400',
+    dash:        'bg-warm-400/50 dark:bg-warm-500/40',
+    bar:         'from-warm-400 to-brand-400',
+  },
+  brand: {
+    badgeBg:     'bg-brand-100 dark:bg-brand-500/15',
+    badgeBorder: 'border-brand-200 dark:border-brand-500/25',
+    text:        'text-brand-600 dark:text-brand-400',
+    dash:        'bg-brand-300 dark:bg-brand-500/50',
+    bar:         'from-brand-400 to-warm-400',
+  },
+  violet: {
+    badgeBg:     'bg-violet-100 dark:bg-violet-500/15',
+    badgeBorder: 'border-violet-200 dark:border-violet-500/25',
+    text:        'text-violet-600 dark:text-violet-400',
+    dash:        'bg-violet-300 dark:bg-violet-500/50',
+    bar:         'from-violet-400 to-brand-400',
+  },
+  sky: {
+    badgeBg:     'bg-sky-100 dark:bg-sky-500/15',
+    badgeBorder: 'border-sky-200 dark:border-sky-500/25',
+    text:        'text-sky-600 dark:text-sky-400',
+    dash:        'bg-sky-300 dark:bg-sky-500/50',
+    bar:         'from-sky-400 to-brand-400',
+  },
+};
+
+const c = accentMap[accent] ?? accentMap.warm;
+const gradient = barGradient ?? c.bar;
+---
+
+<div class="mb-12">
+  <div class="flex items-center gap-4 mb-5">
+    <div class="flex items-center gap-3">
+      <span class:list={[
+        'inline-flex items-center justify-center w-11 h-11 rounded-xl border font-display font-extrabold text-sm tracking-wider',
+        c.badgeBg, c.badgeBorder, c.text
+      ]}>{emoji}</span>
+      <div class:list={['w-8 h-px', c.dash]}></div>
+      <span class:list={['text-xs tracking-[0.2em] uppercase font-semibold', c.text]}>{kicker}</span>
+    </div>
+  </div>
+  <h2 class="font-display font-extrabold text-4xl md:text-6xl text-ink-950 dark:text-white leading-tight">
+    {title}
+    {showBar && (
+      <span class:list={['block w-24 h-1.5 mt-3 rounded-full bg-gradient-to-r animate-pulse-soft', gradient]}></span>
+    )}
+  </h2>
+  {subtitle && (
+    <p class="mt-5 text-ink-600 dark:text-ink-300 text-lg max-w-2xl leading-relaxed">{subtitle}</p>
+  )}
+</div>

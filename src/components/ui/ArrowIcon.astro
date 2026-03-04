@@ -1,0 +1,16 @@
+---
+/**
+ * Reusable right-arrow SVG icon.
+ * Used in CTAs across Hero, Services, Photography, Videography, About.
+ */
+interface Props {
+  class?: string;
+  strokeWidth?: string;
+}
+
+const { class: className = 'w-4 h-4', strokeWidth = '2.5' } = Astro.props;
+---
+
+<svg class={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={strokeWidth} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+</svg>

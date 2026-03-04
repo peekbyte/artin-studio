@@ -1,5 +1,6 @@
 ---
 import type { Translations } from "../i18n/translations";
+import ArrowIcon from './ui/ArrowIcon.astro';
 interface Props { t: Translations; }
 const { t } = Astro.props;
 ---
@@ -28,85 +29,32 @@ const { t } = Astro.props;
 
     <!-- LEFT: copy -->
     <div class="w-full lg:w-[55%] lg:pr-16">
-      <h1 class="font-display font-extrabold leading-[1.02] mb-6 text-ink-950 dark:text-white animate-fade-up opacity-0" style="font-size:clamp(2.8rem,6.5vw,5.6rem);animation-delay:.15s;animation-fill-mode:forwards">
-        We turn your<br/>
-        <span class="hero-squiggle relative inline-block text-brand-500">idea</span>
-        <br/>into a brand.
+      <h1 class="font-display font-extrabold leading-[1.02] mb-6 text-ink-950 dark:text-white animate-fade-up opacity-0" style="font-size:clamp(2.8rem,6.5vw,5.6rem);animation-delay:.18s;animation-fill-mode:forwards">
+        Your brand,<br/>
+        <span class="hero-squiggle relative inline-block text-brand-500">built</span>
+        <br/>to grow.
       </h1>
 
-      <p class="text-ink-600 dark:text-ink-300 text-lg leading-relaxed max-w-md mb-10 animate-fade-up opacity-0" style="animation-delay:.3s;animation-fill-mode:forwards">
-        Logo, labels, website, online shop, photos &amp; videos — everything to launch and grow, all under one roof.
+      <p class="text-ink-600 dark:text-ink-300 text-lg leading-relaxed max-w-md mb-10 animate-fade-up opacity-0" style="animation-delay:.32s;animation-fill-mode:forwards">
+        From first logo to full campaign — we give small businesses the sharp visual identity they need to compete and win.
       </p>
 
-      <div class="flex flex-wrap items-center gap-4 animate-fade-up opacity-0" style="animation-delay:.42s;animation-fill-mode:forwards">
+      <div class="flex flex-wrap items-center gap-4 animate-fade-up opacity-0" style="animation-delay:.46s;animation-fill-mode:forwards">
         <a href="#journey" class="group inline-flex items-center gap-3 bg-brand-500 hover:bg-brand-600 text-white px-7 py-3.5 rounded-full font-bold text-sm tracking-wide transition-all hover:shadow-2xl hover:shadow-brand-500/40 hover:-translate-y-0.5">
-          See how we help
-          <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
-        <a href="#contact" class="inline-flex items-center gap-2 text-ink-700 dark:text-ink-300 hover:text-brand-500 dark:hover:text-brand-400 text-sm font-semibold transition-colors group">
-          <span class="w-8 h-px bg-ink-400 dark:bg-ink-600 group-hover:bg-brand-500 transition-colors"></span>
-          Get in touch
+          Start your project
+          <ArrowIcon class="w-4 h-4 transition-transform group-hover:translate-x-1" />
         </a>
       </div>
 
-      <div class="flex flex-wrap gap-2 mt-10 animate-fade-in opacity-0" style="animation-delay:.6s;animation-fill-mode:forwards">
-        {["Logo & Branding","Product Labels","Websites","Online Shops","Photography","Videography"].map((s: string) => (
-          <span class="text-xs px-3 py-1.5 rounded-full bg-white dark:bg-ink-800 border border-ink-200 dark:border-ink-700 text-ink-600 dark:text-ink-300 font-medium shadow-sm">{s}</span>
-        ))}
-      </div>
     </div>
 
-    <!-- RIGHT: floating card stack -->
+    <!-- RIGHT: How it works — D3 + Motion flow chart -->
     <div class="w-full lg:w-[45%] relative flex items-center justify-center min-h-[400px] lg:min-h-[560px]">
-
-      <div class="absolute top-[8%] left-[4%] hero-card animate-float" style="animation-delay:0s">
-        <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 flex items-center justify-center border border-violet-200 dark:border-violet-700">
-          <svg class="w-6 h-6 text-violet-600 dark:text-violet-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-        </div>
-        <p class="text-[10px] font-bold text-ink-700 dark:text-ink-200 mt-1.5 text-center">Branding</p>
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-[340px] h-[340px] rounded-full bg-brand-400/10 dark:bg-brand-500/10 blur-3xl"></div>
       </div>
-
-      <div class="absolute top-[4%] right-[8%] hero-card animate-float" style="animation-delay:1.4s">
-        <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-900/50 flex items-center justify-center border border-sky-200 dark:border-sky-700">
-          <svg class="w-6 h-6 text-sky-600 dark:text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-        </div>
-        <p class="text-[10px] font-bold text-ink-700 dark:text-ink-200 mt-1.5 text-center">Website</p>
-      </div>
-
-      <div class="absolute bottom-[20%] left-[0%] hero-card animate-float-slow" style="animation-delay:0.7s">
-        <div class="w-12 h-12 rounded-xl bg-brand-100 dark:bg-brand-900/50 flex items-center justify-center border border-brand-200 dark:border-brand-700">
-          <svg class="w-6 h-6 text-brand-600 dark:text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        </div>
-        <p class="text-[10px] font-bold text-ink-700 dark:text-ink-200 mt-1.5 text-center">Photos</p>
-      </div>
-
-      <div class="absolute bottom-[18%] right-[4%] hero-card animate-float" style="animation-delay:2s">
-        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center border border-emerald-200 dark:border-emerald-700">
-          <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-        </div>
-        <p class="text-[10px] font-bold text-ink-700 dark:text-ink-200 mt-1.5 text-center">Shop</p>
-      </div>
-
-      <!-- Central hero image -->
-      <div class="relative w-[72%] max-w-[320px] animate-fade-in opacity-0" style="animation-delay:.5s;animation-fill-mode:forwards">
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-400 to-warm-400 rounded-[2rem] rotate-3 scale-[1.05] opacity-25 blur-sm"></div>
-        <div class="relative rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white dark:border-ink-800 aspect-[3/4]">
-          <img src="/images/optimized/11045421.webp" alt="Artin Studio work" class="w-full h-full object-cover" loading="eager"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-ink-950/50 via-transparent to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 bg-white/90 dark:bg-ink-900/90 backdrop-blur-sm rounded-xl px-4 py-2.5 flex items-center gap-3 shadow-lg">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-            <div>
-              <p class="text-xs font-bold text-ink-900 dark:text-white">Available for projects</p>
-              <p class="text-[10px] text-ink-500 dark:text-ink-400">Warsaw, Poland</p>
-            </div>
-          </div>
-        </div>
-        <div class="absolute -top-5 -right-5 w-16 h-16 bg-warm-400 rounded-full flex items-center justify-center shadow-xl border-4 border-white dark:border-ink-900 animate-wiggle z-10">
-          <span class="text-[9px] font-extrabold text-ink-900 text-center leading-tight uppercase tracking-tight">Since<br/>2022</span>
-        </div>
-      </div>
+      <!-- D3 renders the SVG chart into this container -->
+      <div id="process-chart" class="relative w-full max-w-[520px]" style="aspect-ratio:1/1"></div>
     </div>
   </div>
 
@@ -120,24 +68,10 @@ const { t } = Astro.props;
     </a>
   </div>
 
-  <!-- Ticker -->
-  <div class="relative z-10 border-t border-ink-200/60 dark:border-white/8 overflow-hidden py-3 bg-sand/70 dark:bg-ink-950/60 backdrop-blur-sm">
-    <div class="ticker-track flex whitespace-nowrap">
-      {[...Array(4)].map(() => (
-        <div class="flex items-center shrink-0">
-          {["Branding","Labels","Websites","Online Shops","Photography","Videography","Logo Design","Marketing","Warsaw","Artin Studio"].map((item: string) => (
-            <span class="flex items-center">
-              <span class="mx-5 w-1 h-1 rounded-full bg-brand-400/60 shrink-0"/>
-              <span class="text-[0.62rem] tracking-[0.22em] uppercase text-ink-500 dark:text-white/40 font-semibold">{item}</span>
-            </span>
-          ))}
-        </div>
-      ))}
-    </div>
-  </div>
 </section>
 
 <style>
+  /* ── Blobs ── */
   .blob { position:absolute; border-radius:50%; filter:blur(80px); opacity:0.35; }
   .dark .blob { opacity:0.15; }
   .blob-1 { width:600px; height:600px; background:radial-gradient(circle,#ffa082,#ff7a55); top:-100px; right:-150px; animation:blobMove1 12s ease-in-out infinite; }
@@ -147,18 +81,7 @@ const { t } = Astro.props;
   @keyframes blobMove2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-30px) scale(1.06)} }
   @keyframes blobMove3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-20px,20px) scale(1.1)} }
 
-  .hero-card {
-    display:flex; flex-direction:column; align-items:center;
-    padding:10px 14px;
-    background:rgba(255,255,255,0.88);
-    backdrop-filter:blur(10px);
-    border-radius:18px;
-    border:1px solid rgba(255,255,255,0.95);
-    box-shadow:0 8px 28px rgba(0,0,0,0.09);
-    position:absolute;
-  }
-  .dark .hero-card { background:rgba(44,42,40,0.88); border-color:rgba(255,255,255,0.08); }
-
+  /* ── Hero squiggle underline ── */
   .hero-squiggle::after {
     content:'';
     display:block;
@@ -169,4 +92,247 @@ const { t } = Astro.props;
     background-repeat:repeat-x;
     background-size:80px 8px;
   }
+
+  /* ── D3 chart SVG shell ── */
+  #process-chart svg { width:100%; height:100%; display:block; overflow:visible; }
 </style>
+
+<script>
+import * as d3 from 'd3';
+
+// ── Data ──────────────────────────────────────────────────────────────────
+const W = 620, H = 620;
+const NW = 270, NH = 225; // node rect size
+const GAP = 20;           // gap between nodes and edges of canvas
+
+// 2×2 positions (top-left corners)
+const col0 = GAP;
+const col1 = W - GAP - NW;
+const row0 = GAP;
+const row1 = H - GAP - NH;
+
+type NodeDef = {
+  id: string; step: string; title: string; desc: string;
+  emoji: string; iconBg: string; stepColor: string; border: string; cardBg: string;
+  x: number; y: number;
+};
+
+const isDark = () => document.documentElement.classList.contains('dark');
+
+const nodes: NodeDef[] = [
+  { id:'discovery', step:'Step 1', title:'Discovery',
+    desc:'Free consultation — we learn your goals, audience & market.',
+    emoji:'🔍', iconBg:'#ede9fe', stepColor:'#8b5cf6', border:'#c4b5fd', cardBg:'#faf8ff',
+    x: col0, y: row0 },
+  { id:'create', step:'Step 2', title:'Create',
+    desc:'We produce everything: brand, content, web.',
+    emoji:'✏️', iconBg:'#ffede6', stepColor:'#ff7a55', border:'#ffc2ad', cardBg:'#fffaf8',
+    x: col1, y: row0 },
+  { id:'launch', step:'Step 3', title:'Launch',
+    desc:'Full asset handoff. Your brand goes live.',
+    emoji:'🚀', iconBg:'#fef3c7', stepColor:'#f59e0b', border:'#fde68a', cardBg:'#fffef5',
+    x: col1, y: row1 },
+  { id:'grow', step:'Step 4', title:'Grow',
+    desc:'Ongoing strategy to keep building momentum.',
+    emoji:'📈', iconBg:'#d1fae5', stepColor:'#10b981', border:'#6ee7b7', cardBg:'#f0fdf8',
+    x: col0, y: row1 },
+];
+
+const cx = (n: NodeDef) => n.x + NW / 2;
+const cy = (n: NodeDef) => n.y + NH / 2;
+
+const links = [
+  { s: 0, t: 1, c1: '#8b5cf6', c2: '#ff7a55' }, // top →
+  { s: 1, t: 2, c1: '#ff7a55', c2: '#f59e0b' }, // right ↓
+  { s: 2, t: 3, c1: '#f59e0b', c2: '#10b981' }, // bottom ←
+];
+
+function edgePath(si: number, ti: number): string {
+  const s = nodes[si], t = nodes[ti];
+  const sx = cx(s), sy = cy(s), tx = cx(t), ty = cy(t);
+  const dx = tx - sx, dy = ty - sy;
+  // perpendicular outward bow
+  const len = Math.sqrt(dx * dx + dy * dy) || 1;
+  const ox = (-dy / len) * 32, oy = (dx / len) * 32;
+  return `M${sx},${sy} C${sx + dx * 0.4 + ox},${sy + dy * 0.4 + oy} ${tx - dx * 0.4 + ox},${ty - dy * 0.4 + oy} ${tx},${ty}`;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────
+function buildChart() {
+  const container = document.getElementById('process-chart');
+  if (!container) return;
+  container.innerHTML = ''; // clear on re-render (theme switch)
+
+  const dark = isDark();
+  const cardFill   = dark ? '#2c2a28' : null;
+  const titleColor = dark ? '#ffffff' : '#0a0908';
+  const descColor  = dark ? '#e8e6e3' : '#2c2a28';
+  const stepColor  = (n: NodeDef) => dark ? n.stepColor : n.stepColor; // already vivid
+  const cardStroke = (n: NodeDef) => dark ? '#504d4a' : n.border;
+
+  const svg = d3.select(container)
+    .append('svg')
+    .attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('width', '100%')
+    .attr('height', '100%');
+
+  // ── Defs ──
+  const defs = svg.append('defs');
+
+  links.forEach((l, i) => {
+    const s = nodes[l.s], t = nodes[l.t];
+    const g = defs.append('linearGradient')
+      .attr('id', `lg${i}`)
+      .attr('gradientUnits', 'userSpaceOnUse')
+      .attr('x1', cx(s)).attr('y1', cy(s))
+      .attr('x2', cx(t)).attr('y2', cy(t));
+    g.append('stop').attr('offset', '0%').attr('stop-color', l.c1);
+    g.append('stop').attr('offset', '100%').attr('stop-color', l.c2);
+
+    defs.append('marker')
+      .attr('id', `mh${i}`)
+      .attr('viewBox', '0 0 8 8')
+      .attr('refX', '7').attr('refY', '4')
+      .attr('markerWidth', '5').attr('markerHeight', '5')
+      .attr('orient', 'auto')
+      .append('polygon')
+      .attr('points', '0,0 8,4 0,8')
+      .attr('fill', l.c2);
+  });
+
+  // drop-shadow filter for cards
+  const f = defs.append('filter').attr('id', 'card-shadow').attr('x', '-10%').attr('y', '-10%').attr('width', '120%').attr('height', '130%');
+  f.append('feDropShadow').attr('dx', '0').attr('dy', '4').attr('stdDeviation', '6').attr('flood-color', 'rgba(0,0,0,0.10)');
+
+  // ── Links (drawn BEFORE nodes so nodes sit on top) ──
+  const linkPaths = links.map((l, i) => {
+    const path = svg.append('path')
+      .attr('d', edgePath(l.s, l.t))
+      .attr('fill', 'none')
+      .attr('stroke', `url(#lg${i})`)
+      .attr('stroke-width', 2.5)
+      .attr('stroke-linecap', 'round')
+      .attr('marker-end', `url(#mh${i})`)
+      .attr('opacity', 0);
+
+    const el = path.node() as SVGPathElement;
+    const total = el.getTotalLength();
+    el.style.strokeDasharray = String(total);
+    el.style.strokeDashoffset = String(total);
+    return { el, total };
+  });
+
+  // Draw links with staggered Web Animations after nodes pop in
+  setTimeout(() => {
+    linkPaths.forEach(({ el, total }, i) => {
+      el.style.opacity = '1';
+      el.animate(
+        [{ strokeDashoffset: String(total) }, { strokeDashoffset: '0' }],
+        { duration: 650, delay: i * 180, fill: 'forwards', easing: 'cubic-bezier(0.4,0,0.2,1)' }
+      );
+    });
+  }, 800);
+
+  // ── Nodes ──
+  const R = 20; // corner radius
+  const ICON_SIZE = 56;
+  const PAD_X = 20, PAD_Y = 18;
+
+  nodes.forEach((n, i) => {
+    const g = svg.append('g')
+      .attr('opacity', 0)
+      .attr('transform', `translate(${cx(n)},${cy(n)}) scale(0.75) translate(${-cx(n)},${-cy(n)})`);
+
+    // card background
+    g.append('rect')
+      .attr('x', n.x).attr('y', n.y)
+      .attr('width', NW).attr('height', NH)
+      .attr('rx', R).attr('ry', R)
+      .attr('fill', cardFill ?? n.cardBg)
+      .attr('stroke', cardStroke(n))
+      .attr('stroke-width', 1.5)
+      .attr('filter', 'url(#card-shadow)');
+
+    // icon pill background
+    g.append('rect')
+      .attr('x', n.x + PAD_X).attr('y', n.y + PAD_Y)
+      .attr('width', ICON_SIZE).attr('height', ICON_SIZE)
+      .attr('rx', 11).attr('ry', 11)
+      .attr('fill', dark ? 'rgba(255,255,255,0.12)' : n.iconBg);
+
+    // emoji
+    g.append('text')
+      .attr('x', n.x + PAD_X + ICON_SIZE / 2)
+      .attr('y', n.y + PAD_Y + ICON_SIZE / 2 + 8)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '32')
+      .text(n.emoji);
+
+    // step label  (e.g. "STEP 1")
+    g.append('text')
+      .attr('x', n.x + PAD_X)
+      .attr('y', n.y + PAD_Y + ICON_SIZE + 24)
+      .attr('font-size', '14')
+      .attr('font-weight', '800')
+      .attr('font-family', 'DM Sans, system-ui, sans-serif')
+      .attr('letter-spacing', '0.10em')
+      .attr('fill', n.stepColor)
+      .text(n.step.toUpperCase());
+
+    // title
+    g.append('text')
+      .attr('x', n.x + PAD_X)
+      .attr('y', n.y + PAD_Y + ICON_SIZE + 48)
+      .attr('font-size', '26')
+      .attr('font-weight', '800')
+      .attr('font-family', 'Syne, system-ui, sans-serif')
+      .attr('fill', titleColor)
+      .text(n.title);
+
+    // desc — wrap into 2 lines at ~30 chars
+    const descY = n.y + PAD_Y + ICON_SIZE + 68;
+    const maxW = 30;
+    const words = n.desc.split(' ');
+    const lines: string[] = [];
+    let cur = '';
+    for (const w of words) {
+      if ((cur + ' ' + w).trim().length > maxW && cur) { lines.push(cur); cur = w; }
+      else cur = cur ? cur + ' ' + w : w;
+    }
+    if (cur) lines.push(cur);
+
+    lines.slice(0, 3).forEach((line, li) => {
+      g.append('text')
+        .attr('x', n.x + PAD_X)
+        .attr('y', descY + li * 19)
+        .attr('font-size', '15.5')
+        .attr('font-weight', '500')
+        .attr('font-family', 'DM Sans, system-ui, sans-serif')
+        .attr('fill', descColor)
+        .text(line);
+    });
+
+    // Staggered spring-pop entrance via Web Animations
+    const el = g.node() as SVGGElement;
+    const originX = cx(n), originY = cy(n);
+    el.style.transformOrigin = `${originX}px ${originY}px`;
+    el.animate(
+      [
+        { opacity: '0', transform: `translate(${originX}px,${originY}px) scale(0.72) translate(${-originX}px,${-originY}px)` },
+        { opacity: '1', transform: `translate(${originX}px,${originY}px) scale(1) translate(${-originX}px,${-originY}px)` },
+      ],
+      { duration: 480, delay: 300 + i * 130, fill: 'forwards', easing: 'cubic-bezier(0.34,1.56,0.64,1)' }
+    );
+  });
+
+}
+
+// Build on load
+document.addEventListener('DOMContentLoaded', buildChart);
+
+// Rebuild when theme toggles so dark/light colours are correct
+const observer = new MutationObserver((muts) => {
+  if (muts.some(m => (m.target as HTMLElement).classList !== undefined)) buildChart();
+});
+observer.observe(document.documentElement, { attributeFilter: ['class'] });
+</script>

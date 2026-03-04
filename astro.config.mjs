@@ -6,4 +6,7 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://artin-studio.pl',
   integrations: [tailwind()],
+  redirects: {
+    '/': '/en/',
+  },
 });

@@ -1,5 +1,7 @@
 ---
 import type { Translations } from "../i18n/translations";
+import AmbientBlobs from './ui/AmbientBlobs.astro';
+import DotGrid from './ui/DotGrid.astro';
 
 interface Props {
   t: Translations;
@@ -48,16 +50,13 @@ const socials: SocialLink[] = [
 
 <section id="contact" class="py-24 bg-ink-950 scroll-mt-24 overflow-hidden relative">
 
-  <!-- Ambient warm glow in dark -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-warm-500/5 blur-3xl pointer-events-none" aria-hidden="true"></div>
-  <div class="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-brand-500/5 blur-3xl pointer-events-none translate-x-1/3 translate-y-1/3" aria-hidden="true"></div>
+  <!-- Ambient warm glow -->
+  <AmbientBlobs blobs={[
+    { size: 'w-[700px]', position: 'top-0 left-1/2 -translate-x-1/2', light: 'bg-warm-500/5', dark: 'dark:bg-warm-500/5' },
+    { size: 'w-[400px]', position: 'bottom-0 right-0 translate-x-1/3 translate-y-1/3', light: 'bg-brand-500/5', dark: 'dark:bg-brand-500/5' },
+  ]} />
 
-  <!-- Retro dot grid -->
-  <div
-    class="absolute inset-0 pointer-events-none opacity-[0.025]"
-    style="background-image: radial-gradient(circle, #f5a623 1px, transparent 1px); background-size: 32px 32px;"
-    aria-hidden="true"
-  ></div>
+  <DotGrid color="#f5a623" size={32} opacity="0.025" />
 
   <div class="max-w-6xl mx-auto px-6 relative z-10">
 
@@ -132,10 +131,24 @@ const socials: SocialLink[] = [
           </div>
         </div>
 
+        <!-- Service selector -->
+        <div>
+          <label class="block text-ink-300 text-xs font-semibold tracking-wider uppercase mb-2">What do you need?</label>
+          <div class="flex flex-wrap gap-2" id="service-chips">
+            {["Branding","Photography","Videography","Website / Shop","Marketing","Not sure yet"].map(s => (
+              <button
+                type="button"
+                data-chip
+                class="text-xs font-semibold px-3.5 py-1.5 rounded-full border border-white/12 bg-white/5 text-ink-400 hover:border-warm-500/50 hover:text-warm-400 transition-all duration-150"
+              >{s}</button>
+            ))}
+          </div>
+        </div>
+
         <div>
           <label class="block text-ink-300 text-xs font-semibold tracking-wider uppercase mb-2">{t.contact.message}</label>
           <textarea
-            rows="5"
+            rows="4"
             placeholder={t.contact.messagePlaceholder}
             class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-ink-600 focus:outline-none focus:border-warm-500/60 focus:bg-white/8 transition-all resize-none text-sm"
           ></textarea>
@@ -169,6 +182,20 @@ const socials: SocialLink[] = [
       const email = (contactForm.querySelector('input[type="email"]') as HTMLInputElement)?.value || "";
       alert(`Thanks, ${name}! I'll get back to you at ${email} soon.`);
       contactForm.reset();
+      document.querySelectorAll('[data-chip]').forEach(c => c.classList.remove('border-warm-500/60','text-warm-400','bg-warm-500/10'));
     });
   }
+
+  // Service chip toggle
+  document.querySelectorAll<HTMLButtonElement>('[data-chip]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const active = chip.classList.contains('border-warm-500/60');
+      chip.classList.toggle('border-warm-500/60', !active);
+      chip.classList.toggle('text-warm-400', !active);
+      chip.classList.toggle('bg-warm-500/10', !active);
+      chip.classList.toggle('border-white/12', active);
+      chip.classList.toggle('text-ink-400', active);
+      chip.classList.toggle('bg-white/5', active);
+    });
+  });
 </script>

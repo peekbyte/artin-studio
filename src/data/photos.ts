@@ -3,136 +3,152 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 export interface Photo {
-  /** Filename inside /images/optimized/ (WebP thumbnail) */
   file: string;
-  /** Full-size filename inside /images/ (JPG original), derived automatically */
   readonly fullFile: string;
   title: string;
   story: string;
   location: string;
   date: string;
+  category: string;
 }
 
 /**
- * Story metadata keyed by WebP filename.
- * Add an entry here when you want a custom title/story for a specific photo.
- * Any file in public/images/optimized/ that is NOT listed here will still
- * appear in the gallery with sensible defaults.
+ * Business-category groups shown as tabs in the Photography section.
  */
+export const photoCategories = [
+  { id: "all",       label: "All Work",     emoji: "✦" },
+  { id: "bakery",    label: "Bakery",        emoji: "🥐" },
+  { id: "food",      label: "Food & Drink",  emoji: "🍽️" },
+  { id: "cosmetics", label: "Cosmetics",     emoji: "💄" },
+  { id: "retail",    label: "Retail & Shop", emoji: "🛍️" },
+  { id: "brand",     label: "Brand Content", emoji: "🎯" },
+];
+
 const storyData: Record<string, Partial<Omit<Photo, "file" | "fullFile">>> = {
   "01034900.webp": {
-    title: "First Light",
-    story: "The morning sun painted everything in gold. She stood there, lost in thought, unaware of the magic surrounding her.",
-    location: "Warsaw, Poland",
+    title: "Artisan Loaves",
+    story: "Product photography for a Warsaw sourdough bakery — clean, appetising shots for their online shop and Instagram.",
+    location: "Bakery Client · Warsaw",
     date: "2024",
+    category: "bakery",
   },
   "11035239.webp": {
-    title: "Silent Whispers",
-    story: "In the quiet of the studio, emotions speak louder than words. This was the moment she let her guard down.",
-    location: "Kraków",
+    title: "Morning Pastry Series",
+    story: "A full product shoot for a café chain's new pastry menu — hero shots for their menu boards and social ads.",
+    location: "Café Client · Warsaw",
     date: "2024",
+    category: "bakery",
   },
   "11035312.webp": {
-    title: "Timeless",
-    story: "Some moments exist outside of time. This was one of them — pure, unfiltered authenticity.",
-    location: "Studio Session",
+    title: "Coffee & Cream",
+    story: "Beverage photography for a specialty coffee brand — designed for their packaging and Meta ad campaigns.",
+    location: "Coffee Brand · Warsaw",
     date: "2024",
+    category: "food",
   },
   "11045319.webp": {
-    title: "The Calm",
-    story: "Before the storm of the day, there's always this peaceful stillness. We captured it here.",
-    location: "Morning Light",
+    title: "Farm-to-Table",
+    story: "Editorial food photography for a restaurant's seasonal menu launch — lifestyle imagery that tells the story of the ingredients.",
+    location: "Restaurant Client",
     date: "2024",
+    category: "food",
   },
   "11045368.webp": {
-    title: "Unveiled",
-    story: "Every portrait is a collaboration between the seen and the unseen — what we show and what we hide.",
-    location: "Natural Light",
+    title: "Serum Collection",
+    story: "Flat-lay and hero shots for a skincare brand's new serum line — used across their e-commerce site and paid ads.",
+    location: "Cosmetics Brand",
     date: "2024",
+    category: "cosmetics",
   },
   "11045382.webp": {
-    title: "Grace",
-    story: "There's an elegance in simplicity. No props, no distractions — just presence.",
-    location: "Studio Session",
+    title: "Natural Beauty",
+    story: "Brand content for a natural cosmetics label — warm, clean imagery aligned with their eco positioning.",
+    location: "Beauty Brand",
     date: "2024",
+    category: "cosmetics",
   },
   "11045397.webp": {
-    title: "Reflection",
-    story: "She looked past the lens, past the camera, into something only she could see.",
-    location: "Warsaw",
+    title: "Shelf-Ready Packaging",
+    story: "Packaging photography for a new beverage line — shots designed for both Amazon listings and retail shelf display.",
+    location: "FMCG Brand",
     date: "2024",
+    category: "retail",
   },
   "11045397 2.webp": {
-    title: "Between Frames",
-    story: "The best shots often happen between the poses, in those unguarded moments of truth.",
-    location: "Studio Session",
+    title: "Boutique Lookbook",
+    story: "Lookbook shoot for a Warsaw fashion boutique — product-on-model and flat-lay content for their online store.",
+    location: "Fashion Boutique · Warsaw",
     date: "2024",
+    category: "retail",
   },
   "11045406.webp": {
-    title: "Softness",
-    story: "Strength doesn't always roar. Sometimes it's in the gentle curve of a smile.",
-    location: "Portrait Session",
+    title: "Brand Atmosphere",
+    story: "Lifestyle brand content for a wellness company — imagery used in their homepage hero, social bio and press kit.",
+    location: "Wellness Brand",
     date: "2024",
+    category: "brand",
   },
   "11045412.webp": {
-    title: "Essence",
-    story: "Stripped of all artifice, what remains is pure essence — and that's what we captured here.",
-    location: "Studio Light",
+    title: "Founder Portrait",
+    story: "Personal brand shoot for a business founder — professional yet warm imagery for LinkedIn, press and their website About page.",
+    location: "Brand Portrait Session",
     date: "2024",
+    category: "brand",
   },
   "11045412 2.webp": {
-    title: "Duality",
-    story: "Light and shadow, strength and vulnerability — every person contains multitudes.",
-    location: "Artistic Portrait",
+    title: "Candle Label Shoot",
+    story: "Product photography for a handmade candle label — moody, warm shots used on Etsy and Instagram.",
+    location: "Artisan Candles Brand",
     date: "2024",
+    category: "retail",
   },
   "11045418.webp": {
-    title: "Stillness",
-    story: "In the chaos of modern life, finding stillness is an act of rebellion. She found it here.",
-    location: "Studio Session",
+    title: "Deli Counter",
+    story: "In-situ food photography for a deli and catering brand — showcasing their products in a real-world retail environment.",
+    location: "Deli Client · Warsaw",
     date: "2024",
+    category: "food",
   },
   "11045420.webp": {
-    title: "Authentic",
-    story: "No retouching of the soul — just honest portraiture that tells the real story.",
-    location: "Natural Portrait",
+    title: "Bakery Interior",
+    story: "Atmospheric brand photography for a bakery opening — used across Google My Business, social media and press.",
+    location: "Bakery Client",
     date: "2024",
+    category: "bakery",
   },
   "11045421.webp": {
-    title: "Moment",
-    story: "Photography is hunting for moments. This one was worth the wait.",
-    location: "Portrait Session",
+    title: "Cream & Berries",
+    story: "Hero product shot for a patisserie's signature cake — used as the main image on their delivery app listing.",
+    location: "Patisserie Client",
     date: "2024",
+    category: "bakery",
   },
   "11045421 2.webp": {
-    title: "Layers",
-    story: "Every person has layers. The art is knowing which one to reveal.",
-    location: "Studio Work",
+    title: "Vitamin C Serum",
+    story: "Studio product photography for a cosmetics label relaunch — stark white background shots for e-commerce and coloured lifestyle shots for ads.",
+    location: "Cosmetics Brand",
     date: "2024",
+    category: "cosmetics",
   },
   "11045421 3.webp": {
-    title: "Connection",
-    story: "The camera becomes invisible when the connection is real. That's when the magic happens.",
-    location: "Portrait Session",
+    title: "Campaign Shot",
+    story: "Key visual for a seasonal marketing campaign — one image used across email, social, paid ads and in-store print.",
+    location: "Brand Campaign",
     date: "2024",
+    category: "brand",
   },
   "11045440.webp": {
-    title: "Epilogue",
-    story: "Every ending is a new beginning. This final frame held all the stories of the day.",
-    location: "Golden Hour",
+    title: "Product Flatlay",
+    story: "Styled flatlay photography for an online gift shop — product-range imagery for their homepage banner and catalogue.",
+    location: "Gift Shop Client",
     date: "2024",
+    category: "retail",
   },
 };
 
-/** Derive the full-size JPG path from the WebP thumbnail filename */
 function toFullFile(webpFile: string): string {
   return webpFile.replace(".webp", ".JPG");
 }
-
-// ── Dynamic discovery ───────────────────────────────────────────────────────
-// At build time, read every .webp file from public/images/optimized/ and
-// merge with the storyData map above. Drop a new image in that folder and
-// it will appear in the gallery automatically on the next build/dev-reload.
 
 const optimizedDir = join(
   dirname(fileURLToPath(import.meta.url)),
@@ -151,6 +167,7 @@ export const photos: Photo[] = webpFiles.map((file: string) => {
     title: meta.title ?? file.replace(".webp", ""),
     story: meta.story ?? "",
     location: meta.location ?? "",
-    date: meta.date ?? "",
+    date: meta.date ?? "2024",
+    category: meta.category ?? "brand",
   };
 });

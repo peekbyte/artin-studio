@@ -1,0 +1,39 @@
+---
+/**
+ * Reusable ambient background blobs.
+ * Used in Photography, Videography, About, Contact.
+ *
+ * Each blob is defined by: size, position classes, and light/dark colour classes.
+ */
+interface Blob {
+  /** Tailwind width, e.g. 'w-[500px]' */
+  size: string;
+  /** Tailwind positioning/transform classes, e.g. 'top-0 right-0 -translate-y-1/4 translate-x-1/4' */
+  position: string;
+  /** Light-mode bg colour, e.g. 'bg-warm-200/25' */
+  light: string;
+  /** Dark-mode bg colour, e.g. 'dark:bg-warm-900/10' */
+  dark: string;
+}
+
+interface Props {
+  blobs: Blob[];
+}
+
+const { blobs } = Astro.props;
+---
+
+{blobs.map(b => (
+  <div
+    class:list={[
+      'absolute rounded-full blur-3xl pointer-events-none',
+      b.size,
+      // make height equal to width — we use the same token via aspect-square
+      b.size.replace('w-', 'h-'),
+      b.position,
+      b.light,
+      b.dark,
+    ]}
+    aria-hidden="true"
+  />
+))}

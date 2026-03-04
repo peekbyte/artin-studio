@@ -1,0 +1,47 @@
+---
+/**
+ * Reusable dark CTA "nudge" card.
+ * Used in Photography, Videography (nearly identical), and adaptable for Services.
+ */
+import ArrowIcon from './ArrowIcon.astro';
+
+interface Props {
+  /** Small uppercase kicker, e.g. 'Your products next?' */
+  kicker: string;
+  /** Main heading */
+  title: string;
+  /** Supporting copy */
+  description: string;
+  /** Link text */
+  linkText?: string;
+  /** Link href */
+  href?: string;
+  /** Kicker text colour class */
+  kickerColor?: string;
+  /** Link text colour classes */
+  linkColor?: string;
+}
+
+const {
+  kicker,
+  title,
+  description,
+  linkText = 'Get in touch',
+  href = '#contact',
+  kickerColor = 'text-warm-400',
+  linkColor = 'text-brand-400 hover:text-brand-300',
+} = Astro.props;
+---
+
+<div class="relative rounded-3xl overflow-hidden bg-ink-950 dark:bg-ink-900 border border-white/6 p-8 flex flex-col justify-between shadow-sm min-h-[280px]">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(255,122,85,0.12),transparent)] pointer-events-none"></div>
+  <div class="relative">
+    <p class:list={["text-[10px] tracking-[0.25em] uppercase font-bold mb-3", kickerColor]}>{kicker}</p>
+    <h3 class="font-display font-extrabold text-white text-xl leading-tight mb-3">{title}</h3>
+    <p class="text-ink-400 text-sm leading-relaxed">{description}</p>
+  </div>
+  <a href={href} class:list={["mt-6 inline-flex items-center gap-2 font-bold text-sm transition-colors self-start", linkColor]}>
+    {linkText}
+    <ArrowIcon />
+  </a>
+</div>

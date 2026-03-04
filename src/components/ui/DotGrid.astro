@@ -1,0 +1,25 @@
+---
+/**
+ * Reusable retro dot-grid background overlay.
+ * Used in Services, Videography, Contact, Footer.
+ */
+interface Props {
+  color?: string;      // dot colour, e.g. '#ff7a55' or '#f5a623'
+  size?: number;        // grid spacing in px
+  dotSize?: string;     // dot radius string, e.g. '1px' or '1.5px'
+  opacity?: string;     // Tailwind-style opacity, e.g. '0.03'
+}
+
+const {
+  color = '#ff7a55',
+  size = 28,
+  dotSize = '1px',
+  opacity = '0.035',
+} = Astro.props;
+---
+
+<div
+  class="absolute inset-0 pointer-events-none"
+  style={`background-image:radial-gradient(circle,${color} ${dotSize},transparent ${dotSize});background-size:${size}px ${size}px;opacity:${opacity};`}
+  aria-hidden="true"
+></div>

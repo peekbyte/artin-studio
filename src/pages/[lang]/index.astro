@@ -27,6 +27,19 @@ const t = getTranslations(lang);
   <Services t={t} />
   <Photography t={t} />
   <Videography t={t} />
+
+  <!-- Narrative bridge: portfolio → studio story -->
+  <div class="bg-ink-950 py-16 px-6 overflow-hidden relative section-reveal">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_100%_at_50%_100%,rgba(255,122,85,0.08),transparent)] pointer-events-none"></div>
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <p class="font-display font-extrabold text-white leading-tight" style="font-size:clamp(1.4rem,3vw,2.2rem)">
+        "Great visuals don't just look good —<br class="hidden sm:block"/>
+        <span class="text-warm-400">they make your business easier to choose.</span>"
+      </p>
+      <p class="mt-4 text-ink-500 text-sm tracking-wide">That's the principle behind every project we take on at Artin Studio.</p>
+    </div>
+  </div>
+
   <About t={t} />
   <Contact t={t} />
   <Footer t={t} />
