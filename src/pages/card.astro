@@ -1,0 +1,92 @@
+---
+import Logo from '../components/Logo.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artin Studio — Business Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Clash+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, sans-serif;
+      background: #e8e8e6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 60px 24px;
+      min-height: 100vh;
+    }
+    .page-title { font-size: 11px; font-weight: 500; color: #bbb; letter-spacing: 0.2em; text-transform: uppercase; }
+    .card {
+      width: 85mm; height: 54mm;
+      border-radius: 2.5mm;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,.14);
+      background: #fdf8f4;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6mm 7mm;
+      border: 0.3mm solid #f0e8e0;
+    }
+    .front-bottom { display: flex; align-items: flex-end; justify-content: space-between; }
+    .front-meta { display: flex; flex-direction: column; gap: 1.8mm; }
+    .front-meta-line { font-size: 6pt; color: #b0a090; font-weight: 400; letter-spacing: 0.03em; }
+    .front-meta-line.em { color: #3a2e22; font-weight: 500; }
+    .front-qr { width: 18mm; height: 18mm; flex-shrink: 0; border-radius: 1mm; overflow: hidden; }
+    .front-qr canvas { width: 100% !important; height: 100% !important; display: block; }
+    /* Clash Display for the shared Logo component */
+    .font-display { font-family: 'Clash Display', 'Syne', system-ui, sans-serif !important; }
+    .font-black   { font-weight: 900 !important; }
+    .tracking-tighter { letter-spacing: -0.05em !important; }
+    .leading-none { line-height: 1 !important; }
+    /* hint */
+    .print-hint { font-size: 12px; color: #bbb; text-align: center; line-height: 2; }
+    .print-hint kbd { background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 1px 6px; font-size: 11px; font-family: monospace; color: #555; }
+    /* PRINT */
+    @media print {
+      @page { size: 85mm 54mm; margin: 0; }
+      body { background: none; padding: 0; gap: 0; }
+      .page-title, .print-hint { display: none !important; }
+      .card { border-radius: 0; box-shadow: none; width: 85mm; height: 54mm; }
+    }
+  </style>
+</head>
+<body>
+  <p class="page-title">Business Card · Print Preview</p>
+  <div class="card">
+    <Logo theme="dark" size="1.5rem" />
+    <div class="front-bottom">
+      <div class="front-meta">
+        <div class="front-meta-line em" id="card-email"></div>
+        <div class="front-meta-line">artin-studio.pl</div>
+        <div class="front-meta-line">Warsaw, Poland</div>
+      </div>
+      <div class="front-qr" id="qr-container"></div>
+    </div>
+  </div>
+  <p class="print-hint">
+    <kbd>Cmd</kbd> + <kbd>P</kbd> &nbsp;&rarr;&nbsp; Paper: <strong>Custom 85&times;54 mm</strong>, Margins: <strong>None</strong>
+  </p>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script is:inline>
+    document.getElementById("card-email").textContent = "falahi" + "@" + "live" + "." + "com";
+    // @ts-ignore
+    QRCode.toCanvas("https://artin-studio.pl", {
+      width: 88, margin: 1,
+      color: { dark: "#3a2e22", light: "#fdf8f4" },
+      errorCorrectionLevel: "M"
+    }, function(err, canvas) {
+      if (!err) document.getElementById("qr-container").appendChild(canvas);
+    });
+  </script>
+</body>
+</html>

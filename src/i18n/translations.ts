@@ -30,7 +30,7 @@ export const translations = {
       subtitle: "Creative Studio · Branding & Growth",
       tagline: "Creative Studio",
       title: "Your brand,<br/><span class='hero-line2'>built to move.</span>",
-      description: "From first logo to full campaign — we give small businesses the sharp visual identity they need to compete and win.",
+      description: "Logo, photos, video, website — built together so your brand actually looks like it belongs.",
       viewPhotography: "See Our Work",
       watchVideos: "View Services",
       startProject: "Start your project",
@@ -102,9 +102,9 @@ export const translations = {
     // About
     about: {
       title: "The people behind the work",
-      lead: "We're a small, focused creative studio based in Warsaw. No account managers, no outsourcing — the person you talk to is the person who builds your brand.",
-      p1: "Artin Studio was started because too many small businesses were settling for stock photos and generic templates. We believed they deserved better — real identity, real craft, built to last.",
-      p2: "We care deeply about commercial outcomes, not just aesthetics. That means every logo, every shoot, every page we build has a clear purpose: make your business easier to trust, choose and remember.",
+      lead: "Small studio, Warsaw. We do the work ourselves — no middlemen, no outsourcing. You talk to the person actually building your brand.",
+      p1: "Artin Studio started because we kept seeing small businesses stuck with logos from Fiverr and photos from Shutterstock. They had good products — just nothing that showed it.",
+      p2: "We work on a simple idea: if your visuals look professional, people trust you faster. That's the whole point of every project we take on.",
       cta: "Start a project",
       kicker: "The studio",
       // Stats
@@ -114,21 +114,21 @@ export const translations = {
       statContact: "Point of contact",
       // Pillars
       pillar1Title: "Business-first thinking",
-      pillar1Desc: "Every creative choice — colour, composition, copy — is made with a commercial goal in mind, not just aesthetics.",
+      pillar1Desc: "We ask what the work needs to do before we decide what it should look like.",
       pillar2Title: "You deal with one person",
-      pillar2Desc: "No account managers, no handoffs. The person you brief is the person who creates your work, start to finish.",
+      pillar2Desc: "No handoffs, no account managers. Same person from the first call to the final file.",
       pillar3Title: "Fast turnarounds",
-      pillar3Desc: "Small studio, no bureaucracy. We move quickly, communicate clearly and hit deadlines.",
+      pillar3Desc: "Small studio means no waiting in queues. We're quick, direct and hit the dates we agree on.",
       pillar4Title: "Honest, flat-rate pricing",
-      pillar4Desc: "You get a clear quote before any work starts. No hourly billing creep, no surprise extras.",
+      pillar4Desc: "One price agreed upfront. No hourly billing, no extras added after the fact.",
       val1Title: "One studio, everything",
-      val1Desc: "Brand, photos, video, web — no need to juggle five different freelancers.",
+      val1Desc: "Brand, photos, video, web — all consistent, all done by us.",
       val2Title: "Built for business",
-      val2Desc: "Every creative decision is tied to a commercial goal. Looks great and converts.",
+      val2Desc: "Every decision we make has a reason tied to your goal, not just how it looks.",
       val3Title: "Fast & focused",
-      val3Desc: "Clear process, tight timelines, no endless revision cycles.",
+      val3Desc: "Clear process, realistic timelines, no endless back-and-forth.",
       val4Title: "Honest pricing",
-      val4Desc: "Transparent quotes, no hidden fees, no surprise invoices.",
+      val4Desc: "Fixed quote before we start. What we agree is what you pay.",
       // Floating badges
       location: "Warsaw, Poland · Est. 2022",
       availableProjects: "Available for new projects",
@@ -138,7 +138,7 @@ export const translations = {
     // Contact
     contact: {
       title: "Let's build something",
-      description: "Ready to get started, or just curious what it would cost? Drop us a message — we'll come back with a clear plan and a flat-rate quote. No commitment.",
+      description: "Have a project or just want to know what it would cost? Write to us — we'll reply with a clear plan and a fixed price. No sales pitch.",
       getInTouch: "Get in touch",
       instagram: "Instagram",
       youtube: "YouTube",
@@ -163,11 +163,11 @@ export const translations = {
     // Services
     services: {
       sectionTitle: "What we do",
-      sectionDesc: "Everything a business needs to launch, grow and stand out — photography, video, branding, web and marketing, all under one roof.",
+      sectionDesc: "Brand, photography, video, web and social — all under one roof, so everything looks like it was made together.",
       sectionBadge: "Our services",
       sectionHeading: "Five services.",
       sectionHeadingAccent: "One studio.",
-      sectionSubtext: "Pick one service or combine them — everything is scoped to your stage and budget, with no agency overhead.",
+      sectionSubtext: "One service or all five — we scope to your stage and budget. No agency markup.",
       // Service cards
       brandingTitle: "Branding & Identity",
       brandingDesc: "Logo, colour palette, typography and brand guidelines — a complete visual system built to last and grow with you.",
@@ -201,8 +201,8 @@ export const translations = {
       step4Desc: "Ongoing strategy to keep building momentum.",
       // CTA card
       ctaKicker: "Not sure where to start?",
-      ctaTitle: "Tell us your goal — we'll scope the rest",
-      ctaDesc: "Free 20-minute call. No commitment. We'll figure out what you need and give you a clear quote.",
+      ctaTitle: "Tell us your goal — we'll figure out the rest",
+      ctaDesc: "Short call, no commitment. We'll look at what you have, what you need and give you a straight quote.",
       ctaButton: "Book a free call",
       cta: "Start a project",
     },
@@ -210,7 +210,7 @@ export const translations = {
     footer: {
       servicesLabel: "Services",
       quickLinksLabel: "Quick links",
-      copyright: "© 2026 Artin Studio · Creative Branding Studio",
+      copyright: "© 2026 Artin Studio",
       designedBy: "Designed & developed by",
     },
   },
@@ -229,7 +229,7 @@ export const translations = {
       subtitle: "Studio Kreatywne · Branding i Wzrost",
       tagline: "Studio Kreatywne",
       title: "Twoja marka,<br/><span class='hero-line2'>stworzona by ruszyć.</span>",
-      description: "Od pierwszego logo do pełnej kampanii — dajemy małym firmom wyrazistą identyfikację wizualną, której potrzebują, by konkurować i wygrywać.",
+      description: "Logo, zdjęcia, wideo, strona — zbudowane razem, żeby Twoja marka naprawdę wyglądała jak całość.",
       viewPhotography: "Zobacz nasze prace",
       watchVideos: "Zobacz usługi",
       startProject: "Rozpocznij projekt",
@@ -301,9 +301,9 @@ export const translations = {
     // About
     about: {
       title: "Ludzie za tą pracą",
-      lead: "Jesteśmy małym, skoncentrowanym studiem kreatywnym z Warszawy. Żadnych account managerów, żadnego outsourcingu — osoba, z którą rozmawiasz, to ta sama, która buduje Twoją markę.",
-      p1: "Artin Studio powstało, bo zbyt wiele małych firm godziło się na zdjęcia stockowe i generyczne szablony. Uwierzyliśmy, że zasługują na coś lepszego — prawdziwą tożsamość, prawdziwe rzemiosło, zbudowane na lata.",
-      p2: "Zależy nam na efektach biznesowych, nie tylko estetyce. Każde logo, każda sesja, każda strona, którą budujemy, ma jasny cel: ułatwić Twojemu biznesowi zdobycie zaufania, wyróżnienie się i zapamiętanie.",
+      lead: "Małe studio, Warszawa. Robimy wszystko sami — bez pośredników, bez outsourcingu. Rozmawiasz z osobą, która naprawdę buduje Twoją markę.",
+      p1: "Artin Studio powstało, bo widzieliśmy małe firmy z dobrymi produktami, które traciły klientów przez słabe logo i stockowe zdjęcia. Uznaliśmy, że to głupi powód do przegrywania.",
+      p2: "Pracujemy na prostej zasadzie: jeśli Twoja marka wygląda profesjonalnie, ludzie szybciej Ci ufają. To jedyny cel każdego projektu, który bierzemy.",
       cta: "Zacznij projekt",
       kicker: "Studio",
       // Stats
@@ -313,21 +313,21 @@ export const translations = {
       statContact: "Punkt kontaktu",
       // Pillars
       pillar1Title: "Myślenie biznesowe",
-      pillar1Desc: "Każdy wybór kreatywny — kolor, kompozycja, tekst — jest podejmowany z myślą o celu komercyjnym, nie tylko estetyce.",
+      pillar1Desc: "Najpierw pytamy, co ta praca ma robić — potem decydujemy, jak powinna wyglądać.",
       pillar2Title: "Jeden kontakt",
-      pillar2Desc: "Żadnych account managerów, żadnych przekazań. Osoba, której zlecasz, to ta sama, która tworzy Twoją pracę.",
+      pillar2Desc: "Bez przekazań, bez account managerów. Ten sam człowiek od pierwszej rozmowy do ostatniego pliku.",
       pillar3Title: "Szybkie terminy",
-      pillar3Desc: "Małe studio, bez biurokracji. Działamy szybko, komunikujemy jasno i dotrzymujemy terminów.",
+      pillar3Desc: "Małe studio to brak kolejek. Jesteśmy szybcy, konkretni i trzymamy się ustalonych dat.",
       pillar4Title: "Uczciwa, ryczałtowa wycena",
-      pillar4Desc: "Dostajesz jasną wycenę przed rozpoczęciem pracy. Bez ukrytych kosztów godzinowych, bez niespodziewanych dopłat.",
+      pillar4Desc: "Jedna cena, ustalona z góry. Bez kosztów godzinowych, bez dopłat po fakcie.",
       val1Title: "Jedno studio, wszystko",
-      val1Desc: "Marka, zdjęcia, wideo, web — nie musisz żonglować pięcioma freelancerami.",
+      val1Desc: "Marka, zdjęcia, wideo, web — wszystko spójne, wszystko zrobione przez nas.",
       val2Title: "Stworzone dla biznesu",
-      val2Desc: "Każda decyzja kreatywna jest powiązana z celem biznesowym. Wygląda świetnie i konwertuje.",
+      val2Desc: "Każda decyzja, którą podejmujemy, ma powód związany z Twoim celem — nie tylko z wyglądem.",
       val3Title: "Szybko i konkretnie",
-      val3Desc: "Jasny proces, krótkie terminy, bez nieskończonych rund poprawek.",
+      val3Desc: "Jasny proces, realne terminy, bez nieskończonych rund poprawek.",
       val4Title: "Uczciwe ceny",
-      val4Desc: "Przejrzyste wyceny, bez ukrytych kosztów i niespodziewanych faktur.",
+      val4Desc: "Stała wycena przed startem. Tyle, ile ustalimy — tyle płacisz.",
       // Floating badges
       location: "Warszawa, Polska · Zał. 2022",
       availableProjects: "Dostępni na nowe projekty",
@@ -337,7 +337,7 @@ export const translations = {
     // Contact
     contact: {
       title: "Zacznijmy budować",
-      description: "Gotowy do startu, czy tylko chcesz wiedzieć ile to kosztuje? Napisz do nas — odpiszemy z jasnym planem i wyceną ryczałtową. Żadnych zobowiązań.",
+      description: "Masz projekt albo chcesz po prostu wiedzieć, ile to kosztuje? Napisz do nas — odpiszemy z konkretnym planem i stałą ceną. Zero sprzedawania.",
       getInTouch: "Skontaktuj się",
       instagram: "Instagram",
       youtube: "YouTube",
@@ -362,7 +362,7 @@ export const translations = {
     // Services
     services: {
       sectionTitle: "Co robimy",
-      sectionDesc: "Wszystko, czego potrzebuje biznes, aby wystartować, rozwinąć się i wybić się — fotografia, wideo, branding, strony internetowe i marketing pod jednym dachem.",
+      sectionDesc: "Marka, fotografia, wideo, strona i social — wszystko pod jednym dachem, żeby wyglądało jak całość.",
       sectionBadge: "Nasze usługi",
       sectionHeading: "Pięć usług.",
       sectionHeadingAccent: "Jedno studio.",
@@ -401,7 +401,7 @@ export const translations = {
       // CTA card
       ctaKicker: "Nie wiesz, od czego zacząć?",
       ctaTitle: "Powiedz nam swój cel — resztę ustalimy razem",
-      ctaDesc: "Bezpłatna 20-minutowa rozmowa. Bez zobowiązań. Ustalimy, czego potrzebujesz i damy jasną wycenę.",
+      ctaDesc: "Krótka rozmowa, bez zobowiązań. Spojrzymy co masz, czego potrzebujesz i damy konkretną cenę.",
       ctaButton: "Umów bezpłatną rozmowę",
       cta: "Zacznij projekt",
     },
@@ -409,7 +409,7 @@ export const translations = {
     footer: {
       servicesLabel: "Usługi",
       quickLinksLabel: "Szybkie linki",
-      copyright: "© 2026 Artin Studio · Kreatywne Studio Brandingowe",
+      copyright: "© 2026 Artin Studio",
       designedBy: "Zaprojektowane i wykonane przez",
     },
   },
@@ -428,7 +428,7 @@ export const translations = {
       subtitle: "Креативна студія · Брендинг і Зростання",
       tagline: "Креативна студія",
       title: "Ваш бренд,<br/><span class='hero-line2'>створений рухатися.</span>",
-      description: "Від першого логотипу до повної кампанії — ми даємо малому бізнесу яскраву візуальну ідентичність, щоб конкурувати і перемагати.",
+      description: "Лого, фото, відео, сайт — зроблені разом, щоб ваш бренд справді виглядав як єдине ціле.",
       viewPhotography: "Переглянути роботи",
       watchVideos: "Переглянути послуги",
       startProject: "Розпочати проект",
@@ -500,9 +500,9 @@ export const translations = {
     // About
     about: {
       title: "Люди за цією роботою",
-      lead: "Ми невелика, сфокусована креативна студія у Варшаві. Без зайвих менеджерів, без аутсорсингу — людина, з якою ви спілкуєтесь, і є людиною, яка будує ваш бренд.",
-      p1: "Artin Studio виникла тому, що занадто багато малих бізнесів задовольнялися стоковими фото і шаблонами. Ми вірили, що вони заслуговують на краще — справжню ідентичність, справжнє ремесло, побудоване надовго.",
-      p2: "Нас хвилюють комерційні результати, не лише естетика. Кожен логотип, кожна зйомка, кожна сторінка, яку ми будуємо, має чітку мету: зробити ваш бізнес легшим для довіри, вибору і запам'ятовування.",
+      lead: "Невелика студія, Варшава. Робимо все самі — без посередників, без аутсорсингу. Розмовляєте з людиною, яка насправді будує ваш бренд.",
+      p1: "Artin Studio з'явилась тому, що ми бачили малий бізнес з хорошими продуктами, який втрачав клієнтів через слабке лого і стокові фото. Вирішили, що це дурна причина програвати.",
+      p2: "Ми працюємо на простій ідеї: якщо ваш бренд виглядає професійно, люди довіряють вам швидше. Це єдина мета кожного проекту, який ми беремо.",
       cta: "Розпочати проект",
       kicker: "Студія",
       // Stats
@@ -512,21 +512,21 @@ export const translations = {
       statContact: "Точка контакту",
       // Pillars
       pillar1Title: "Бізнес-мислення",
-      pillar1Desc: "Кожен творчий вибір — колір, композиція, текст — робиться з комерційною метою, а не лише естетикою.",
+      pillar1Desc: "Спочатку питаємо, що робота має зробити — потім вирішуємо, як вона повинна виглядати.",
       pillar2Title: "Один контакт",
-      pillar2Desc: "Без акаунт-менеджерів, без передач. Людина, якій ви ставите завдання — це та сама людина, яка створює вашу роботу.",
+      pillar2Desc: "Без передач, без менеджерів. Та сама людина від першого дзвінка до останнього файлу.",
       pillar3Title: "Швидкі терміни",
-      pillar3Desc: "Маленька студія, без бюрократії. Ми рухаємося швидко, комунікуємо чітко і дотримуємося дедлайнів.",
+      pillar3Desc: "Маленька студія — без черг. Ми швидкі, конкретні і тримаємося погоджених дат.",
       pillar4Title: "Чесна, фіксована ціна",
-      pillar4Desc: "Ви отримуєте чітку ціну до початку роботи. Без прихованих погодинних витрат, без несподіваних доплат.",
+      pillar4Desc: "Одна ціна, погоджена наперед. Без погодинних витрат, без доплат після.",
       val1Title: "Одна студія — всі послуги",
-      val1Desc: "Бренд, фото, відео, веб — не потрібно шукати п'ять різних фрілансерів.",
+      val1Desc: "Бренд, фото, відео, веб — все узгоджено, все зроблено нами.",
       val2Title: "Для бізнесу",
-      val2Desc: "Кожне творче рішення пов'язане з бізнес-метою. Виглядає чудово і конвертує.",
+      val2Desc: "Кожне рішення, яке ми приймаємо, має причину пов'язану з вашою метою, а не лише виглядом.",
       val3Title: "Швидко і по суті",
-      val3Desc: "Чіткий процес, стислі терміни, без нескінченних раундів правок.",
+      val3Desc: "Чіткий процес, реальні терміни, без нескінченних погоджень.",
       val4Title: "Чесні ціни",
-      val4Desc: "Прозорі кошториси, без прихованих витрат і несподіваних рахунків.",
+      val4Desc: "Фіксована ціна до старту. Що погодили — те й платите.",
       // Floating badges
       location: "Варшава, Польща · Засн. 2022",
       availableProjects: "Доступні для нових проектів",
@@ -536,7 +536,7 @@ export const translations = {
     // Contact
     contact: {
       title: "Побудуємо щось разом",
-      description: "Готові почати або просто хочете дізнатися вартість? Напишіть нам — ми відповімо з чітким планом і фіксованою ціною. Жодних зобов'язань.",
+      description: "Є проект або просто хочете знати, скільки це коштує? Напишіть нам — відповімо з конкретним планом і фіксованою ціною. Без продажів.",
       getInTouch: "Зв'яжіться з нами",
       instagram: "Instagram",
       youtube: "YouTube",
@@ -561,11 +561,11 @@ export const translations = {
     // Services
     services: {
       sectionTitle: "Що ми робимо",
-      sectionDesc: "Усе, що потрібно бізнесу для запуску, зростання і виділення — фото, відео, брендинг, веб та маркетинг під одним дахом.",
+      sectionDesc: "Бренд, фотографія, відео, сайт і соцмережі — все під одним дахом, щоб виглядало як єдине ціле.",
       sectionBadge: "Наші послуги",
       sectionHeading: "П'ять послуг.",
       sectionHeadingAccent: "Одна студія.",
-      sectionSubtext: "Оберіть одну послугу або поєднайте кілька — все адаптовано під ваш етап і бюджет, без агентських витрат.",
+      sectionSubtext: "Одна послуга або всі п'ять — адаптуємо під ваш етап і бюджет. Без агентської надбавки.",
       // Service cards
       brandingTitle: "Брендинг та Ідентичність",
       brandingDesc: "Логотип, кольорова палітра, типографіка та брендбук — повна візуальна система, створена надовго.",
@@ -600,7 +600,7 @@ export const translations = {
       // CTA card
       ctaKicker: "Не знаєте, з чого почати?",
       ctaTitle: "Розкажіть нам свою мету — решту ми сплануємо",
-      ctaDesc: "Безкоштовний 20-хвилинний дзвінок. Без зобов'язань. Визначимо, що вам потрібно, і дамо чітку ціну.",
+      ctaDesc: "Короткий дзвінок, без зобов'язань. Подивимось що є, що треба і дамо пряму ціну.",
       ctaButton: "Замовити безкоштовний дзвінок",
       cta: "Розпочати проект",
     },
@@ -608,7 +608,7 @@ export const translations = {
     footer: {
       servicesLabel: "Послуги",
       quickLinksLabel: "Швидкі посилання",
-      copyright: "© 2026 Artin Studio · Креативна Брендингова Студія",
+      copyright: "© 2026 Artin Studio",
       designedBy: "Розроблено та створено",
     },
   },
