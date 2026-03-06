@@ -1,5 +1,7 @@
 ---
 import type { Lang } from '../i18n/translations';
+import { translations } from '../i18n/translations';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 
 interface Props {
   title?: string;
@@ -7,6 +9,7 @@ interface Props {
 }
 
 const { title = "Artin Studio — Photography & Videography", lang = 'en' } = Astro.props;
+const t = translations[lang];
 ---
 
 <!doctype html>
@@ -18,6 +21,16 @@ const { title = "Artin Studio — Photography & Videography", lang = 'en' } = As
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!-- ── Crawler & scraper protection ── -->
+    <!-- Allow normal search engine indexing; block AI training use of content -->
+    <meta name="robots" content="index, follow, noai, noimageai" />
+    <!-- Opt out of Google's AI overviews / SGE training -->
+    <meta name="googlebot" content="index, follow, nosnippet-ai" />
+    <!-- Tell browsers not to send Referer header to third parties -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <!-- Prevent browsers caching sensitive pages -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -37,6 +50,7 @@ const { title = "Artin Studio — Photography & Videography", lang = 'en' } = As
   </head>
   <body class="font-sans bg-cream dark:bg-ink-950 text-ink-900 dark:text-ink-100 antialiased transition-colors duration-300">
     <slot />
+    <WhatsAppButton message={t.contact.whatsappMessage} />
   </body>
 </html>
 

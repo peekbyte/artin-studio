@@ -1,0 +1,18 @@
+/*
+  # Prevent MIME-type sniffing
+  X-Content-Type-Options: nosniff
+
+  # Block clickjacking (your pages should never be iframed by strangers)
+  X-Frame-Options: SAMEORIGIN
+
+  # Control how much referrer info leaks to third parties
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Restrict browser features that scrapers/bots might exploit
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+
+  # Basic XSS protection for older browsers
+  X-XSS-Protection: 1; mode=block
+
+  # Tell AI crawlers explicitly (via HTTP, not just HTML meta)
+  X-Robots-Tag: noai, noimageai
