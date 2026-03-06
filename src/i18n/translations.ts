@@ -28,6 +28,7 @@ export const translations = {
     // Hero
     hero: {
       subtitle: "Creative Studio · Branding & Growth",
+      tagline: "Creative Studio",
       title: "Your brand,<br/><span class='hero-line2'>built to move.</span>",
       description: "From first logo to full campaign — we give small businesses the sharp visual identity they need to compete and win.",
       viewPhotography: "See Our Work",
@@ -131,7 +132,7 @@ export const translations = {
       // Floating badges
       location: "Warsaw, Poland · Est. 2022",
       availableProjects: "Available for new projects",
-      projectsDelivered: "100+ projects",
+      projectsDelivered: "Every project",
       onTime: "delivered on time",
     },
     // Contact
@@ -157,6 +158,7 @@ export const translations = {
       message: "Message",
       messagePlaceholder: "Tell me about your project...",
       send: "Send message",
+      location: "Warsaw, Poland",
     },
     // Services
     services: {
@@ -225,6 +227,7 @@ export const translations = {
     // Hero
     hero: {
       subtitle: "Studio Kreatywne · Branding i Wzrost",
+      tagline: "Studio Kreatywne",
       title: "Twoja marka,<br/><span class='hero-line2'>stworzona by ruszyć.</span>",
       description: "Od pierwszego logo do pełnej kampanii — dajemy małym firmom wyrazistą identyfikację wizualną, której potrzebują, by konkurować i wygrywać.",
       viewPhotography: "Zobacz nasze prace",
@@ -328,8 +331,8 @@ export const translations = {
       // Floating badges
       location: "Warszawa, Polska · Zał. 2022",
       availableProjects: "Dostępni na nowe projekty",
-      projectsDelivered: "100+ projektów",
-      onTime: "dostarczonych na czas",
+      projectsDelivered: "Każdy projekt",
+      onTime: "dostarczony na czas",
     },
     // Contact
     contact: {
@@ -354,6 +357,7 @@ export const translations = {
       message: "Wiadomość",
       messagePlaceholder: "Opowiedz mi o swoim projekcie...",
       send: "Wyślij wiadomość",
+      location: "Warszawa, Polska",
     },
     // Services
     services: {
@@ -422,6 +426,7 @@ export const translations = {
     // Hero
     hero: {
       subtitle: "Креативна студія · Брендинг і Зростання",
+      tagline: "Креативна студія",
       title: "Ваш бренд,<br/><span class='hero-line2'>створений рухатися.</span>",
       description: "Від першого логотипу до повної кампанії — ми даємо малому бізнесу яскраву візуальну ідентичність, щоб конкурувати і перемагати.",
       viewPhotography: "Переглянути роботи",
@@ -525,7 +530,7 @@ export const translations = {
       // Floating badges
       location: "Варшава, Польща · Засн. 2022",
       availableProjects: "Доступні для нових проектів",
-      projectsDelivered: "100+ проектів",
+      projectsDelivered: "Кожен проект",
       onTime: "доставлено вчасно",
     },
     // Contact
@@ -551,6 +556,7 @@ export const translations = {
       message: "Повідомлення",
       messagePlaceholder: "Розкажіть про ваш проект...",
       send: "Надіслати повідомлення",
+      location: "Варшава, Польща",
     },
     // Services
     services: {

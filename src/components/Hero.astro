@@ -4,13 +4,28 @@ import ArrowIcon from './ui/ArrowIcon.astro';
 interface Props { t: Translations; }
 const { t } = Astro.props;
 
-// Prepare process steps data for client-side script
-const processSteps = JSON.stringify({
-  step1: { num: t.services.step1Num, title: t.services.step1, desc: t.services.step1Desc },
-  step2: { num: t.services.step2Num, title: t.services.step2, desc: t.services.step2Desc },
-  step3: { num: t.services.step3Num, title: t.services.step3, desc: t.services.step3Desc },
-  step4: { num: t.services.step4Num, title: t.services.step4, desc: t.services.step4Desc },
-});
+const processSteps = [
+  { 
+    num: t.services.step1Num, title: t.services.step1, desc: t.services.step1Desc, 
+    emoji: '🔍', color: 'violet', gridOrder: 'order-1',
+    arrow: { position: 'top-1/2 -translate-y-1/2', side: 'right', gradient: ['#8b5cf6', '#ff7a55'] }
+  },
+  { 
+    num: t.services.step2Num, title: t.services.step2, desc: t.services.step2Desc, 
+    emoji: '✏️', color: 'brand', gridOrder: 'order-2',
+    arrow: { position: 'left-1/2 -translate-x-1/2', side: 'bottom', gradient: ['#ff7a55', '#f59e0b'] }
+  },
+  { 
+    num: t.services.step3Num, title: t.services.step3, desc: t.services.step3Desc, 
+    emoji: '🚀', color: 'amber', gridOrder: 'process-order-4',
+    arrow: { position: 'top-1/2 -translate-y-1/2', side: 'left', gradient: ['#f59e0b', '#10b981'] }
+  },
+  { 
+    num: t.services.step4Num, title: t.services.step4, desc: t.services.step4Desc, 
+    emoji: '📈', color: 'emerald', gridOrder: 'process-order-3',
+    arrow: null
+  },
+];
 ---
 
 <section id="home" class="relative min-h-screen flex flex-col overflow-hidden bg-cream dark:bg-ink-950">
@@ -33,17 +48,17 @@ const processSteps = JSON.stringify({
   </div>
 
   <!-- ── Main content ── -->
-  <div class="relative z-10 flex-1 flex flex-col lg:flex-row items-center max-w-7xl mx-auto px-6 md:px-12 pt-36 pb-16 lg:py-0 gap-12 lg:gap-0 w-full">
+  <div class="relative z-10 flex-1 flex flex-col lg:flex-row flex-wrap items-center justify-center max-w-7xl mx-auto px-6 md:px-12 pt-36 pb-16 lg:py-0 gap-12 w-full">
 
     <!-- LEFT: copy -->
-    <div class="w-full lg:w-[55%] lg:pr-16">
+    <div class="w-full lg:w-auto lg:flex-1 lg:min-w-[320px] lg:max-w-[560px] lg:pr-12">
       <h1 class="font-display font-extrabold leading-[1.02] mb-6 text-ink-950 dark:text-white animate-fade-up opacity-0" style="font-size:clamp(2.8rem,6.5vw,5.6rem);animation-delay:.18s;animation-fill-mode:forwards">
         Your brand,<br/>
         <span class="hero-squiggle relative inline-block text-brand-500">built</span>
         <br/>to grow.
       </h1>
 
-      <p class="text-ink-600 dark:text-ink-300 text-lg leading-relaxed max-w-md mb-10 animate-fade-up opacity-0" style="animation-delay:.32s;animation-fill-mode:forwards">
+      <p class="text-ink-600 dark:text-ink-300 text-xl leading-relaxed max-w-md mb-10 animate-fade-up opacity-0" style="animation-delay:.32s;animation-fill-mode:forwards">
         {t.hero.description}
       </p>
 
@@ -56,13 +71,99 @@ const processSteps = JSON.stringify({
 
     </div>
 
-    <!-- RIGHT: How it works — D3 + Motion flow chart -->
-    <div class="w-full lg:w-[45%] relative flex items-center justify-center min-h-[500px] lg:min-h-[680px]">
+    <!-- RIGHT: How it works — HTML Process Cards -->
+    <div class="relative flex items-center justify-center flex-shrink-0">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div class="w-[440px] h-[440px] rounded-full bg-brand-400/10 dark:bg-brand-500/10 blur-3xl"></div>
       </div>
-      <!-- D3 renders the SVG chart into this container -->
-      <div id="process-chart" class="relative w-full max-w-[680px]" style="aspect-ratio:1/1" data-steps={processSteps}></div>
+      
+      <!-- Process cards grid - fixed sizes, uses CSS container query -->
+      <div class="process-grid relative w-fit mx-auto">
+        {processSteps.map((step, i) => (
+          <div 
+            class:list={[
+              "process-card group relative rounded-2xl p-5 border shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
+              step.gridOrder,
+              step.color === 'violet' && "bg-violet-50 dark:bg-ink-800 border-violet-200 dark:border-violet-500/20",
+              step.color === 'brand' && "bg-orange-50 dark:bg-ink-800 border-orange-200 dark:border-brand-500/20",
+              step.color === 'amber' && "bg-amber-50 dark:bg-ink-800 border-amber-200 dark:border-amber-500/20",
+              step.color === 'emerald' && "bg-emerald-50 dark:bg-ink-800 border-emerald-200 dark:border-emerald-500/20",
+            ]}
+            style={`animation-delay: ${0.3 + i * 0.12}s`}
+          >
+            <!-- Row 1: Step + Icon -->
+            <div class="flex items-center justify-between mb-3">
+              <span 
+                class:list={[
+                  "text-lg font-extrabold tracking-widest uppercase",
+                  step.color === 'violet' && "text-violet-600 dark:text-violet-400",
+                  step.color === 'brand' && "text-brand-500 dark:text-brand-400",
+                  step.color === 'amber' && "text-amber-600 dark:text-amber-400",
+                  step.color === 'emerald' && "text-emerald-600 dark:text-emerald-400",
+                ]}
+              >
+                {step.num}
+              </span>
+              <div 
+                class:list={[
+                  "w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform",
+                  step.color === 'violet' && "bg-violet-200/60 dark:bg-violet-500/20",
+                  step.color === 'brand' && "bg-orange-200/60 dark:bg-brand-500/20",
+                  step.color === 'amber' && "bg-amber-200/60 dark:bg-amber-500/20",
+                  step.color === 'emerald' && "bg-emerald-200/60 dark:bg-emerald-500/20",
+                ]}
+              >
+                {step.emoji}
+              </div>
+            </div>
+            
+            <!-- Title -->
+            <h3 class="font-display font-extrabold text-2xl text-ink-900 dark:text-white leading-tight mb-3">
+              {step.title}
+            </h3>
+            
+            <!-- Description -->
+            <p class="text-lg text-ink-800 dark:text-ink-100 leading-relaxed font-semibold">
+              {step.desc}
+            </p>
+            
+            <!-- Connector arrow: spans exactly the 40px gap between card edges -->
+            {step.arrow && (
+              <div 
+                class="arrow-connector absolute z-10"
+                style={
+                  step.arrow.side === 'right'
+                    ? `right: -40px; top: 50%; transform: translateY(-50%); width: 40px; height: 32px;`
+                    : step.arrow.side === 'left'
+                    ? `left: -40px; top: 50%; transform: translateY(-50%); width: 40px; height: 32px;`
+                    : `bottom: -40px; left: 50%; transform: translateX(-50%); width: 32px; height: 40px;`
+                }
+              >
+                <svg 
+                  class="w-full h-full drop-shadow-md" 
+                  viewBox="0 0 24 24" 
+                  fill="none"
+                  style={step.arrow.side === 'left' ? 'transform: rotate(180deg)' : step.arrow.side === 'bottom' ? 'transform: rotate(90deg)' : ''}
+                >
+                  <defs>
+                    <linearGradient id={`arrow${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color={step.arrow.gradient[0]}/>
+                      <stop offset="100%" stop-color={step.arrow.gradient[1]}/>
+                    </linearGradient>
+                  </defs>
+                  <path 
+                    d="M5 12h14M13 5l7 7-7 7" 
+                    stroke={`url(#arrow${i})`}
+                    stroke-width="2.5" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 
@@ -101,254 +202,49 @@ const processSteps = JSON.stringify({
     background-size:80px 8px;
   }
 
-  /* ── D3 chart SVG shell ── */
-  #process-chart svg { width:100%; height:100%; display:block; overflow:visible; }
-</style>
-
-<script>
-import * as d3 from 'd3';
-
-// ── Get translations from data attribute ──
-const chartEl = document.getElementById('process-chart');
-const stepsData = JSON.parse(chartEl?.dataset.steps || '{}');
-
-// ── Data ──────────────────────────────────────────────────────────────────
-const W = 740, H = 740;
-const NW = 340, NH = 300; // node rect size (increased more)
-const GAP = 10;           // gap between nodes and edges of canvas
-
-// 2×2 positions (top-left corners)
-const col0 = GAP;
-const col1 = W - GAP - NW;
-const row0 = GAP;
-const row1 = H - GAP - NH;
-
-type NodeDef = {
-  id: string; step: string; title: string; desc: string;
-  emoji: string; iconBg: string; stepColor: string; border: string; cardBg: string;
-  x: number; y: number;
-};
-
-const isDark = () => document.documentElement.classList.contains('dark');
-
-const nodes: NodeDef[] = [
-  { id:'discovery', step: stepsData.step1?.num || 'Step 1', title: stepsData.step1?.title || 'Discovery',
-    desc: stepsData.step1?.desc || 'Free consultation — we learn your goals, audience & market.',
-    emoji:'🔍', iconBg:'#ede9fe', stepColor:'#8b5cf6', border:'#c4b5fd', cardBg:'#faf8ff',
-    x: col0, y: row0 },
-  { id:'create', step: stepsData.step2?.num || 'Step 2', title: stepsData.step2?.title || 'Create',
-    desc: stepsData.step2?.desc || 'We produce everything: brand, content, web.',
-    emoji:'✏️', iconBg:'#ffede6', stepColor:'#ff7a55', border:'#ffc2ad', cardBg:'#fffaf8',
-    x: col1, y: row0 },
-  { id:'launch', step: stepsData.step3?.num || 'Step 3', title: stepsData.step3?.title || 'Launch',
-    desc: stepsData.step3?.desc || 'Full asset handoff. Your brand goes live.',
-    emoji:'🚀', iconBg:'#fef3c7', stepColor:'#f59e0b', border:'#fde68a', cardBg:'#fffef5',
-    x: col1, y: row1 },
-  { id:'grow', step: stepsData.step4?.num || 'Step 4', title: stepsData.step4?.title || 'Grow',
-    desc: stepsData.step4?.desc || 'Ongoing strategy to keep building momentum.',
-    emoji:'📈', iconBg:'#d1fae5', stepColor:'#10b981', border:'#6ee7b7', cardBg:'#f0fdf8',
-    x: col0, y: row1 },
-];
-
-const cx = (n: NodeDef) => n.x + NW / 2;
-const cy = (n: NodeDef) => n.y + NH / 2;
-
-const links = [
-  { s: 0, t: 1, c1: '#8b5cf6', c2: '#ff7a55' }, // top →
-  { s: 1, t: 2, c1: '#ff7a55', c2: '#f59e0b' }, // right ↓
-  { s: 2, t: 3, c1: '#f59e0b', c2: '#10b981' }, // bottom ←
-];
-
-function edgePath(si: number, ti: number): string {
-  const s = nodes[si], t = nodes[ti];
-  const sx = cx(s), sy = cy(s), tx = cx(t), ty = cy(t);
-  const dx = tx - sx, dy = ty - sy;
-  // perpendicular outward bow
-  const len = Math.sqrt(dx * dx + dy * dy) || 1;
-  const ox = (-dy / len) * 32, oy = (dx / len) * 32;
-  return `M${sx},${sy} C${sx + dx * 0.4 + ox},${sy + dy * 0.4 + oy} ${tx - dx * 0.4 + ox},${ty - dy * 0.4 + oy} ${tx},${ty}`;
-}
-
-// ── Render ────────────────────────────────────────────────────────────────
-function buildChart() {
-  const container = document.getElementById('process-chart');
-  if (!container) return;
-  container.innerHTML = ''; // clear on re-render (theme switch)
-
-  const dark = isDark();
-  const cardFill   = dark ? '#2c2a28' : null;
-  const titleColor = dark ? '#ffffff' : '#0a0908';
-  const descColor  = dark ? '#e8e6e3' : '#2c2a28';
-  const stepColor  = (n: NodeDef) => dark ? n.stepColor : n.stepColor; // already vivid
-  const cardStroke = (n: NodeDef) => dark ? '#504d4a' : n.border;
-
-  const svg = d3.select(container)
-    .append('svg')
-    .attr('viewBox', `0 0 ${W} ${H}`)
-    .attr('width', '100%')
-    .attr('height', '100%');
-
-  // ── Defs ──
-  const defs = svg.append('defs');
-
-  links.forEach((l, i) => {
-    const s = nodes[l.s], t = nodes[l.t];
-    const g = defs.append('linearGradient')
-      .attr('id', `lg${i}`)
-      .attr('gradientUnits', 'userSpaceOnUse')
-      .attr('x1', cx(s)).attr('y1', cy(s))
-      .attr('x2', cx(t)).attr('y2', cy(t));
-    g.append('stop').attr('offset', '0%').attr('stop-color', l.c1);
-    g.append('stop').attr('offset', '100%').attr('stop-color', l.c2);
-
-    defs.append('marker')
-      .attr('id', `mh${i}`)
-      .attr('viewBox', '0 0 8 8')
-      .attr('refX', '7').attr('refY', '4')
-      .attr('markerWidth', '5').attr('markerHeight', '5')
-      .attr('orient', 'auto')
-      .append('polygon')
-      .attr('points', '0,0 8,4 0,8')
-      .attr('fill', l.c2);
-  });
-
-  // drop-shadow filter for cards
-  const f = defs.append('filter').attr('id', 'card-shadow').attr('x', '-10%').attr('y', '-10%').attr('width', '120%').attr('height', '130%');
-  f.append('feDropShadow').attr('dx', '0').attr('dy', '4').attr('stdDeviation', '6').attr('flood-color', 'rgba(0,0,0,0.10)');
-
-  // ── Links (drawn BEFORE nodes so nodes sit on top) ──
-  const linkPaths = links.map((l, i) => {
-    const path = svg.append('path')
-      .attr('d', edgePath(l.s, l.t))
-      .attr('fill', 'none')
-      .attr('stroke', `url(#lg${i})`)
-      .attr('stroke-width', 2.5)
-      .attr('stroke-linecap', 'round')
-      .attr('marker-end', `url(#mh${i})`)
-      .attr('opacity', 0);
-
-    const el = path.node() as SVGPathElement;
-    const total = el.getTotalLength();
-    el.style.strokeDasharray = String(total);
-    el.style.strokeDashoffset = String(total);
-    return { el, total };
-  });
-
-  // Draw links with staggered Web Animations after nodes pop in
-  setTimeout(() => {
-    linkPaths.forEach(({ el, total }, i) => {
-      el.style.opacity = '1';
-      el.animate(
-        [{ strokeDashoffset: String(total) }, { strokeDashoffset: '0' }],
-        { duration: 650, delay: i * 180, fill: 'forwards', easing: 'cubic-bezier(0.4,0,0.2,1)' }
-      );
-    });
-  }, 800);
-
-  // ── Nodes ──
-  const R = 24; // corner radius
-  const ICON_SIZE = 72;
-  const PAD_X = 24, PAD_Y = 22;
-
-  nodes.forEach((n, i) => {
-    const g = svg.append('g')
-      .attr('opacity', 0)
-      .attr('transform', `translate(${cx(n)},${cy(n)}) scale(0.75) translate(${-cx(n)},${-cy(n)})`);
-
-    // card background
-    g.append('rect')
-      .attr('x', n.x).attr('y', n.y)
-      .attr('width', NW).attr('height', NH)
-      .attr('rx', R).attr('ry', R)
-      .attr('fill', cardFill ?? n.cardBg)
-      .attr('stroke', cardStroke(n))
-      .attr('stroke-width', 1.5)
-      .attr('filter', 'url(#card-shadow)');
-
-    // Row 1: Step label (left) + Icon pill (right)
-    const ROW1_Y = n.y + PAD_Y;
-    
-    // step label  (e.g. "STEP 1") - left side, vertically centered with icon
-    g.append('text')
-      .attr('x', n.x + PAD_X)
-      .attr('y', ROW1_Y + ICON_SIZE / 2 + 10)
-      .attr('font-size', '26')
-      .attr('font-weight', '800')
-      .attr('font-family', 'DM Sans, system-ui, sans-serif')
-      .attr('letter-spacing', '0.10em')
-      .attr('fill', n.stepColor)
-      .text(n.step.toUpperCase());
-
-    // icon pill background - right side
-    const iconX = n.x + NW - PAD_X - ICON_SIZE;
-    g.append('rect')
-      .attr('x', iconX).attr('y', ROW1_Y)
-      .attr('width', ICON_SIZE).attr('height', ICON_SIZE)
-      .attr('rx', 16).attr('ry', 16)
-      .attr('fill', dark ? 'rgba(255,255,255,0.12)' : n.iconBg);
-
-    // emoji - inside icon pill
-    g.append('text')
-      .attr('x', iconX + ICON_SIZE / 2)
-      .attr('y', ROW1_Y + ICON_SIZE / 2 + 12)
-      .attr('text-anchor', 'middle')
-      .attr('font-size', '44')
-      .text(n.emoji);
-
-    // title
-    g.append('text')
-      .attr('x', n.x + PAD_X)
-      .attr('y', n.y + PAD_Y + ICON_SIZE + 54)
-      .attr('font-size', '38')
-      .attr('font-weight', '800')
-      .attr('font-family', 'Syne, system-ui, sans-serif')
-      .attr('fill', titleColor)
-      .text(n.title);
-
-    // desc — wrap into 2 lines at ~32 chars
-    const descY = n.y + PAD_Y + ICON_SIZE + 96;
-    const maxW = 32;
-    const words = n.desc.split(' ');
-    const lines: string[] = [];
-    let cur = '';
-    for (const w of words) {
-      if ((cur + ' ' + w).trim().length > maxW && cur) { lines.push(cur); cur = w; }
-      else cur = cur ? cur + ' ' + w : w;
+  /* ── Process Grid - Fixed sizes ── */
+  .process-grid {
+    display: grid;
+    grid-template-columns: 260px 260px;
+    gap: 40px;
+  }
+  
+  .process-grid .process-card {
+    width: 260px;
+  }
+  
+  /* Reorder for clockwise flow: 1-2 top, 4-3 bottom */
+  .process-order-3 { order: 3; }
+  .process-order-4 { order: 4; }
+  
+  /* Hide arrows and stack on small screens */
+  @media (max-width: 620px) {
+    .process-grid {
+      grid-template-columns: 260px;
+      gap: 24px;
     }
-    if (cur) lines.push(cur);
+    .process-grid .process-card {
+      order: unset !important;
+    }
+    .process-grid .arrow-connector {
+      display: none;
+    }
+  }
 
-    lines.slice(0, 3).forEach((line, li) => {
-      g.append('text')
-        .attr('x', n.x + PAD_X)
-        .attr('y', descY + li * 26)
-        .attr('font-size', '20')
-        .attr('font-weight', '500')
-        .attr('font-family', 'DM Sans, system-ui, sans-serif')
-        .attr('fill', descColor)
-        .text(line);
-    });
-
-    // Staggered spring-pop entrance via Web Animations
-    const el = g.node() as SVGGElement;
-    const originX = cx(n), originY = cy(n);
-    el.style.transformOrigin = `${originX}px ${originY}px`;
-    el.animate(
-      [
-        { opacity: '0', transform: `translate(${originX}px,${originY}px) scale(0.72) translate(${-originX}px,${-originY}px)` },
-        { opacity: '1', transform: `translate(${originX}px,${originY}px) scale(1) translate(${-originX}px,${-originY}px)` },
-      ],
-      { duration: 480, delay: 300 + i * 130, fill: 'forwards', easing: 'cubic-bezier(0.34,1.56,0.64,1)' }
-    );
-  });
-
-}
-
-// Build on load
-document.addEventListener('DOMContentLoaded', buildChart);
-
-// Rebuild when theme toggles so dark/light colours are correct
-const observer = new MutationObserver((muts) => {
-  if (muts.some(m => (m.target as HTMLElement).classList !== undefined)) buildChart();
-});
-observer.observe(document.documentElement, { attributeFilter: ['class'] });
-</script>
+  /* ── Process cards animation ── */
+  .process-card {
+    opacity: 0;
+    animation: cardFadeIn 0.5s ease-out forwards;
+  }
+  
+  @keyframes cardFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+</style>

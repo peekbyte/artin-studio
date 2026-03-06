@@ -1,0 +1,122 @@
+---
+/**
+ * BusinessCard.astro
+ * Temporary section for generating business card screenshots/print
+ * Displays contact info in a clean card layout with neutral-800 background
+ */
+import type { Translations } from "../i18n/translations";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+
+// Obfuscated email parts (assembled in script for display consistency)
+const emailUser = 'falahi';
+const emailDomain = 'live';
+const emailTld = 'com';
+---
+
+<section id="business-card" class="py-24 bg-neutral-800 relative overflow-hidden">
+  <div class="max-w-xl mx-auto px-6">
+    
+    <!-- Business Card Container -->
+    <div class="bg-neutral-900 border border-neutral-700 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+      
+      <!-- Subtle gradient accent -->
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-warm-500 via-brand-500 to-violet-500"></div>
+      
+      <!-- Logo / Brand Name -->
+      <div class="text-center mb-8">
+        <h2 class="font-display font-extrabold text-3xl md:text-4xl text-white tracking-tight">
+          Artin<span class="text-brand-500">.</span>Studio
+        </h2>
+        <p class="text-neutral-400 text-sm mt-2 tracking-wide">{t.hero.tagline || "Creative Studio"}</p>
+      </div>
+      
+      <!-- Divider -->
+      <div class="w-16 h-px bg-neutral-600 mx-auto mb-8"></div>
+      
+      <!-- Contact Info -->
+      <div class="space-y-4 text-center">
+        
+        <!-- Email -->
+        <div class="flex items-center justify-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-warm-500/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-warm-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <span id="bc-email" class="text-neutral-300 font-medium">...</span>
+        </div>
+        
+        <!-- Website -->
+        <div class="flex items-center justify-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-brand-500/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/>
+            </svg>
+          </div>
+          <span class="text-neutral-300 font-medium">artin-studio.pl</span>
+        </div>
+        
+        <!-- Location -->
+        <div class="flex items-center justify-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-violet-500/10 flex items-center justify-center">
+            <svg class="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <span class="text-neutral-300 font-medium">{t.contact.location || "Warsaw, Poland"}</span>
+        </div>
+        
+      </div>
+      
+      <!-- Services List -->
+      <div class="mt-8 pt-6 border-t border-neutral-700">
+        <div class="flex flex-wrap justify-center gap-2">
+          {[t.services.brandingTitle, t.services.photoTitle, t.services.videoTitle, t.services.webTitle, t.services.marketTitle].map(service => (
+            <span class="text-xs font-medium px-3 py-1.5 rounded-full bg-neutral-800 text-neutral-400 border border-neutral-700">
+              {service}
+            </span>
+          ))}
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Print-friendly note -->
+    <p class="text-center text-neutral-500 text-xs mt-6">
+      📸 Screenshot this card or print for reference
+    </p>
+    
+  </div>
+</section>
+
+<script define:vars={{ emailUser, emailDomain, emailTld }}>
+  // Assemble email client-side
+  (function() {
+    const email = `${emailUser}@${emailDomain}.${emailTld}`;
+    const emailEl = document.getElementById('bc-email');
+    if (emailEl) {
+      emailEl.textContent = email;
+    }
+  })();
+</script>
+
+<style>
+  /* Print-friendly styles */
+  @media print {
+    #business-card {
+      background: white !important;
+      padding: 0 !important;
+    }
+    
+    #business-card > div > div {
+      box-shadow: none !important;
+      border: 1px solid #e5e5e5 !important;
+    }
+  }
+</style>
