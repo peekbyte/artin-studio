@@ -3,29 +3,6 @@ import type { Translations } from "../i18n/translations";
 import ArrowIcon from './ui/ArrowIcon.astro';
 interface Props { t: Translations; }
 const { t } = Astro.props;
-
-const processSteps = [
-  { 
-    num: t.services.step1Num, title: t.services.step1, desc: t.services.step1Desc, 
-    emoji: '🔍', color: 'violet', gridOrder: 'order-1',
-    arrow: { position: 'top-1/2 -translate-y-1/2', side: 'right', gradient: ['#8b5cf6', '#ff7a55'] }
-  },
-  { 
-    num: t.services.step2Num, title: t.services.step2, desc: t.services.step2Desc, 
-    emoji: '✏️', color: 'brand', gridOrder: 'order-2',
-    arrow: { position: 'left-1/2 -translate-x-1/2', side: 'bottom', gradient: ['#ff7a55', '#f59e0b'] }
-  },
-  { 
-    num: t.services.step3Num, title: t.services.step3, desc: t.services.step3Desc, 
-    emoji: '🚀', color: 'amber', gridOrder: 'process-order-4',
-    arrow: { position: 'top-1/2 -translate-y-1/2', side: 'left', gradient: ['#f59e0b', '#10b981'] }
-  },
-  { 
-    num: t.services.step4Num, title: t.services.step4, desc: t.services.step4Desc, 
-    emoji: '📈', color: 'emerald', gridOrder: 'process-order-3',
-    arrow: null
-  },
-];
 ---
 
 <section id="home" class="relative min-h-screen flex flex-col overflow-hidden bg-cream dark:bg-ink-950">
@@ -47,124 +24,26 @@ const processSteps = [
     <div class="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full border border-warm-300/25 dark:border-warm-500/10 animate-spin-slow" style="animation-direction:reverse;animation-duration:26s"></div>
   </div>
 
-  <!-- ── Main content ── -->
-  <div class="relative z-10 flex-1 flex flex-col lg:flex-row flex-wrap items-center justify-center max-w-7xl mx-auto px-6 md:px-12 pt-36 pb-16 lg:py-0 gap-12 w-full">
+  <!-- ── Main content - Centered ── -->
+  <div class="relative z-10 flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto px-6 md:px-12 pt-36 pb-16 lg:py-0 text-center">
 
-    <!-- LEFT: copy -->
-    <div class="w-full lg:w-auto lg:flex-1 lg:min-w-[320px] lg:max-w-[560px] lg:pr-12">
-      <h1 class="font-display font-extrabold leading-[1.02] mb-6 text-ink-950 dark:text-white animate-fade-up opacity-0" style="font-size:clamp(2.2rem,5vw,4.2rem);animation-delay:.18s;animation-fill-mode:forwards">
-        Your brand,<br/>
-        <span class="hero-squiggle relative inline-block text-brand-500">built</span>
-        <br/>to grow.
-      </h1>
+    <h1 class="font-display font-extrabold leading-[1.02] mb-6 text-ink-950 dark:text-white animate-fade-up opacity-0" style="font-size:clamp(2.6rem,6vw,5rem);animation-delay:.18s;animation-fill-mode:forwards">
+      {t.hero.line1}<br/>
+      <span class="hero-squiggle relative inline-block text-brand-500">{t.hero.line2}</span>
+      <br/>{t.hero.line3}
+    </h1>
 
-      <p class="text-ink-600 dark:text-ink-300 text-xl leading-relaxed max-w-md mb-10 animate-fade-up opacity-0" style="animation-delay:.32s;animation-fill-mode:forwards">
-        {t.hero.description}
-      </p>
+    <p class="text-ink-600 dark:text-ink-300 text-xl leading-relaxed max-w-xl mb-10 animate-fade-up opacity-0" style="animation-delay:.32s;animation-fill-mode:forwards">
+      {t.hero.description}
+    </p>
 
-      <div class="flex flex-wrap items-center gap-4 animate-fade-up opacity-0" style="animation-delay:.46s;animation-fill-mode:forwards">
-        <a href="#journey" class="group inline-flex items-center gap-3 bg-brand-500 hover:bg-brand-600 text-white px-7 py-3.5 rounded-full font-bold text-sm tracking-wide transition-all hover:shadow-2xl hover:shadow-brand-500/40 hover:-translate-y-0.5">
-          {t.hero.startProject}
-          <ArrowIcon class="w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </a>
-      </div>
-
+    <div class="flex flex-wrap items-center justify-center gap-4 animate-fade-up opacity-0" style="animation-delay:.46s;animation-fill-mode:forwards">
+      <a href="#journey" class="group inline-flex items-center gap-3 bg-brand-500 hover:bg-brand-600 text-white px-7 py-3.5 rounded-full font-bold text-sm tracking-wide transition-all hover:shadow-2xl hover:shadow-brand-500/40 hover:-translate-y-0.5">
+        {t.hero.startProject}
+        <ArrowIcon class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+      </a>
     </div>
 
-    <!-- RIGHT: How it works — HTML Process Cards -->
-    <div class="relative flex items-center justify-center flex-shrink-0">
-      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="w-[440px] h-[440px] rounded-full bg-brand-400/10 dark:bg-brand-500/10 blur-3xl"></div>
-      </div>
-      
-      <!-- Process cards grid - fixed sizes, uses CSS container query -->
-      <div class="process-grid relative w-fit mx-auto">
-        {processSteps.map((step, i) => (
-          <div 
-            class:list={[
-              "process-card group relative rounded-2xl p-5 border shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
-              step.gridOrder,
-              step.color === 'violet' && "bg-violet-50 dark:bg-ink-800 border-violet-200 dark:border-violet-500/20",
-              step.color === 'brand' && "bg-orange-50 dark:bg-ink-800 border-orange-200 dark:border-brand-500/20",
-              step.color === 'amber' && "bg-amber-50 dark:bg-ink-800 border-amber-200 dark:border-amber-500/20",
-              step.color === 'emerald' && "bg-emerald-50 dark:bg-ink-800 border-emerald-200 dark:border-emerald-500/20",
-            ]}
-            style={`animation-delay: ${0.3 + i * 0.12}s`}
-          >
-            <!-- Row 1: Step + Icon -->
-            <div class="flex items-center justify-between mb-3">
-              <span 
-                class:list={[
-                  "text-lg font-extrabold tracking-widest uppercase",
-                  step.color === 'violet' && "text-violet-600 dark:text-violet-400",
-                  step.color === 'brand' && "text-brand-500 dark:text-brand-400",
-                  step.color === 'amber' && "text-amber-600 dark:text-amber-400",
-                  step.color === 'emerald' && "text-emerald-600 dark:text-emerald-400",
-                ]}
-              >
-                {step.num}
-              </span>
-              <div 
-                class:list={[
-                  "w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform",
-                  step.color === 'violet' && "bg-violet-200/60 dark:bg-violet-500/20",
-                  step.color === 'brand' && "bg-orange-200/60 dark:bg-brand-500/20",
-                  step.color === 'amber' && "bg-amber-200/60 dark:bg-amber-500/20",
-                  step.color === 'emerald' && "bg-emerald-200/60 dark:bg-emerald-500/20",
-                ]}
-              >
-                {step.emoji}
-              </div>
-            </div>
-            
-            <!-- Title -->
-            <h3 class="font-display font-extrabold text-2xl text-ink-900 dark:text-white leading-tight mb-3">
-              {step.title}
-            </h3>
-            
-            <!-- Description -->
-            <p class="text-lg text-ink-800 dark:text-ink-100 leading-relaxed font-semibold">
-              {step.desc}
-            </p>
-            
-            <!-- Connector arrow: spans exactly the 40px gap between card edges -->
-            {step.arrow && (
-              <div 
-                class="arrow-connector absolute z-10"
-                style={
-                  step.arrow.side === 'right'
-                    ? `right: -40px; top: 50%; transform: translateY(-50%); width: 40px; height: 32px;`
-                    : step.arrow.side === 'left'
-                    ? `left: -40px; top: 50%; transform: translateY(-50%); width: 40px; height: 32px;`
-                    : `bottom: -40px; left: 50%; transform: translateX(-50%); width: 32px; height: 40px;`
-                }
-              >
-                <svg 
-                  class="w-full h-full drop-shadow-md" 
-                  viewBox="0 0 24 24" 
-                  fill="none"
-                  style={step.arrow.side === 'left' ? 'transform: rotate(180deg)' : step.arrow.side === 'bottom' ? 'transform: rotate(90deg)' : ''}
-                >
-                  <defs>
-                    <linearGradient id={`arrow${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color={step.arrow.gradient[0]}/>
-                      <stop offset="100%" stop-color={step.arrow.gradient[1]}/>
-                    </linearGradient>
-                  </defs>
-                  <path 
-                    d="M5 12h14M13 5l7 7-7 7" 
-                    stroke={`url(#arrow${i})`}
-                    stroke-width="2.5" 
-                    stroke-linecap="round" 
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
   </div>
 
   <!-- Scroll cue -->
@@ -200,51 +79,5 @@ const processSteps = [
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='8'%3E%3Cpath d='M0 6 Q10 1 20 6 Q30 11 40 6 Q50 1 60 6 Q70 11 80 6' stroke='%23ff7a55' stroke-width='2.5' fill='none'/%3E%3C/svg%3E");
     background-repeat:repeat-x;
     background-size:80px 8px;
-  }
-
-  /* ── Process Grid - Fixed sizes ── */
-  .process-grid {
-    display: grid;
-    grid-template-columns: 260px 260px;
-    gap: 40px;
-  }
-  
-  .process-grid .process-card {
-    width: 260px;
-  }
-  
-  /* Reorder for clockwise flow: 1-2 top, 4-3 bottom */
-  .process-order-3 { order: 3; }
-  .process-order-4 { order: 4; }
-  
-  /* Hide arrows and stack on small screens */
-  @media (max-width: 620px) {
-    .process-grid {
-      grid-template-columns: 260px;
-      gap: 24px;
-    }
-    .process-grid .process-card {
-      order: unset !important;
-    }
-    .process-grid .arrow-connector {
-      display: none;
-    }
-  }
-
-  /* ── Process cards animation ── */
-  .process-card {
-    opacity: 0;
-    animation: cardFadeIn 0.5s ease-out forwards;
-  }
-  
-  @keyframes cardFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
   }
 </style>

@@ -5,134 +5,52 @@ import ArrowIcon from './ui/ArrowIcon.astro';
 interface Props { t: Translations; }
 const { t } = Astro.props;
 
-const pillars = [
-  {
-    icon: "🧠",
-    title: t.about.pillar1Title,
-    desc: t.about.pillar1Desc,
-    accent: "border-brand-200 dark:border-brand-800 hover:border-brand-400 dark:hover:border-brand-500",
-  },
-  {
-    icon: "🤝",
-    title: t.about.pillar2Title,
-    desc: t.about.pillar2Desc,
-    accent: "border-warm-200 dark:border-warm-800 hover:border-warm-400 dark:hover:border-warm-500",
-  },
-  {
-    icon: "⚡",
-    title: t.about.pillar3Title,
-    desc: t.about.pillar3Desc,
-    accent: "border-violet-200 dark:border-violet-800 hover:border-violet-400 dark:hover:border-violet-500",
-  },
-  {
-    icon: "🤲",
-    title: t.about.pillar4Title,
-    desc: t.about.pillar4Desc,
-    accent: "border-emerald-200 dark:border-emerald-800 hover:border-emerald-400 dark:hover:border-emerald-500",
-  },
-];
 ---
 
 <section id="about" class="scroll-mt-24 overflow-hidden">
-
-  <!-- Stats strip -->
-  <div class="bg-ink-950 relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_120%_at_50%_0%,rgba(245,166,35,0.07),transparent)] pointer-events-none"></div>
-    <div class="max-w-6xl mx-auto px-6 py-12 relative z-10">
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-y-8 sm:gap-y-0 sm:divide-x divide-white/8">
-        {[
-          { value: "2022", label: t.about.statEst,      color: "text-brand-400"  },
-          { value: "100+", label: t.about.statProjects, color: "text-warm-400"   },
-          { value: "3",    label: t.about.statLanguages, color: "text-violet-400" },
-          { value: "1",    label: t.about.statContact,  color: "text-sky-400"    },
-        ].map(s => (
-          <div class="text-center px-4 group cursor-default">
-            <p class:list={["font-display font-extrabold text-4xl sm:text-5xl md:text-6xl transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1", s.color]}>{s.value}</p>
-            <p class="text-ink-400 text-xs sm:text-sm tracking-widest uppercase mt-3 font-semibold leading-tight">{s.label}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-
   <!-- Main content -->
-  <div class="bg-cream dark:bg-ink-900 py-24 relative overflow-hidden">
+  <div class="bg-cream dark:bg-ink-900 py-24 lg:min-h-screen lg:flex lg:items-center relative overflow-hidden">
 
     <AmbientBlobs blobs={[
       { size: 'w-[500px]', position: 'top-0 right-0 -translate-y-1/3 translate-x-1/4', light: 'bg-warm-200/30', dark: 'dark:bg-warm-900/10' },
       { size: 'w-[400px]', position: 'bottom-0 left-0 translate-y-1/3 -translate-x-1/4', light: 'bg-brand-100/40', dark: 'dark:bg-brand-900/10' },
     ]} />
 
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="w-full max-w-6xl mx-auto px-6 relative z-10">
 
       <!-- Header -->
-      <div class="flex items-center gap-4 mb-5">
-        <div class="flex items-center gap-3">
-          <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-warm-400/20 dark:bg-warm-500/15 border border-warm-400/30 dark:border-warm-500/25 text-warm-600 dark:text-warm-400 font-display font-extrabold text-sm tracking-wider">🖐️</span>
-          <div class="w-8 h-px bg-warm-400/50"></div>
-          <span class="text-warm-600 dark:text-warm-400 text-xs tracking-[0.2em] uppercase font-semibold">{t.about.kicker}</span>
-        </div>
-      </div>
       <h2 class="font-display font-extrabold text-ink-950 dark:text-white leading-tight mb-4" style="font-size:clamp(2.2rem,5vw,3.5rem)">
-        {t.about.title}
+        {t.about.title} <span class="accent-squiggle relative inline-block text-brand-500">{t.about.titleAccent}</span>
       </h2>
       <p class="text-ink-500 dark:text-ink-300 text-lg max-w-2xl leading-relaxed mb-16">
         {t.about.lead}
       </p>
 
-      <div class="grid lg:grid-cols-2 gap-16 items-start">
-
-        <!-- LEFT: story + pillars -->
-        <div>
-          <div class="space-y-5 text-ink-600 dark:text-ink-300 text-[0.95rem] leading-[1.85] mb-10">
-            <p>{t.about.p1}</p>
-            <p>{t.about.p2}</p>
-          </div>
-
-          <!-- Why us pillars -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {pillars.map(v => (
-              <div class:list={["rounded-2xl border bg-white dark:bg-ink-800 p-6 transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 group", v.accent]}>
-                <!-- Row 1: Title (left) + Icon (right) -->
-                <div class="flex items-center justify-between mb-4">
-                  <p class="font-display font-extrabold text-ink-900 dark:text-white text-lg">{v.title}</p>
-                  <span class="text-2xl shrink-0">{v.icon}</span>
-                </div>
-                <!-- Description -->
-                <p class="text-ink-500 dark:text-ink-400 text-base leading-relaxed">{v.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <a href="#contact" class="group inline-flex items-center gap-2 mt-10 bg-brand-500 hover:bg-brand-600 text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all hover:shadow-xl hover:shadow-brand-500/30 hover:-translate-y-0.5">
-            {t.about.cta}
-            <ArrowIcon class="w-4 h-4 transition-transform group-hover:translate-x-1" strokeWidth="2" />
-          </a>
+      <div class="max-w-2xl">
+        <div class="space-y-5 text-ink-600 dark:text-ink-300 text-[0.95rem] leading-[1.85] mb-10">
+          <p>{t.about.p1}</p>
+          <p>{t.about.p2}</p>
         </div>
 
-        <!-- RIGHT: photo + floating badges -->
-        <div class="relative">
-          <div class="absolute -top-4 -right-4 w-full h-full bg-gradient-to-br from-warm-200 to-brand-100 dark:from-warm-900/20 dark:to-brand-900/20 rounded-3xl -z-10"></div>
-          <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-ink-800">
-            <img src="/images/optimized/11045440.webp" alt="Artin Studio at work" class="w-full h-full object-cover"/>
-          </div>
-          <!-- Floating: studio card -->
-          <div class="absolute -bottom-5 -left-4 sm:-left-8 bg-white dark:bg-ink-800 rounded-2xl px-5 py-4 shadow-2xl border border-ink-100 dark:border-ink-700">
-            <p class="font-display font-extrabold text-sm text-ink-900 dark:text-white">Artin Studio</p>
-            <p class="text-ink-500 dark:text-ink-400 text-xs mt-0.5">{t.about.location}</p>
-            <div class="flex items-center gap-1.5 mt-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-              <span class="text-[10px] text-ink-500 dark:text-ink-400 font-medium">{t.about.availableProjects}</span>
-            </div>
-          </div>
-          <!-- Floating: social proof -->
-          <div class="absolute -top-4 -right-4 sm:-right-8 bg-ink-950 dark:bg-white rounded-2xl px-4 py-3 shadow-xl rotate-3 border-2 border-white dark:border-ink-900">
-            <p class="text-xs font-extrabold text-white dark:text-ink-900 uppercase tracking-wide">{t.about.projectsDelivered}</p>
-            <p class="text-[10px] text-ink-400 dark:text-ink-600 mt-0.5">{t.about.onTime}</p>
-          </div>
-        </div>
-
+        <a href="#contact" class="group inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-7 py-3.5 rounded-full font-bold text-sm transition-all hover:shadow-xl hover:shadow-brand-500/30 hover:-translate-y-0.5">
+          {t.about.cta}
+          <ArrowIcon class="w-4 h-4 transition-transform group-hover:translate-x-1" strokeWidth="2" />
+        </a>
       </div>
+
     </div>
   </div>
 </section>
+
+<style>
+  .accent-squiggle::after {
+    content:'';
+    display:block;
+    position:absolute;
+    bottom:-6px; left:0;
+    width:100%; height:8px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='8'%3E%3Cpath d='M0 6 Q10 1 20 6 Q30 11 40 6 Q50 1 60 6 Q70 11 80 6' stroke='%23ff7a55' stroke-width='2.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;
+    background-size:80px 8px;
+  }
+</style>

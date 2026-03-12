@@ -1,0 +1,229 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import LazyImage from '../components/LazyImage.astro';
+import ArrowIcon from '../components/ui/ArrowIcon.astro';
+import DotGrid from '../components/ui/DotGrid.astro';
+import Lightbox from '../components/Lightbox.astro';
+import { getTranslations, type Lang } from '../i18n/translations';
+
+const lang: Lang = 'en';
+const t = getTranslations(lang);
+
+// Client stories - each story shows all the work we did for one client
+const stories = [
+  {
+    id: 'bakery',
+    client: "Warsaw Sourdough Co.",
+    headline: "From local bakery to city-wide brand",
+    challenge: "A small family bakery with amazing products but no online presence. They were losing customers to chains with better marketing.",
+    solution: "Complete brand refresh, product photography for their new e-commerce site, social media content, and a promotional video for Instagram.",
+    results: ["3x increase in online orders", "12K new Instagram followers", "Featured in local food blogs"],
+    services: ["Branding", "Photography", "Video", "Website"],
+    images: ["01034900.webp", "11035239.webp"],
+    video: false,
+    color: "amber",
+  },
+  {
+    id: 'model',
+    client: "Anna K.",
+    headline: "Aspiring model, now signed",
+    challenge: "Anna wanted to break into modeling but had no professional portfolio. Agencies weren't responding to her phone photos.",
+    solution: "Professional portfolio shoot with multiple looks, a comp card design, and a short video reel showcasing her range.",
+    results: ["Signed with Warsaw Model Agency", "3 commercial bookings in first month", "Professional comp card"],
+    services: ["Photography", "Video", "Design"],
+    images: ["11045368.webp", "11045382.webp"],
+    video: true,
+    color: "rose",
+  },
+  {
+    id: 'ecommerce',
+    client: "Glow Cosmetics",
+    headline: "New skincare brand, ready to sell",
+    challenge: "Launching a new skincare line with no visual assets. Needed everything from product shots to a working online store.",
+    solution: "Product photography, brand identity, e-commerce website with SEO, and video ads for Meta campaigns.",
+    results: ["€15K revenue in first quarter", "2.4% conversion rate", "500+ products sold"],
+    services: ["Branding", "Photography", "Website", "Marketing"],
+    images: ["11045397.webp", "11045406.webp"],
+    video: true,
+    color: "sky",
+  },
+  {
+    id: 'restaurant',
+    client: "Osteria Bella",
+    headline: "Empty tables to weekend waitlists",
+    challenge: "A great Italian restaurant struggling to attract customers. Their old website and stock photos weren't doing the food justice.",
+    solution: "Menu photography, brand refresh, new website, Google Business optimization, and a brand film for social media.",
+    results: ["Fully booked weekends", "4.8★ Google rating", "40% more reservations"],
+    services: ["Photography", "Video", "Website", "Marketing"],
+    images: ["11045319.webp", "11045412.webp"],
+    video: true,
+    color: "emerald",
+  },
+];
+
+const colorClasses: Record<string, { bg: string; border: string; accent: string; badge: string }> = {
+  amber: {
+    bg: "bg-amber-50 dark:bg-ink-800",
+    border: "border-amber-200/60 dark:border-amber-500/20",
+    accent: "text-amber-600 dark:text-amber-400",
+    badge: "bg-amber-100 dark:bg-amber-500/15 text-amber-700 dark:text-amber-300",
+  },
+  rose: {
+    bg: "bg-rose-50 dark:bg-ink-800",
+    border: "border-rose-200/60 dark:border-rose-500/20",
+    accent: "text-rose-600 dark:text-rose-400",
+    badge: "bg-rose-100 dark:bg-rose-500/15 text-rose-700 dark:text-rose-300",
+  },
+  sky: {
+    bg: "bg-sky-50 dark:bg-ink-800",
+    border: "border-sky-200/60 dark:border-sky-500/20",
+    accent: "text-sky-600 dark:text-sky-400",
+    badge: "bg-sky-100 dark:bg-sky-500/15 text-sky-700 dark:text-sky-300",
+  },
+  emerald: {
+    bg: "bg-emerald-50 dark:bg-ink-800",
+    border: "border-emerald-200/60 dark:border-emerald-500/20",
+    accent: "text-emerald-600 dark:text-emerald-400",
+    badge: "bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
+  },
+};
+---
+
+<Layout lang={lang} title="Visual Stories — Client Work | Artin Studio">
+  <Navigation lang={lang} t={t} />
+  
+  <main class="pt-32 pb-24 bg-cream dark:bg-ink-950 min-h-screen relative overflow-hidden">
+    <DotGrid color="#ff7a55" dotSize="1.5px" opacity="0.025" />
+    
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+      
+      <!-- Page header -->
+      <div class="mb-20 text-center">
+        <span class="inline-block text-warm-600 dark:text-warm-400 text-xs font-bold tracking-[0.2em] uppercase mb-4">Our Work</span>
+        <h1 class="font-display font-extrabold text-ink-950 dark:text-white mb-6 leading-tight" style="font-size:clamp(2.5rem,5vw,4rem)">
+          Visual <span class="text-brand-500">Stories</span>
+        </h1>
+        <p class="text-ink-500 dark:text-ink-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          Real clients, real results. Each story shows how we helped a business grow through branding, photography, video, and digital strategy.
+        </p>
+      </div>
+
+      <!-- Client stories -->
+      <div class="space-y-16">
+        {stories.map((story, i) => {
+          const colors = colorClasses[story.color];
+          return (
+            <article class={`group relative rounded-3xl ${colors.bg} border ${colors.border} p-8 md:p-10 shadow-sm overflow-hidden`} id={story.id}>
+              
+              <!-- Story number -->
+              <div class="absolute top-6 right-6 md:top-8 md:right-8">
+                <span class={`text-6xl md:text-8xl font-extrabold ${colors.accent} opacity-20`}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </div>
+
+              <!-- Client & headline -->
+              <div class="mb-8">
+                <span class={`text-xs font-bold tracking-[0.15em] uppercase ${colors.accent} block mb-2`}>{story.client}</span>
+                <h2 class="font-display font-extrabold text-ink-900 dark:text-white text-2xl md:text-3xl leading-tight">{story.headline}</h2>
+              </div>
+
+              <!-- Two column layout -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Left: Story content -->
+                <div class="space-y-6">
+                  <!-- Challenge -->
+                  <div>
+                    <h3 class="text-sm font-bold text-ink-400 dark:text-ink-500 uppercase tracking-wider mb-2">The Challenge</h3>
+                    <p class="text-ink-600 dark:text-ink-300 leading-relaxed">{story.challenge}</p>
+                  </div>
+
+                  <!-- Solution -->
+                  <div>
+                    <h3 class="text-sm font-bold text-ink-400 dark:text-ink-500 uppercase tracking-wider mb-2">What We Did</h3>
+                    <p class="text-ink-600 dark:text-ink-300 leading-relaxed">{story.solution}</p>
+                  </div>
+
+                  <!-- Services used -->
+                  <div class="flex flex-wrap gap-2">
+                    {story.services.map(service => (
+                      <span class={`px-3 py-1.5 rounded-full text-xs font-bold ${colors.badge}`}>{service}</span>
+                    ))}
+                    {story.video && (
+                      <span class="px-3 py-1.5 rounded-full text-xs font-bold bg-ink-100 dark:bg-white/10 text-ink-600 dark:text-ink-300 flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        Video
+                      </span>
+                    )}
+                  </div>
+
+                  <!-- Results -->
+                  <div class="pt-4 border-t border-ink-200/50 dark:border-white/10">
+                    <h3 class="text-sm font-bold text-ink-400 dark:text-ink-500 uppercase tracking-wider mb-3">Results</h3>
+                    <ul class="space-y-2">
+                      {story.results.map(result => (
+                        <li class="flex items-center gap-2 text-ink-700 dark:text-ink-200 font-medium">
+                          <svg class={`w-4 h-4 ${colors.accent} shrink-0`} fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                          </svg>
+                          {result}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Right: Images -->
+                <div class="space-y-4">
+                  {story.images.map((img, imgIndex) => (
+                    <div class="relative rounded-2xl overflow-hidden cursor-pointer group/img" data-lightbox={`/images/optimized/${img}`}>
+                      <LazyImage 
+                        src={`/images/optimized/${img}`} 
+                        alt={`${story.client} project`}
+                        class="w-full aspect-[4/3] object-cover group-hover/img:scale-105 transition-transform duration-500"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-ink-950/40 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <span class="text-white text-sm font-medium">View larger</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+
+            </article>
+          );
+        })}
+      </div>
+
+      <!-- CTA section -->
+      <div class="mt-20 text-center">
+        <div class="inline-block rounded-3xl bg-ink-950 dark:bg-ink-800 p-10 md:p-14 shadow-xl relative overflow-hidden max-w-2xl">
+          <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_10%_90%,rgba(255,122,85,0.2),transparent)] pointer-events-none"></div>
+          <div class="relative">
+            <span class="text-brand-400 text-xs font-bold tracking-[0.15em] uppercase block mb-3">Your story next?</span>
+            <h3 class="font-display font-extrabold text-white text-2xl md:text-3xl mb-4">Let's create something together</h3>
+            <p class="text-ink-400 text-base max-w-md mx-auto mb-8">Tell us about your business — we'll show you how visual storytelling can help you grow.</p>
+            <a href="/#contact" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-8 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-brand-500/30">
+              Start your story
+              <ArrowIcon class="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <Footer t={t} />
+  <Lightbox />
+</Layout>
+
+<style>
+  [data-lightbox] {
+    cursor: zoom-in;
+  }
+</style>

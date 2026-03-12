@@ -8,106 +8,66 @@ const { t } = Astro.props;
 
 const services = [
   {
-    num: '01', emoji: '🎨',
+    num: '01',
     title: t.services.brandingTitle,
     desc: t.services.brandingDesc,
-    tags: t.services.brandingTags,
-    bg:     'bg-violet-50 dark:bg-violet-950/30',
-    border: 'border-violet-200/70 dark:border-violet-800/60',
-    badge:  'bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300',
-    num_bg: 'bg-violet-500',
-    accent: 'text-violet-600 dark:text-violet-400',
   },
   {
-    num: '02', emoji: '📸',
+    num: '02',
     title: t.services.photoTitle,
     desc: t.services.photoDesc,
-    tags: t.services.photoTags,
-    bg:     'bg-orange-50 dark:bg-brand-950/30',
-    border: 'border-orange-200/70 dark:border-brand-800/60',
-    badge:  'bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300',
-    num_bg: 'bg-brand-500',
-    accent: 'text-brand-600 dark:text-brand-400',
   },
   {
-    num: '03', emoji: '🎬',
+    num: '03',
     title: t.services.videoTitle,
     desc: t.services.videoDesc,
-    tags: t.services.videoTags,
-    bg:     'bg-amber-50 dark:bg-amber-950/30',
-    border: 'border-amber-200/70 dark:border-amber-800/60',
-    badge:  'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300',
-    num_bg: 'bg-amber-500',
-    accent: 'text-amber-600 dark:text-amber-400',
   },
   {
-    num: '04', emoji: '🌐',
+    num: '04',
     title: t.services.webTitle,
     desc: t.services.webDesc,
-    tags: t.services.webTags,
-    bg:     'bg-sky-50 dark:bg-sky-950/30',
-    border: 'border-sky-200/70 dark:border-sky-800/60',
-    badge:  'bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300',
-    num_bg: 'bg-sky-500',
-    accent: 'text-sky-600 dark:text-sky-400',
   },
   {
-    num: '05', emoji: '📣',
+    num: '05',
     title: t.services.marketTitle,
     desc: t.services.marketDesc,
-    tags: t.services.marketTags,
-    bg:     'bg-emerald-50 dark:bg-emerald-950/30',
-    border: 'border-emerald-200/70 dark:border-emerald-800/60',
-    badge:  'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300',
-    num_bg: 'bg-emerald-500',
-    accent: 'text-emerald-600 dark:text-emerald-400',
   },
 ];
+
+// Unified color scheme
+const cardStyle = {
+  bg:     'bg-warm-50 dark:bg-ink-800',
+  border: 'border-warm-200/60 dark:border-white/6',
+  accent: 'text-warm-600 dark:text-warm-400',
+};
 ---
 
-<section id="journey" class="py-24 bg-sand dark:bg-ink-900 scroll-mt-24 overflow-hidden relative">
+<section id="journey" class="py-24 lg:min-h-screen lg:flex lg:items-center bg-sand dark:bg-ink-900 scroll-mt-24 overflow-hidden relative">
 
   <DotGrid color="#ff7a55" dotSize="1.5px" opacity="0.035" />
 
-  <div class="max-w-6xl mx-auto px-6 relative z-10">
+  <div class="w-full max-w-6xl mx-auto px-6 relative z-10">
 
     <!-- Section header -->
     <div class="mb-14">
-      <div class="inline-flex items-center gap-2 bg-brand-100 dark:bg-brand-900/40 border border-brand-200 dark:border-brand-800 text-brand-600 dark:text-brand-400 rounded-full px-4 py-1.5 text-xs font-bold tracking-widest uppercase mb-5">
-        {t.services.sectionBadge}
-      </div>
       <h2 class="font-display font-extrabold text-ink-950 dark:text-white mb-4 leading-tight" style="font-size:clamp(2rem,4.5vw,3.4rem)">
-        {t.services.sectionHeading} <span class="text-brand-500">{t.services.sectionHeadingAccent}</span>
+        {t.services.sectionHeading} <span class="accent-squiggle relative inline-block text-brand-500">{t.services.sectionHeadingAccent}</span>
       </h2>
-      <p class="text-ink-500 dark:text-ink-400 text-lg max-w-2xl leading-relaxed">
-        {t.services.sectionSubtext}
-      </p>
     </div>
 
     <!-- Service cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
 
       {services.map((s, i) => (
-        <div class:list={["service-card group relative rounded-3xl border p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 opacity-0", s.bg, s.border]}>
-          <!-- Row 1: Step number (left) + Emoji icon (right) -->
-          <div class="flex items-center justify-between mb-5">
-            <span class:list={["text-xl font-extrabold tracking-[0.08em] uppercase", s.accent]}>{s.num}</span>
-            <div class:list={["w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 group-hover:scale-110 transition-transform duration-300", s.badge]}>{s.emoji}</div>
+        <div class:list={["service-card group relative rounded-3xl border p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 opacity-0", cardStyle.bg, cardStyle.border]}>
+          <!-- Step number -->
+          <div class="mb-5">
+            <span class:list={["text-xl font-extrabold tracking-[0.08em] uppercase", cardStyle.accent]}>{s.num}</span>
           </div>
           <!-- Title -->
           <h3 class="font-display font-extrabold text-ink-900 dark:text-white text-2xl leading-tight mb-3">{s.title}</h3>
           <!-- Description -->
-          <p class="text-ink-500 dark:text-ink-400 text-base leading-relaxed mb-5">{s.desc}</p>
-          <!-- Tags -->
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            {s.tags.map((tag: string) => (
-              <span class:list={["text-[11px] font-semibold px-3 py-1 rounded-full", s.badge]}>{tag}</span>
-            ))}
-          </div>
-          <a href="#contact" class:list={["inline-flex items-center gap-1.5 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-200", s.accent]}>
-            Get a quote
-            <ArrowIcon class="w-3.5 h-3.5" />
-          </a>
+          <p class="text-ink-500 dark:text-ink-400 text-base leading-relaxed">{s.desc}</p>
         </div>
       ))}
 
@@ -130,6 +90,19 @@ const services = [
 
   </div>
 </section>
+
+<style>
+  .accent-squiggle::after {
+    content:'';
+    display:block;
+    position:absolute;
+    bottom:-6px; left:0;
+    width:100%; height:8px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='8'%3E%3Cpath d='M0 6 Q10 1 20 6 Q30 11 40 6 Q50 1 60 6 Q70 11 80 6' stroke='%23ff7a55' stroke-width='2.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat:repeat-x;
+    background-size:80px 8px;
+  }
+</style>
 
 <script>
   const cards = document.querySelectorAll<HTMLElement>('.service-card');

@@ -10,20 +10,22 @@ interface Props {
 
 const { lang, t } = Astro.props;
 
+// Helper to build language-aware paths
+const langPrefix = lang === 'en' ? '' : `/${lang}`;
+
 const navItems = [
-  { href: '#home',        label: t.nav.home },
-  { href: '#journey',     label: t.nav.services },
-  { href: '#photography', label: t.nav.photography },
-  { href: '#videography', label: t.nav.videography },
-  { href: '#about',       label: t.nav.about },
-  { href: '#contact',     label: t.nav.contact },
+  { href: `${langPrefix}/#home`,        label: t.nav.home },
+  { href: `${langPrefix}/services`,     label: t.nav.services },
+  { href: `${langPrefix}/work`,         label: t.nav.work },
+  { href: `${langPrefix}/#about`,       label: t.nav.about },
+  { href: `${langPrefix}/#contact`,     label: t.nav.contact },
 ];
 ---
 
 <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent">
   <div class="max-w-6xl mx-auto px-6 py-5">
     <div class="flex justify-between items-center">
-      <a href="#home" class="nav-logo group relative">
+      <a href={`${langPrefix}/#home`} class="nav-logo group relative">
         <!-- Background glow effect -->
         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl pointer-events-none" style="background: radial-gradient(circle at center, rgba(255, 122, 85, 0.15) 0%, transparent 70%); filter: blur(12px);"></div>
         
