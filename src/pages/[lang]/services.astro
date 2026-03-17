@@ -4,12 +4,15 @@ import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
 import ArrowIcon from '../../components/ui/ArrowIcon.astro';
 import DotGrid from '../../components/ui/DotGrid.astro';
-import { languages, getTranslations, type Lang } from '../../i18n/translations';
+import { languages, defaultLang, getTranslations, type Lang } from '../../i18n/translations';
 
 export function getStaticPaths() {
-  return Object.keys(languages).map((lang) => ({
-    params: { lang },
-  }));
+  // Only generate pages for non-default languages (Polish is at root)
+  return Object.keys(languages)
+    .filter((lang) => lang !== defaultLang)
+    .map((lang) => ({
+      params: { lang },
+    }));
 }
 
 const { lang } = Astro.params as { lang: Lang };
@@ -20,14 +23,10 @@ const services = [
     num: '01',
     title: t.services.brandingTitle,
     desc: t.services.brandingDesc,
-    story: lang === 'pl' 
-      ? "Każdy silny biznes zaczyna się od jasnej tożsamości. Budujemy systemy brandingowe, które działają na każdym punkcie styku — od logo po obecność w mediach społecznościowych."
-      : lang === 'uk'
+    story: lang === 'uk'
       ? "Кожен сильний бізнес починається з чіткої ідентичності. Ми будуємо системи брендингу, які працюють на кожній точці контакту — від логотипу до присутності в соціальних мережах."
       : "Every strong business starts with a clear identity. We build brand systems that work across every touchpoint — from your logo to your social media presence.",
-    deliverables: lang === 'pl'
-      ? ["Logo i identyfikacja wizualna", "Księga znaku", "Wizytówki i materiały", "Szablony social media"]
-      : lang === 'uk'
+    deliverables: lang === 'uk'
       ? ["Логотип та ідентичність", "Брендбук", "Візитівки та матеріали", "Шаблони соцмереж"]
       : ["Logo & brand identity", "Brand guidelines", "Business cards & stationery", "Social media templates"],
     color: "warm",
@@ -36,48 +35,36 @@ const services = [
     num: '02',
     title: t.services.photoTitle,
     desc: t.services.photoDesc,
-    story: lang === 'pl'
-      ? "Fotografia produktowa, która sprzedaje. Robimy czyste, przekonujące zdjęcia zaprojektowane pod e-commerce, opakowania i reklamy."
-      : lang === 'uk'
+    story: lang === 'uk'
       ? "Продуктова фотографія, яка продає. Ми робимо чисті, переконливі знімки для e-commerce, пакування та реклами."
       : "Product photography that sells. We shoot clean, compelling images designed for e-commerce, packaging, and advertising.",
-    deliverables: lang === 'pl'
-      ? ["Fotografia produktowa", "Zdjęcia lifestyle", "Treści na social media", "Zdjęcia e-commerce"]
-      : lang === 'uk'
+    deliverables: lang === 'uk'
       ? ["Продуктова фотографія", "Lifestyle зйомка", "Контент для соцмереж", "Фото для e-commerce"]
       : ["Product photography", "Lifestyle shots", "Social media content", "E-commerce imagery"],
     color: "warm",
-    link: lang === 'en' ? "/work" : `/${lang}/work`,
+    link: `/${lang}/work`,
   },
   {
     num: '03',
     title: t.services.videoTitle,
     desc: t.services.videoDesc,
-    story: lang === 'pl'
-      ? "Od filmów brandowych po reelsy — tworzymy treści wideo, które przyciągają uwagę i zamieniają widzów w klientów."
-      : lang === 'uk'
+    story: lang === 'uk'
       ? "Від бренд-фільмів до рілсів — ми створюємо відеоконтент, який привертає увагу та перетворює глядачів на клієнтів."
       : "From brand films to social reels, we create video content that captures attention and converts viewers into customers.",
-    deliverables: lang === 'pl'
-      ? ["Filmy brandowe", "Wideo produktowe", "Reelsy social media", "Kampanie reklamowe"]
-      : lang === 'uk'
+    deliverables: lang === 'uk'
       ? ["Бренд-фільми", "Продуктове відео", "Рілси для соцмереж", "Рекламні кампанії"]
       : ["Brand films", "Product videos", "Social reels", "Ad campaigns"],
     color: "warm",
-    link: lang === 'en' ? "/work" : `/${lang}/work`,
+    link: `/${lang}/work`,
   },
   {
     num: '04',
     title: t.services.webTitle,
     desc: t.services.webDesc,
-    story: lang === 'pl'
-      ? "Strony i aplikacje, które pracują tak ciężko jak Ty. Szybkie, piękne i zbudowane, by zamieniać odwiedzających w klientów."
-      : lang === 'uk'
+    story: lang === 'uk'
       ? "Сайти та застосунки, які працюють так само старанно, як і ви. Швидкі, красиві та створені для конвертації відвідувачів у клієнтів."
       : "Websites and apps that work as hard as you do. Fast, beautiful, and built to convert visitors into customers.",
-    deliverables: lang === 'pl'
-      ? ["Projektowanie stron", "Sklepy e-commerce", "Landing pages", "Aplikacje webowe"]
-      : lang === 'uk'
+    deliverables: lang === 'uk'
       ? ["Дизайн та розробка сайтів", "Інтернет-магазини", "Лендінги", "Веб-застосунки"]
       : ["Website design & development", "E-commerce stores", "Landing pages", "Web applications"],
     color: "warm",
@@ -86,39 +73,35 @@ const services = [
     num: '05',
     title: t.services.marketTitle,
     desc: t.services.marketDesc,
-    story: lang === 'pl'
-      ? "Strategiczny marketing, który dociera do właściwych ludzi. Pomagamy opowiedzieć Twoją historię tam, gdzie Twoi klienci już szukają."
-      : lang === 'uk'
+    story: lang === 'uk'
       ? "Стратегічний маркетинг, який досягає правильних людей. Ми допомагаємо розповісти вашу історію там, де ваші клієнти вже шукають."
       : "Strategic marketing that reaches the right people. We help you tell your story where your customers are already looking.",
-    deliverables: lang === 'pl'
-      ? ["Strategia social media", "Planowanie treści", "Reklama płatna", "Kampanie emailowe"]
-      : lang === 'uk'
+    deliverables: lang === 'uk'
       ? ["Стратегія соцмереж", "Планування контенту", "Платна реклама", "Email-кампанії"]
       : ["Social media strategy", "Content planning", "Paid advertising", "Email campaigns"],
     color: "warm",
   },
 ];
 
-const pageTitle = lang === 'pl' ? 'Jak Pomagamy' : lang === 'uk' ? 'Як Ми Допомагаємо' : 'How We Help';
-const pageSubtitle = lang === 'pl' 
-  ? 'Wszystko, czego Twoja marka potrzebuje, by wyglądać profesjonalnie i konwertować klientów — wszystko z jednego studia.'
-  : lang === 'uk'
+const pageTitle = lang === 'uk' ? 'Як Ми Допомагаємо' : 'How We Help';
+const pageTitleFull = lang === 'uk'
+  ? 'Наші Послуги — Брендинг, Фотографія, Відео, Сайти та Маркетинг'
+  : 'Our Services — Branding, Photography, Video, Web & Marketing';
+const pageSubtitle = lang === 'uk'
   ? 'Все, що потрібно вашому бренду, щоб виглядати професійно та конвертувати клієнтів — все з однієї студії.'
   : 'Everything your brand needs to look professional and convert customers — all from one studio.';
-const ctaTitle = lang === 'pl' ? 'Gotowy zacząć?' : lang === 'uk' ? 'Готові почати?' : 'Ready to start?';
-const ctaDesc = lang === 'pl' 
-  ? 'Opowiedz nam o swoim projekcie — odpowiemy z konkretnym planem i stałą ceną.'
-  : lang === 'uk'
+const ctaTitle = lang === 'uk' ? 'Готові почати?' : 'Ready to start?';
+const ctaDesc = lang === 'uk'
   ? 'Розкажіть нам про свій проект — ми відповімо з чітким планом та фіксованою ціною.'
   : "Tell us about your project — we'll reply with a clear plan and a fixed price.";
-const ctaButton = lang === 'pl' ? 'Zacznij projekt' : lang === 'uk' ? 'Розпочати проект' : 'Start your project';
-const getQuote = lang === 'pl' ? 'Zapytaj o wycenę' : lang === 'uk' ? 'Запитати ціну' : 'Get a quote';
-const viewPortfolio = lang === 'pl' ? 'Zobacz portfolio' : lang === 'uk' ? 'Переглянути портфоліо' : 'View portfolio';
-const homeLink = lang === 'en' ? '/' : `/${lang}/`;
+const ctaButton = lang === 'uk' ? 'Розпочати проект' : 'Start your project';
+const getQuote = lang === 'uk' ? 'Запитати ціну' : 'Get a quote';
+const viewPortfolio = lang === 'uk' ? 'Переглянути портфоліо' : 'View portfolio';
+// This file only generates for non-default languages (en, uk)
+const homeLink = `/${lang}/`;
 ---
 
-<Layout lang={lang} title={`${pageTitle} — Artin Studio`}>
+<Layout lang={lang} title={`${pageTitleFull} | Artin Studio`}>
   <Navigation lang={lang} t={t} />
   
   <main class="pt-32 pb-24 bg-cream dark:bg-ink-950 min-h-screen relative overflow-hidden">

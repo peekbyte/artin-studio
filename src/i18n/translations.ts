@@ -1,12 +1,12 @@
 export const languages = {
-  en: "English",
   pl: "Polski",
+  en: "English",
   uk: "Українська",
 } as const;
 
 export type Lang = keyof typeof languages;
 
-export const defaultLang: Lang = "en";
+export const defaultLang: Lang = "pl";
 
 export const langFlags: Record<Lang, string> = {
   en: "🇬🇧",
@@ -128,7 +128,7 @@ export const translations = {
       val4Title: "Honest pricing",
       val4Desc: "Fixed quote before we start. What we agree is what you pay.",
       // Floating badges
-      location: "Warsaw, Poland · Est. 2022",
+      location: "Kraków",
       availableProjects: "Available for new projects",
       projectsDelivered: "Every project",
       onTime: "delivered on time",
@@ -160,7 +160,7 @@ export const translations = {
       sending: "Sending…",
       successMessage: "Message sent — we'll be in touch soon.",
       errorMessage: "Something went wrong. Please try again or email us directly.",
-      location: "Warsaw, Poland",
+      location: "Kraków, Poland",
     },
     // Services
     services: {

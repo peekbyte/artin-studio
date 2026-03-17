@@ -6,7 +6,8 @@ import ArrowIcon from '../components/ui/ArrowIcon.astro';
 import DotGrid from '../components/ui/DotGrid.astro';
 import { getTranslations, type Lang } from '../i18n/translations';
 
-const lang: Lang = 'en';
+// Root serves Polish (default language)
+const lang: Lang = 'pl';
 const t = getTranslations(lang);
 
 const services = [
@@ -14,16 +15,16 @@ const services = [
     num: '01',
     title: t.services.brandingTitle,
     desc: t.services.brandingDesc,
-    story: "Every strong business starts with a clear identity. We build brand systems that work across every touchpoint — from your logo to your social media presence.",
-    deliverables: ["Logo & brand identity", "Brand guidelines", "Business cards & stationery", "Social media templates"],
+    story: "Każdy silny biznes zaczyna się od jasnej tożsamości. Budujemy systemy brandingowe, które działają na każdym punkcie styku — od logo po obecność w mediach społecznościowych.",
+    deliverables: ["Logo i identyfikacja wizualna", "Księga znaku", "Wizytówki i materiały", "Szablony social media"],
     color: "warm",
   },
   {
     num: '02',
     title: t.services.photoTitle,
     desc: t.services.photoDesc,
-    story: "Product photography that sells. We shoot clean, compelling images designed for e-commerce, packaging, and advertising.",
-    deliverables: ["Product photography", "Lifestyle shots", "Social media content", "E-commerce imagery"],
+    story: "Fotografia produktowa, która sprzedaje. Robimy czyste, przekonujące zdjęcia zaprojektowane pod e-commerce, opakowania i reklamy.",
+    deliverables: ["Fotografia produktowa", "Zdjęcia lifestyle", "Treści na social media", "Zdjęcia e-commerce"],
     color: "warm",
     link: "/work",
   },
@@ -31,8 +32,8 @@ const services = [
     num: '03',
     title: t.services.videoTitle,
     desc: t.services.videoDesc,
-    story: "From brand films to social reels, we create video content that captures attention and converts viewers into customers.",
-    deliverables: ["Brand films", "Product videos", "Social reels", "Ad campaigns"],
+    story: "Od filmów brandowych po reelsy — tworzymy treści wideo, które przyciągają uwagę i zamieniają widzów w klientów.",
+    deliverables: ["Filmy brandowe", "Wideo produktowe", "Reelsy social media", "Kampanie reklamowe"],
     color: "warm",
     link: "/work",
   },
@@ -40,22 +41,22 @@ const services = [
     num: '04',
     title: t.services.webTitle,
     desc: t.services.webDesc,
-    story: "Websites and apps that work as hard as you do. Fast, beautiful, and built to convert visitors into customers.",
-    deliverables: ["Website design & development", "E-commerce stores", "Landing pages", "Web applications"],
+    story: "Strony i aplikacje, które pracują tak ciężko jak Ty. Szybkie, piękne i zbudowane, by zamieniać odwiedzających w klientów.",
+    deliverables: ["Projektowanie stron", "Sklepy e-commerce", "Landing pages", "Aplikacje webowe"],
     color: "warm",
   },
   {
     num: '05',
     title: t.services.marketTitle,
     desc: t.services.marketDesc,
-    story: "Strategic marketing that reaches the right people. We help you tell your story where your customers are already looking.",
-    deliverables: ["Social media strategy", "Content planning", "Paid advertising", "Email campaigns"],
+    story: "Strategiczny marketing, który dociera do właściwych ludzi. Pomagamy opowiedzieć Twoją historię tam, gdzie Twoi klienci już szukają.",
+    deliverables: ["Strategia social media", "Planowanie treści", "Reklama płatna", "Kampanie emailowe"],
     color: "warm",
   },
 ];
 ---
 
-<Layout lang={lang} title="How We Help — Artin Studio">
+<Layout lang={lang} title="Nasze Usługi — Branding, Fotografia, Wideo, Strony i Marketing | Artin Studio">
   <Navigation lang={lang} t={t} />
   
   <main class="pt-32 pb-24 bg-cream dark:bg-ink-950 min-h-screen relative overflow-hidden">
@@ -65,12 +66,12 @@ const services = [
       
       <!-- Page header -->
       <div class="mb-20 text-center">
-        <span class="inline-block text-warm-600 dark:text-warm-400 text-xs font-bold tracking-[0.2em] uppercase mb-4">Our Services</span>
+        <span class="inline-block text-warm-600 dark:text-warm-400 text-xs font-bold tracking-[0.2em] uppercase mb-4">Nasze Usługi</span>
         <h1 class="font-display font-extrabold text-ink-950 dark:text-white mb-6 leading-tight" style="font-size:clamp(2.5rem,5vw,4rem)">
-          How we help you <span class="text-brand-500">grow</span>
+          Jak pomagamy Ci <span class="text-brand-500">rosnąć</span>
         </h1>
         <p class="text-ink-500 dark:text-ink-400 text-lg max-w-2xl mx-auto leading-relaxed">
-          Everything your brand needs to look professional and convert customers — all from one studio.
+          Wszystko, czego Twoja marka potrzebuje, by wyglądać profesjonalnie i konwertować klientów — wszystko z jednego studia.
         </p>
       </div>
 
@@ -99,12 +100,12 @@ const services = [
 
                 <div class="flex gap-4">
                   <a href="/#contact" class="inline-flex items-center gap-2 text-warm-600 dark:text-warm-400 font-bold text-sm hover:text-brand-500 transition-colors">
-                    Get a quote
+                    Zapytaj o wycenę
                     <ArrowIcon class="w-4 h-4" />
                   </a>
                   {s.link && (
                     <a href={s.link} class="inline-flex items-center gap-2 text-ink-500 dark:text-ink-400 font-medium text-sm hover:text-brand-500 transition-colors">
-                      View portfolio
+                      Zobacz portfolio
                       <ArrowIcon class="w-4 h-4" />
                     </a>
                   )}
@@ -120,10 +121,10 @@ const services = [
         <div class="inline-block rounded-3xl bg-ink-950 dark:bg-ink-800 p-10 md:p-14 shadow-xl relative overflow-hidden">
           <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_10%_90%,rgba(255,122,85,0.2),transparent)] pointer-events-none"></div>
           <div class="relative">
-            <h3 class="font-display font-extrabold text-white text-3xl md:text-4xl mb-4">Ready to start?</h3>
-            <p class="text-ink-400 text-lg max-w-md mx-auto mb-8">Tell us about your project — we'll reply with a clear plan and a fixed price.</p>
+            <h3 class="font-display font-extrabold text-white text-3xl md:text-4xl mb-4">Gotowy zacząć?</h3>
+            <p class="text-ink-400 text-lg max-w-md mx-auto mb-8">Opowiedz nam o swoim projekcie — odpowiemy z konkretnym planem i stałą ceną.</p>
             <a href="/#contact" class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white font-bold px-8 py-4 rounded-full transition-all hover:shadow-lg hover:shadow-brand-500/30">
-              Start your project
+              Zacznij projekt
               <ArrowIcon class="w-5 h-5" />
             </a>
           </div>

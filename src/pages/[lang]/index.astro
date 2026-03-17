@@ -3,25 +3,33 @@ import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Hero from '../../components/Hero.astro';
 import Services from '../../components/Services.astro';
-import Photography from '../../components/Photography.astro';
-import Videography from '../../components/Videography.astro';
 import About from '../../components/About.astro';
 import Contact from '../../components/Contact.astro';
 import Footer from '../../components/Footer.astro';
 import Lightbox from '../../components/Lightbox.astro';
-import { languages, getTranslations, type Lang } from '../../i18n/translations';
+import { languages, defaultLang, getTranslations, type Lang } from '../../i18n/translations';
 
 export function getStaticPaths() {
-  return Object.keys(languages).map((lang) => ({
-    params: { lang },
-  }));
+  // Only generate pages for non-default languages (Polish is at root)
+  return Object.keys(languages)
+    .filter((lang) => lang !== defaultLang)
+    .map((lang) => ({
+      params: { lang },
+    }));
 }
 
 const { lang } = Astro.params as { lang: Lang };
 const t = getTranslations(lang);
+
+// Language-specific page titles
+const pageTitle = {
+  en: "Artin Studio — Branding, Photography, Video, Websites & Apps",
+  pl: "Artin Studio — Branding, Fotografia, Wideo, Strony i Aplikacje",
+  uk: "Artin Studio — Брендинг, Фотографія, Відео, Сайти та Застосунки",
+};
 ---
 
-<Layout lang={lang} title="Artin Studio — Creative Branding Studio">
+<Layout lang={lang} title={pageTitle[lang]}>
   <Navigation lang={lang} t={t} />
   <Hero t={t} />
   <Services t={t} />

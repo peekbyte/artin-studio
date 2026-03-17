@@ -10,8 +10,8 @@ interface Props {
 
 const { lang, t } = Astro.props;
 
-// Helper to build language-aware paths
-const langPrefix = lang === 'en' ? '' : `/${lang}`;
+// Helper to build language-aware paths (Polish is default, no prefix)
+const langPrefix = lang === 'pl' ? '' : `/${lang}`;
 
 const navItems = [
   { href: `${langPrefix}/#home`,        label: t.nav.home },

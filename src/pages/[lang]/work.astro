@@ -6,18 +6,22 @@ import LazyImage from '../../components/LazyImage.astro';
 import ArrowIcon from '../../components/ui/ArrowIcon.astro';
 import DotGrid from '../../components/ui/DotGrid.astro';
 import Lightbox from '../../components/Lightbox.astro';
-import { languages, getTranslations, type Lang } from '../../i18n/translations';
+import { languages, defaultLang, getTranslations, type Lang } from '../../i18n/translations';
 
 export function getStaticPaths() {
-  return Object.keys(languages).map((lang) => ({
-    params: { lang },
-  }));
+  // Only generate pages for non-default languages (Polish is at root)
+  return Object.keys(languages)
+    .filter((lang) => lang !== defaultLang)
+    .map((lang) => ({
+      params: { lang },
+    }));
 }
 
 const { lang } = Astro.params as { lang: Lang };
 const t = getTranslations(lang);
 
-const homeLink = lang === 'en' ? '/' : `/${lang}/`;
+// Polish is default (no prefix), others have prefix
+const homeLink = lang === 'pl' ? '/' : `/${lang}/`;
 
 // Translations for the page
 const pageText = {
@@ -66,6 +70,13 @@ const pageText = {
 };
 
 const text = pageText[lang];
+
+// Full page title for SEO
+const pageTitleFull = {
+  en: "Visual Stories — Client Case Studies & Portfolio | Artin Studio",
+  pl: "Wizualne Historie — Portfolio i Case Studies | Artin Studio",
+  uk: "Візуальні Історії — Портфоліо та Кейси | Artin Studio",
+};
 
 // Client stories with translations
 const stories = [
@@ -195,7 +206,7 @@ const colorClasses: Record<string, { bg: string; border: string; accent: string;
 };
 ---
 
-<Layout lang={lang} title={`${text.title} ${text.titleAccent} — Artin Studio`}>
+<Layout lang={lang} title={pageTitleFull[lang]}>
   <Navigation lang={lang} t={t} />
   
   <main class="pt-32 pb-24 bg-cream dark:bg-ink-950 min-h-screen relative overflow-hidden">

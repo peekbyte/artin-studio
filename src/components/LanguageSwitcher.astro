@@ -1,11 +1,16 @@
 ---
-import { languages, langFlags, type Lang } from "../i18n/translations";
+import { languages, langFlags, defaultLang, type Lang } from "../i18n/translations";
 
 interface Props {
   currentLang: Lang;
 }
 
 const { currentLang } = Astro.props;
+
+// Helper to get the correct URL for each language
+const getLangUrl = (code: string) => {
+  return code === defaultLang ? '/' : `/${code}/`;
+};
 ---
 
 <div class="relative lang-switcher">
@@ -25,7 +30,7 @@ const { currentLang } = Astro.props;
   >
     {Object.entries(languages).map(([code, name]) => (
       <a 
-        href={`/${code}/`}
+        href={getLangUrl(code)}
         class:list={[
           "flex items-center gap-3 px-4 py-2 text-sm transition-colors",
           code === currentLang 

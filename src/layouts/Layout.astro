@@ -8,8 +8,26 @@ interface Props {
   lang?: Lang;
 }
 
-const { title = "Artin Studio — Photography & Videography", lang = 'en' } = Astro.props;
+const { title = "Artin Studio — Branding, Photography, Video, Websites & Apps", lang = 'en' } = Astro.props;
 const t = translations[lang];
+
+// SEO meta content based on language
+const seoContent = {
+  en: {
+    description: "Artin Studio helps businesses grow with branding, photography, video production, custom websites, mobile apps, and marketing. One studio, everything your brand needs to stand out.",
+    keywords: "branding agency, photography, videography, web design, mobile apps, custom software, e-commerce websites, brand identity, product photography, video production, app development, digital marketing",
+  },
+  pl: {
+    description: "Artin Studio pomaga firmom rosnąć dzięki brandingowi, fotografii, produkcji wideo, stronom internetowym, aplikacjom mobilnym i marketingowi. Jedno studio, wszystko czego potrzebuje Twoja marka.",
+    keywords: "agencja brandingowa, fotografia, wideo, strony internetowe, aplikacje mobilne, oprogramowanie, sklepy internetowe, identyfikacja wizualna, fotografia produktowa, produkcja wideo, tworzenie aplikacji, marketing cyfrowy",
+  },
+  uk: {
+    description: "Artin Studio допомагає бізнесам зростати через брендинг, фотографію, відеовиробництво, веб-сайти, мобільні застосунки та маркетинг. Одна студія — все, що потрібно вашому бренду.",
+    keywords: "брендингова агенція, фотографія, відео, веб-сайти, мобільні застосунки, розробка програм, інтернет-магазини, айдентика, продуктова фотографія, відеовиробництво, розробка додатків, цифровий маркетинг",
+  },
+};
+
+const seo = seoContent[lang] || seoContent.en;
 ---
 
 <!doctype html>
@@ -23,6 +41,22 @@ const t = translations[lang];
     <meta name="theme-color" content="#1a1614" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content={seo.description} />
+    <meta name="keywords" content={seo.keywords} />
+    <meta name="author" content="Artin Studio" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:site_name" content="Artin Studio" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={seo.description} />
 
     <!-- ── Crawler & scraper protection ── -->
     <!-- Allow normal search engine indexing; block AI training use of content -->
