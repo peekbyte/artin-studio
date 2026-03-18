@@ -24,8 +24,8 @@ const services = [
     title: t.services.brandingTitle,
     desc: t.services.brandingDesc,
     story: lang === 'uk'
-      ? "Кожен сильний бізнес починається з чіткої ідентичності. Ми будуємо системи брендингу, які працюють на кожній точці контакту — від логотипу до присутності в соціальних мережах."
-      : "Every strong business starts with a clear identity. We build brand systems that work across every touchpoint — from your logo to your social media presence.",
+      ? "Кожен сильний бізнес починається з чіткої ідентичності. Ми створюємо повні системи брендингу — від логотипу, кольорів і шрифтів до шаблонів для соцмереж. Все узгоджено і готове до використання."
+      : "Every strong business starts with a clear identity. We build complete brand systems — from logo, colors and typography to social media templates. Everything consistent and ready to use.",
     deliverables: lang === 'uk'
       ? ["Логотип та ідентичність", "Брендбук", "Візитівки та матеріали", "Шаблони соцмереж"]
       : ["Logo & brand identity", "Brand guidelines", "Business cards & stationery", "Social media templates"],
@@ -33,40 +33,38 @@ const services = [
   },
   {
     num: '02',
-    title: t.services.photoTitle,
-    desc: t.services.photoDesc,
-    story: lang === 'uk'
-      ? "Продуктова фотографія, яка продає. Ми робимо чисті, переконливі знімки для e-commerce, пакування та реклами."
-      : "Product photography that sells. We shoot clean, compelling images designed for e-commerce, packaging, and advertising.",
-    deliverables: lang === 'uk'
-      ? ["Продуктова фотографія", "Lifestyle зйомка", "Контент для соцмереж", "Фото для e-commerce"]
-      : ["Product photography", "Lifestyle shots", "Social media content", "E-commerce imagery"],
-    color: "warm",
-    link: `/${lang}/work`,
-  },
-  {
-    num: '03',
-    title: t.services.videoTitle,
-    desc: t.services.videoDesc,
-    story: lang === 'uk'
-      ? "Від бренд-фільмів до рілсів — ми створюємо відеоконтент, який привертає увагу та перетворює глядачів на клієнтів."
-      : "From brand films to social reels, we create video content that captures attention and converts viewers into customers.",
-    deliverables: lang === 'uk'
-      ? ["Бренд-фільми", "Продуктове відео", "Рілси для соцмереж", "Рекламні кампанії"]
-      : ["Brand films", "Product videos", "Social reels", "Ad campaigns"],
-    color: "warm",
-    link: `/${lang}/work`,
-  },
-  {
-    num: '04',
     title: t.services.webTitle,
     desc: t.services.webDesc,
     story: lang === 'uk'
-      ? "Сайти та застосунки, які працюють так само старанно, як і ви. Швидкі, красиві та створені для конвертації відвідувачів у клієнтів."
-      : "Websites and apps that work as hard as you do. Fast, beautiful, and built to convert visitors into customers.",
+      ? "Ми проектуємо та розробляємо веб-сайти, інтернет-магазини та мобільні застосунки. Ваш бізнес отримує інструмент, який працює 24/7 — приймає замовлення, бронювання, платежі або демонструє вашу пропозицію."
+      : "We design and build websites, online stores, and mobile apps. Your business gets a tool that works 24/7 — taking orders, bookings, payments, or showcasing your offer in the best light.",
     deliverables: lang === 'uk'
-      ? ["Дизайн та розробка сайтів", "Інтернет-магазини", "Лендінги", "Веб-застосунки"]
-      : ["Website design & development", "E-commerce stores", "Landing pages", "Web applications"],
+      ? ["Корпоративні сайти та лендінги", "Інтернет-магазини", "Мобільні застосунки (iOS/Android)", "Системи бронювання та CRM"]
+      : ["Business websites & landing pages", "E-commerce stores", "Mobile apps (iOS/Android)", "Booking systems & CRM"],
+    color: "warm",
+  },
+  {
+    num: '03',
+    title: t.services.photoTitle,
+    desc: t.services.photoDesc,
+    story: lang === 'uk'
+      ? "Професійні фото продуктів, їжі, інтер'єрів та людей. Кожне фото готове для використання на сайті, в онлайн-магазині, соцмережах чи друкованих матеріалах."
+      : "Professional photos of products, food, interiors and people. Every shot is ready to use on your website, online store, social media or print materials.",
+    deliverables: lang === 'uk'
+      ? ["Продуктова фотографія", "Фото їжі та ресторанів", "Бізнес-портрети", "Контент для соцмереж"]
+      : ["Product photography", "Food & restaurant shots", "Business portraits", "Social media content"],
+    color: "warm",
+  },
+  {
+    num: '04',
+    title: t.services.videoTitle,
+    desc: t.services.videoDesc,
+    story: lang === 'uk'
+      ? "Короткі відео, які привертають увагу та будують довіру. Ідеально для головної сторінки, Instagram, TikTok чи реклами. Показуємо вашу компанію, продукт чи послугу в дії."
+      : "Short videos that grab attention and build trust. Perfect for your homepage, Instagram, TikTok or ads. We show your business, product or service in action.",
+    deliverables: lang === 'uk'
+      ? ["Корпоративні фільми", "Продуктове відео", "Рілси та TikTok", "Відеореклама"]
+      : ["Company films", "Product videos", "Reels & TikToks", "Video ads"],
     color: "warm",
   },
   {
@@ -74,11 +72,11 @@ const services = [
     title: t.services.marketTitle,
     desc: t.services.marketDesc,
     story: lang === 'uk'
-      ? "Стратегічний маркетинг, який досягає правильних людей. Ми допомагаємо розповісти вашу історію там, де ваші клієнти вже шукають."
-      : "Strategic marketing that reaches the right people. We help you tell your story where your customers are already looking.",
+      ? "Допомагаємо знайти клієнтів там, де вони вже є — в Google, Facebook, Instagram. Налаштовуємо рекламу, оптимізуємо Google-профіль і плануємо контент, щоб ваш бізнес був помітним."
+      : "We help you reach customers where they already are — on Google, Facebook, Instagram. We set up ads, optimize your Google profile and plan content so your business stays visible.",
     deliverables: lang === 'uk'
-      ? ["Стратегія соцмереж", "Планування контенту", "Платна реклама", "Email-кампанії"]
-      : ["Social media strategy", "Content planning", "Paid advertising", "Email campaigns"],
+      ? ["Реклама Google та Meta", "SEO оптимізація", "Google Мій Бізнес", "Стратегія соцмереж"]
+      : ["Google & Meta ads", "SEO optimization", "Google My Business", "Social media strategy"],
     color: "warm",
   },
 ];
