@@ -1,0 +1,41 @@
+---
+// GitHub Pages 404 fallback
+// Handles two jobs:
+//   1. Redirect /pl/* → /* (Polish is the default, served at root)
+//   2. Any other unknown path → / (graceful fallback)
+---
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artin Studio</title>
+    <script is:inline>
+      (function () {
+        var path = window.location.pathname;
+
+        // /pl → /
+        // /pl/ → /
+        // /pl/services → /services
+        // /pl/en/... (shouldn't happen, but handle gracefully)
+        if (path === '/pl' || path === '/pl/') {
+          window.location.replace('/');
+          return;
+        }
+        if (path.startsWith('/pl/')) {
+          window.location.replace(path.slice(3)); // strip "/pl"
+          return;
+        }
+
+        // Any other unknown path — go home
+        window.location.replace('/');
+      })();
+    </script>
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=/" />
+    </noscript>
+  </head>
+  <body>
+    <p>Redirecting…</p>
+  </body>
+</html>

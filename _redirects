@@ -1,3 +1,6 @@
 # Netlify redirects configuration
-# Redirect root to default language (English)
-/  /en/  301
+# Polish is the default language — served at root, no /pl prefix
+# /pl/* redirects to root so old links don't 404
+/pl  /  301
+/pl/  /  301
+/pl/*  /:splat  301

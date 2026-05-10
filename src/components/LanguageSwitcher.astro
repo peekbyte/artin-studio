@@ -6,33 +6,29 @@ interface Props {
 }
 
 const { currentLang } = Astro.props;
-
-// Helper to get the correct URL for each language
-const getLangUrl = (code: string) => {
-  return code === defaultLang ? '/' : `/${code}/`;
-};
 ---
 
-<div class="relative lang-switcher">
+<div class="relative lang-switcher" data-current-lang={currentLang} data-default-lang={defaultLang}>
   <button 
     class="lang-btn flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium"
     aria-label="Select language"
     type="button"
   >
     <span class="lang-flag">{langFlags[currentLang]}</span>
-    <span class="hidden sm:inline">{languages[currentLang]}</span>
+    <span class="hidden sm:inline lang-current-name">{languages[currentLang]}</span>
     <svg class="w-4 h-4 transition-transform duration-200 lang-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
     </svg>
   </button>
   <div 
-    class="lang-dropdown hidden absolute right-0 top-full mt-2 py-2 w-40 rounded-xl bg-white dark:bg-ink-900 border border-ink-200 dark:border-white/10 shadow-xl z-[100]"
+    class="lang-dropdown hidden absolute right-0 top-full mt-2 py-2 w-44 rounded-xl bg-white dark:bg-ink-900 border border-ink-200 dark:border-white/10 shadow-xl z-[100]"
   >
     {Object.entries(languages).map(([code, name]) => (
       <a 
-        href={getLangUrl(code)}
+        href="/"
+        data-lang-code={code}
         class:list={[
-          "flex items-center gap-3 px-4 py-2 text-sm transition-colors",
+          "lang-option flex items-center gap-3 px-4 py-2 text-sm transition-colors",
           code === currentLang 
             ? "text-brand-500 dark:text-brand-400 bg-ink-50 dark:bg-white/5" 
             : "text-ink-700 dark:text-white/80 hover:text-ink-900 dark:hover:text-white hover:bg-ink-50 dark:hover:bg-white/10"
@@ -41,7 +37,7 @@ const getLangUrl = (code: string) => {
         <span>{langFlags[code as Lang]}</span>
         <span>{name}</span>
         {code === currentLang && (
-          <svg class="w-4 h-4 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+          <svg class="w-4 h-4 ml-auto shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
           </svg>
         )}
@@ -51,42 +47,79 @@ const getLangUrl = (code: string) => {
 </div>
 
 <script>
-  // Use class selectors and handle all instances
+  // Build a language-aware URL preserving the current page/sub-path.
+  // Polish (default) has NO prefix:  /   /services   /work
+  // Others have a prefix:           /en/  /en/services  /uk/work
+  function buildLangUrl(targetLang: string, defaultLang: string): string {
+    const allLangs = ['pl', 'en', 'uk'];
+    const pathname = window.location.pathname;
+
+    // Split into segments, filter empty strings
+    // e.g. "/en/services" → ["en", "services"]
+    //      "/services"    → ["services"]
+    //      "/"            → []
+    const segments = pathname.split('/').filter(Boolean);
+
+    // Drop the leading lang segment if it's a known language code
+    const pageParts = allLangs.includes(segments[0]) ? segments.slice(1) : segments;
+    // pageParts for "/en/services" → ["services"]
+    // pageParts for "/services"    → ["services"]
+    // pageParts for "/"            → []
+
+    if (targetLang === defaultLang) {
+      // Polish — no prefix
+      return pageParts.length === 0 ? '/' : '/' + pageParts.join('/');
+    } else {
+      // Other languages — add /{lang}/ prefix
+      return pageParts.length === 0
+        ? `/${targetLang}/`
+        : `/${targetLang}/${pageParts.join('/')}`;
+    }
+  }
+
+  // Initialise every switcher on the page
   document.querySelectorAll('.lang-switcher').forEach((switcher) => {
     const btn = switcher.querySelector('.lang-btn') as HTMLButtonElement;
     const dropdown = switcher.querySelector('.lang-dropdown') as HTMLElement;
     const chevron = switcher.querySelector('.lang-chevron') as SVGElement;
-    
+    const defaultLang = (switcher as HTMLElement).dataset.defaultLang ?? 'pl';
+
     if (!btn || !dropdown) return;
-    
+
+    // Set correct href on each option based on current path
+    dropdown.querySelectorAll<HTMLAnchorElement>('.lang-option').forEach((a) => {
+      const code = a.dataset.langCode ?? '';
+      a.href = buildLangUrl(code, defaultLang);
+    });
+
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      
+
+      // Refresh hrefs in case URL changed (SPA navigation)
+      dropdown.querySelectorAll<HTMLAnchorElement>('.lang-option').forEach((a) => {
+        const code = a.dataset.langCode ?? '';
+        a.href = buildLangUrl(code, defaultLang);
+      });
+
       // Close all other dropdowns first
       document.querySelectorAll('.lang-dropdown').forEach((d) => {
         if (d !== dropdown) {
           d.classList.add('hidden');
-          d.previousElementSibling?.querySelector('.lang-chevron')?.classList.remove('rotate-180');
+          d.closest('.lang-switcher')?.querySelector('.lang-chevron')?.classList.remove('rotate-180');
         }
       });
-      
-      // Toggle this dropdown
+
       dropdown.classList.toggle('hidden');
       chevron?.classList.toggle('rotate-180');
     });
   });
-  
+
   // Close all dropdowns when clicking outside
   document.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    if (!target.closest('.lang-switcher')) {
-      document.querySelectorAll('.lang-dropdown').forEach((d) => {
-        d.classList.add('hidden');
-      });
-      document.querySelectorAll('.lang-chevron').forEach((c) => {
-        c.classList.remove('rotate-180');
-      });
+    if (!(e.target as HTMLElement).closest('.lang-switcher')) {
+      document.querySelectorAll('.lang-dropdown').forEach((d) => d.classList.add('hidden'));
+      document.querySelectorAll('.lang-chevron').forEach((c) => c.classList.remove('rotate-180'));
     }
   });
 </script>
