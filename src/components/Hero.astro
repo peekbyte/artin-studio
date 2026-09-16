@@ -3,12 +3,29 @@ import type { Translations } from "../i18n/translations";
 import ArrowIcon from './ui/ArrowIcon.astro';
 interface Props { t: Translations; }
 const { t } = Astro.props;
+
+const YT_ID = "uJ8Pg6t_iho";
+const posterSrc = `https://i.ytimg.com/vi/${YT_ID}/maxresdefault.jpg`;
+const playSrc = `https://www.youtube-nocookie.com/embed/${YT_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
 ---
 
-<section id="home" class="relative min-h-screen flex flex-col overflow-hidden bg-cream dark:bg-ink-950">
+<section id="home" class="hero relative min-h-screen flex flex-col overflow-hidden bg-cream dark:bg-ink-950" data-hero>
+  <!-- ── Static cover image only (no video playing in background) ── -->
+  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <img
+      class="absolute inset-0 w-full h-full object-cover object-center opacity-45 scale-105"
+      src={posterSrc}
+      alt=""
+      width="1280"
+      height="720"
+      decoding="async"
+      data-hero-poster
+    />
+    <div class="absolute inset-0 bg-cream/50 dark:bg-ink-950/55"></div>
+  </div>
 
   <!-- ── Animated background blobs ── -->
-  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+  <div class="absolute inset-0 z-[1] pointer-events-none overflow-hidden" data-hero-decor>
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
@@ -24,8 +41,20 @@ const { t } = Astro.props;
     <div class="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full border border-warm-300/25 dark:border-warm-500/10 animate-spin-slow" style="animation-direction:reverse;animation-duration:26s"></div>
   </div>
 
-  <!-- ── Main content - Centered ── -->
-  <div class="relative z-10 flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto px-6 md:px-12 pt-36 pb-16 lg:py-0 text-center">
+  <!-- ── Main content - Vertically centered ── -->
+  <div class="hero-content absolute inset-0 z-10 flex flex-col items-center justify-center max-w-4xl mx-auto w-full px-6 md:px-12 text-center transition-opacity duration-400" data-hero-content>
+
+    <button
+      type="button"
+      class="hero-play-btn group mb-8 inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-brand-500 text-white shadow-2xl shadow-brand-500/40 transition-all hover:bg-brand-600 hover:scale-105 animate-fade-up opacity-0"
+      style="animation-delay:.08s;animation-fill-mode:forwards"
+      data-hero-play
+      aria-label={t.hero.playVideo}
+    >
+      <svg class="w-8 h-8 md:w-10 md:h-10 ml-1 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
 
     <h1 class="font-display font-extrabold leading-[1.02] mb-6 text-ink-950 dark:text-white animate-fade-up opacity-0" style="font-size:clamp(2.6rem,6vw,5rem);animation-delay:.18s;animation-fill-mode:forwards">
       {t.hero.line1}<br/>
@@ -46,16 +75,37 @@ const { t } = Astro.props;
 
   </div>
 
-  <!-- Scroll cue -->
-  <div class="relative z-10 flex justify-center pb-8 animate-fade-in opacity-0" style="animation-delay:1.3s;animation-fill-mode:forwards">
-    <a href="#journey" class="flex flex-col items-center gap-1.5 text-ink-400 hover:text-brand-500 transition-colors">
-      <span class="text-[10px] tracking-[0.22em] uppercase font-semibold">{t.hero.explore}</span>
-      <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-      </svg>
-    </a>
-  </div>
+  <!-- Contained player inside hero only -->
+  <div
+    class="hero-player absolute inset-0 z-20 flex items-center justify-center px-5 sm:px-8 md:px-12 opacity-0 invisible pointer-events-none transition-[opacity,visibility] duration-300"
+    data-hero-player
+    data-play-src={playSrc}
+    hidden
+  >
+    <div class="absolute inset-0 bg-ink-950/55 backdrop-blur-[2px]" data-hero-backdrop></div>
 
+    <div class="relative w-full max-w-3xl aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl shadow-black/40 ring-1 ring-white/10">
+      <button
+        type="button"
+        class="absolute top-3 right-3 z-10 inline-flex items-center gap-2 rounded-full bg-black/60 hover:bg-black/80 text-white px-3.5 py-2 text-sm font-semibold backdrop-blur-sm transition-colors"
+        data-hero-close
+        aria-label={t.hero.closeVideo}
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+        {t.hero.closeVideo}
+      </button>
+      <iframe
+        class="absolute inset-0 w-full h-full border-0"
+        src=""
+        title="Artin Studio showreel"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        data-hero-iframe
+      ></iframe>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -69,6 +119,17 @@ const { t } = Astro.props;
   @keyframes blobMove2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-30px) scale(1.06)} }
   @keyframes blobMove3 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-20px,20px) scale(1.1)} }
 
+  .hero-player.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .hero.is-playing .hero-content {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   /* ── Hero squiggle underline ── */
   .hero-squiggle::after {
     content:'';
@@ -81,3 +142,45 @@ const { t } = Astro.props;
     background-size:80px 8px;
   }
 </style>
+
+<script>
+  function initHeroPlayer() {
+    const hero = document.querySelector('[data-hero]');
+    const playBtn = document.querySelector('[data-hero-play]');
+    const player = document.querySelector('[data-hero-player]');
+    const iframe = document.querySelector('[data-hero-iframe]');
+    const closeBtn = document.querySelector('[data-hero-close]');
+    const backdrop = document.querySelector('[data-hero-backdrop]');
+
+    if (!hero || !playBtn || !player || !(iframe instanceof HTMLIFrameElement)) return;
+
+    const playSrc = player.getAttribute('data-play-src') || '';
+
+    function openPlayer() {
+      player.hidden = false;
+      void player.offsetWidth;
+      player.classList.add('is-open');
+      hero.classList.add('is-playing');
+      iframe.src = playSrc;
+    }
+
+    function closePlayer() {
+      player.classList.remove('is-open');
+      hero.classList.remove('is-playing');
+      iframe.src = '';
+      window.setTimeout(() => {
+        if (!player.classList.contains('is-open')) player.hidden = true;
+      }, 300);
+    }
+
+    playBtn.addEventListener('click', openPlayer);
+    closeBtn?.addEventListener('click', closePlayer);
+    backdrop?.addEventListener('click', closePlayer);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && player.classList.contains('is-open')) closePlayer();
+    });
+  }
+
+  initHeroPlayer();
+</script>

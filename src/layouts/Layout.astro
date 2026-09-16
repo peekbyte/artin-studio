@@ -1,14 +1,24 @@
 ---
 import type { Lang } from '../i18n/translations';
-import { translations } from '../i18n/translations';
-import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { translations, languages } from '../i18n/translations';
 
 interface Props {
   title?: string;
+  description?: string;
+  image?: string;
   lang?: Lang;
 }
 
-const { title = "Artin Studio — Branding, Photography, Video, Websites & Apps", lang = 'en' } = Astro.props;
+const SITE_URL = 'https://artin-studio.pl';
+// 1200x630 social card; replace this file in /public when you have a branded image.
+const DEFAULT_OG_IMAGE = '/og-image.jpg';
+
+const {
+  title = "Artin Studio — Branding, Photography, Video, Websites & Apps",
+  description: descriptionProp,
+  image = DEFAULT_OG_IMAGE,
+  lang = 'en',
+} = Astro.props;
 const t = translations[lang];
 
 // SEO meta content based on language
@@ -28,6 +38,65 @@ const seoContent = {
 };
 
 const seo = seoContent[lang] || seoContent.en;
+const description = descriptionProp ?? seo.description;
+
+// Polish is served at root; en/uk live under /<lang>/.
+// Strip any leading lang prefix to derive the "base path" shared across locales.
+const langPrefix: Record<Lang, string> = { pl: '', en: '/en', uk: '/uk' };
+const localeCode: Record<Lang, string> = { pl: 'pl_PL', en: 'en_US', uk: 'uk_UA' };
+const hreflangCode: Record<Lang, string> = { pl: 'pl', en: 'en', uk: 'uk' };
+
+function stripLangPrefix(pathname: string): string {
+  for (const code of ['en', 'uk'] as const) {
+    if (pathname === `/${code}` || pathname === `/${code}/`) return '/';
+    if (pathname.startsWith(`/${code}/`)) return pathname.slice(code.length + 1);
+  }
+  return pathname;
+}
+
+const basePath = stripLangPrefix(Astro.url.pathname);
+
+function urlForLang(l: Lang): string {
+  const prefix = langPrefix[l];
+  // Avoid trailing-slash duplication when basePath is the root "/".
+  if (basePath === '/') return `${SITE_URL}${prefix}/`;
+  return `${SITE_URL}${prefix}${basePath}`;
+}
+
+const canonicalURL = urlForLang(lang);
+const absoluteImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
+
+// Structured data — disambiguates this Artin Studio (Warsaw, PL) from any
+// similarly-named businesses so Google can resolve the brand entity cleanly.
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": `${SITE_URL}/#organization`,
+  "name": "Artin Studio",
+  "url": SITE_URL,
+  "logo": `${SITE_URL}/favicon.svg`,
+  "image": absoluteImage,
+  "description": description,
+  "areaServed": "PL",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Warsaw",
+    "addressCountry": "PL",
+  },
+  "knowsLanguage": ["pl", "en", "uk"],
+};
+
+const webSiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  "url": SITE_URL,
+  "name": "Artin Studio",
+  "inLanguage": ["pl", "en", "uk"],
+  "publisher": { "@id": `${SITE_URL}/#organization` },
+};
+
+const allLangs = Object.keys(languages) as Lang[];
 ---
 
 <!doctype html>
@@ -41,28 +110,50 @@ const seo = seoContent[lang] || seoContent.en;
     <meta name="theme-color" content="#1a1614" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    
+
+    <!-- Canonical URL: consolidates ranking signals to one preferred URL per locale -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Hreflang alternates: tells Google about translated versions of this page -->
+    {allLangs.map((l) => (
+      <link rel="alternate" hreflang={hreflangCode[l]} href={urlForLang(l)} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={urlForLang('pl')} />
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content={seo.description} />
+    <meta name="description" content={description} />
     <meta name="keywords" content={seo.keywords} />
     <meta name="author" content="Artin Studio" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={seo.description} />
+    <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Artin Studio" />
-    
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={localeCode[lang]} />
+    {allLangs.filter((l) => l !== lang).map((l) => (
+      <meta property="og:locale:alternate" content={localeCode[l]} />
+    ))}
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={seo.description} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteImage} />
 
-    <!-- ── Crawler & scraper protection ── -->
-    <!-- Allow normal search engine indexing; block AI training use of content -->
-    <meta name="robots" content="index, follow, noai, noimageai" />
-    <!-- Opt out of Google's AI overviews / SGE training -->
-    <meta name="googlebot" content="index, follow, nosnippet-ai" />
+    <!-- Structured data: identify the business so Google can resolve the brand entity -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
+
+    <!-- ── Block search engine indexing (site not ready for public SEO) ── -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noai, noimageai" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+    <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet" />
     <!-- Tell browsers not to send Referer header to third parties -->
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <!-- Prevent browsers caching sensitive pages -->
@@ -86,7 +177,6 @@ const seo = seoContent[lang] || seoContent.en;
   </head>
   <body class="font-sans bg-cream dark:bg-ink-950 text-ink-900 dark:text-ink-100 antialiased transition-colors duration-300">
     <slot />
-    <WhatsAppButton message={t.contact.whatsappMessage} label={t.contact.quickContact} />
   </body>
 </html>
 

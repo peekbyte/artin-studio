@@ -1,23 +1,23 @@
-# ── Legitimate search engines ──────────────────────────────────────────────────
+# Block all crawlers from indexing this site
+User-agent: *
+Disallow: /
+
 User-agent: Googlebot
-Allow: /
+Disallow: /
+
+User-agent: Googlebot-Image
+Disallow: /
 
 User-agent: bingbot
-Allow: /
+Disallow: /
 
 User-agent: Slurp
-Allow: /
+Disallow: /
 
 User-agent: DuckDuckBot
-Allow: /
+Disallow: /
 
-# ── Everyone else: allow indexing, crawl-delay to limit hammering ──────────────
-User-agent: *
-Allow: /
-Crawl-delay: 10
-
-# ── AI training scrapers ───────────────────────────────────────────────────────
-# OpenAI
+# AI / scraper bots
 User-agent: GPTBot
 Disallow: /
 
@@ -27,7 +27,6 @@ Disallow: /
 User-agent: OAI-SearchBot
 Disallow: /
 
-# Anthropic
 User-agent: anthropic-ai
 Disallow: /
 
@@ -37,76 +36,23 @@ Disallow: /
 User-agent: ClaudeBot
 Disallow: /
 
-# Google AI (Bard / Gemini training)
 User-agent: Google-Extended
 Disallow: /
 
-# Meta
 User-agent: FacebookBot
 Disallow: /
 
-# ByteDance / TikTok
 User-agent: Bytespider
 Disallow: /
 
-# Common Crawl (used to train most LLMs)
 User-agent: CCBot
 Disallow: /
 
-# Cohere
 User-agent: cohere-ai
 Disallow: /
 
-# Perplexity
 User-agent: PerplexityBot
 Disallow: /
 
-# Apple
 User-agent: Applebot-Extended
 Disallow: /
-
-# ── Aggressive scrapers & data harvesters ─────────────────────────────────────
-User-agent: omgili
-Disallow: /
-
-User-agent: omgilibot
-Disallow: /
-
-User-agent: Diffbot
-Disallow: /
-
-User-agent: DataForSeoBot
-Disallow: /
-
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-User-agent: BLEXBot
-Disallow: /
-
-User-agent: PetalBot
-Disallow: /
-
-User-agent: serpstatbot
-Disallow: /
-
-User-agent: SEOkicks
-Disallow: /
-
-User-agent: linkdexbot
-Disallow: /
-
-User-agent: Screaming Frog SEO Spider
-Disallow: /
-
-# ── Sitemap ────────────────────────────────────────────────────────────────────
-Sitemap: https://artin-studio.pl/sitemap.xml
