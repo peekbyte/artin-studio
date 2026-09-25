@@ -4,6 +4,7 @@ import Navigation from '../../components/Navigation.astro';
 import Hero from '../../components/Hero.astro';
 import Services from '../../components/Services.astro';
 import About from '../../components/About.astro';
+import Valuation from '../../components/Valuation.astro';
 import Contact from '../../components/Contact.astro';
 import Footer from '../../components/Footer.astro';
 import Lightbox from '../../components/Lightbox.astro';
@@ -25,7 +26,6 @@ const t = getTranslations(lang);
 const pageTitle = {
   en: "Artin Studio — Branding, Photography, Video, Websites & Apps",
   pl: "Artin Studio — Branding, Fotografia, Wideo, Strony i Aplikacje",
-  uk: "Artin Studio — Брендинг, Фотографія, Відео, Сайти та Застосунки",
 };
 ---
 
@@ -34,6 +34,7 @@ const pageTitle = {
   <Hero t={t} />
   <Services t={t} />
   <About t={t} />
+  <Valuation t={t} />
   <Contact t={t} />
   <Footer t={t} />
   <Lightbox />

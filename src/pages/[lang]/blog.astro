@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import DotGrid from '../../components/ui/DotGrid.astro';
+import { languages, defaultLang, getTranslations, type Lang } from '../../i18n/translations';
+
+export function getStaticPaths() {
+  return Object.keys(languages)
+    .filter((lang) => lang !== defaultLang)
+    .map((lang) => ({
+      params: { lang },
+    }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = getTranslations(lang);
+---
+
+<Layout lang={lang} title="Blog | Artin Studio">
+  <Navigation lang={lang} t={t} showThemeToggle />
+
+  <main class="pt-32 pb-24 bg-cream dark:bg-ink-950 min-h-screen relative overflow-hidden">
+    <DotGrid color="#ff7a55" dotSize="1.5px" opacity="0.025" />
+
+    <div class="max-w-3xl mx-auto px-6 relative z-10 text-center">
+      <span class="inline-block text-warm-600 dark:text-warm-400 text-xs font-bold tracking-[0.2em] uppercase mb-4">Blog</span>
+      <h1 class="font-display font-extrabold text-ink-950 dark:text-white mb-6 leading-tight" style="font-size:clamp(2.5rem,5vw,4rem)">
+        Coming soon
+      </h1>
+      <p class="text-ink-500 dark:text-ink-400 text-lg leading-relaxed">
+        We're working on articles about branding, photography, and brand growth. Check back soon.
+      </p>
+    </div>
+  </main>
+
+  <Footer t={t} />
+</Layout>

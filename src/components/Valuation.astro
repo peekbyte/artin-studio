@@ -1,0 +1,460 @@
+---
+import type { Translations } from "../i18n/translations";
+import AmbientBlobs from "./ui/AmbientBlobs.astro";
+import DotGrid from "./ui/DotGrid.astro";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const v = t.valuation;
+
+const steps = [
+  {
+    id: "businessType",
+    title: v.q1Title,
+    hint: v.q1Hint,
+    options: [v.q1Opt1, v.q1Opt2, v.q1Opt3, v.q1Opt4, v.q1Opt5, v.q1Opt6],
+  },
+  {
+    id: "customers",
+    title: v.q2Title,
+    hint: v.q2Hint,
+    options: [v.q2Opt1, v.q2Opt2, v.q2Opt3, v.q2Opt4, v.q2Opt5],
+  },
+  {
+    id: "stage",
+    title: v.q3Title,
+    hint: v.q3Hint,
+    options: [v.q3Opt1, v.q3Opt2, v.q3Opt3, v.q3Opt4],
+  },
+  {
+    id: "need",
+    title: v.q4Title,
+    hint: v.q4Hint,
+    options: [v.q4Opt1, v.q4Opt2, v.q4Opt3, v.q4Opt4, v.q4Opt5, v.q4Opt6],
+  },
+] as const;
+---
+
+<section
+  id="valuation"
+  class="scroll-mt-24 py-24 lg:min-h-screen lg:flex lg:items-center bg-cream dark:bg-ink-900 relative overflow-hidden"
+  data-valuation
+  data-step-label={v.stepOf}
+  data-next-label={v.next}
+  data-submit-label={v.submit}
+  data-submitting-label={v.submitting}
+>
+  <AmbientBlobs
+    blobs={[
+      {
+        size: "w-[520px]",
+        position: "top-0 right-0 -translate-y-1/3 translate-x-1/4",
+        light: "bg-brand-200/35",
+        dark: "dark:bg-brand-900/15",
+      },
+      {
+        size: "w-[420px]",
+        position: "bottom-0 left-0 translate-y-1/3 -translate-x-1/4",
+        light: "bg-warm-200/40",
+        dark: "dark:bg-warm-900/10",
+      },
+    ]}
+  />
+  <DotGrid color="#ff7a55" size={28} opacity="0.03" />
+
+  <div class="w-full max-w-3xl mx-auto px-6 relative z-10">
+    <div class="mb-12 text-center md:text-left">
+      <span class="inline-block text-warm-600 dark:text-warm-400 text-xs font-bold tracking-[0.2em] uppercase mb-4">
+        {v.badge}
+      </span>
+      <h2
+        class="font-display font-extrabold text-ink-950 dark:text-white leading-tight mb-4"
+        style="font-size:clamp(2.2rem,5vw,3.5rem)"
+      >
+        {v.title}{" "}
+        <span class="text-brand-500">{v.titleAccent}</span>
+      </h2>
+      <p class="text-ink-500 dark:text-ink-300 text-lg max-w-2xl leading-relaxed">
+        {v.subtitle}
+      </p>
+    </div>
+
+    <!-- Progress -->
+    <div class="mb-8" aria-hidden="true">
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <p class="text-xs font-semibold tracking-wider uppercase text-ink-400 dark:text-ink-500" data-step-text>
+          {v.stepOf.replace("{n}", "1")}
+        </p>
+        <p class="text-xs font-medium text-ink-400 dark:text-ink-500">
+          <span data-step-num>1</span>/5
+        </p>
+      </div>
+      <div class="h-1.5 rounded-full bg-ink-200/70 dark:bg-white/10 overflow-hidden">
+        <div
+          class="h-full rounded-full bg-gradient-to-r from-warm-500 to-brand-500 transition-all duration-400 ease-out"
+          data-progress
+          style="width: 20%"
+        ></div>
+      </div>
+    </div>
+
+    <form
+      id="valuation-form"
+      action="https://formspree.io/f/YOUR_FORM_ID"
+      method="POST"
+      class="relative"
+      novalidate
+    >
+      <input type="hidden" name="form" value="free-business-valuation" />
+      <input type="hidden" name="businessType" data-answer="businessType" />
+      <input type="hidden" name="customers" data-answer="customers" />
+      <input type="hidden" name="stage" data-answer="stage" />
+      <input type="hidden" name="need" data-answer="need" />
+      <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
+
+      {
+        steps.map((step, index) => (
+          <div
+            class:list={["valuation-panel", index === 0 ? "block" : "hidden"]}
+            data-panel={index}
+            role="group"
+            aria-labelledby={`valuation-q${index + 1}`}
+          >
+            <h3
+              id={`valuation-q${index + 1}`}
+              class="font-display font-bold text-ink-900 dark:text-white text-xl md:text-2xl mb-2"
+            >
+              {step.title}
+            </h3>
+            <p class="text-ink-500 dark:text-ink-400 text-sm mb-6">{step.hint}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {step.options.map((opt) => (
+                <button
+                  type="button"
+                  data-option
+                  data-field={step.id}
+                  data-value={opt}
+                  class="valuation-option text-left px-4 py-3.5 rounded-2xl border border-ink-200 dark:border-white/10 bg-white/70 dark:bg-white/5 text-ink-700 dark:text-ink-200 text-sm font-medium transition-all hover:border-brand-400/60 hover:text-ink-900 dark:hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+
+      <!-- Step 5: contact -->
+      <div class="valuation-panel hidden" data-panel="4" role="group" aria-labelledby="valuation-q5">
+        <h3 id="valuation-q5" class="font-display font-bold text-ink-900 dark:text-white text-xl md:text-2xl mb-2">
+          {v.q5Title}
+        </h3>
+        <p class="text-ink-500 dark:text-ink-400 text-sm mb-6">{v.q5Hint}</p>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-ink-500 dark:text-ink-400 text-xs font-semibold tracking-wider uppercase mb-2" for="valuation-business">
+              {v.businessName}
+            </label>
+            <input
+              id="valuation-business"
+              type="text"
+              name="businessName"
+              required
+              placeholder={v.businessNamePlaceholder}
+              class="w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-white/5 border border-ink-200 dark:border-white/10 text-ink-900 dark:text-white placeholder-ink-400 focus:outline-none focus:border-brand-400 transition-all text-sm"
+            />
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-ink-500 dark:text-ink-400 text-xs font-semibold tracking-wider uppercase mb-2" for="valuation-name">
+                {v.name}
+              </label>
+              <input
+                id="valuation-name"
+                type="text"
+                name="name"
+                required
+                placeholder={v.namePlaceholder}
+                class="w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-white/5 border border-ink-200 dark:border-white/10 text-ink-900 dark:text-white placeholder-ink-400 focus:outline-none focus:border-brand-400 transition-all text-sm"
+              />
+            </div>
+            <div>
+              <label class="block text-ink-500 dark:text-ink-400 text-xs font-semibold tracking-wider uppercase mb-2" for="valuation-email">
+                {v.email}
+              </label>
+              <input
+                id="valuation-email"
+                type="email"
+                name="email"
+                required
+                placeholder={v.emailPlaceholder}
+                class="w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-white/5 border border-ink-200 dark:border-white/10 text-ink-900 dark:text-white placeholder-ink-400 focus:outline-none focus:border-brand-400 transition-all text-sm"
+              />
+            </div>
+          </div>
+          <div>
+            <label class="block text-ink-500 dark:text-ink-400 text-xs font-semibold tracking-wider uppercase mb-2" for="valuation-phone">
+              {v.phone}
+            </label>
+            <input
+              id="valuation-phone"
+              type="tel"
+              name="phone"
+              placeholder={v.phonePlaceholder}
+              class="w-full px-4 py-3.5 rounded-2xl bg-white dark:bg-white/5 border border-ink-200 dark:border-white/10 text-ink-900 dark:text-white placeholder-ink-400 focus:outline-none focus:border-brand-400 transition-all text-sm"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Success / error -->
+      <div
+        id="valuation-success"
+        class="hidden items-start gap-3 px-5 py-4 rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300 text-sm"
+        role="status"
+      >
+        <svg class="w-5 h-5 shrink-0 text-emerald-500 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <div>
+          <p class="font-bold mb-1">{v.successTitle}</p>
+          <p>{v.successMessage}</p>
+        </div>
+      </div>
+      <div
+        id="valuation-error"
+        class="hidden items-center gap-3 px-5 py-4 rounded-2xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-300 text-sm"
+        role="alert"
+      >
+        <span>{v.errorMessage}</span>
+      </div>
+
+      <!-- Nav buttons -->
+      <div class="mt-8 flex items-center justify-between gap-3" data-actions>
+        <button
+          type="button"
+          data-back
+          class="invisible pointer-events-none px-4 py-3 text-sm font-semibold text-ink-500 dark:text-ink-400 hover:text-ink-900 dark:hover:text-white transition-colors"
+        >
+          {v.back}
+        </button>
+        <button
+          type="button"
+          data-next
+          disabled
+          class="inline-flex items-center gap-2 bg-brand-500 hover:bg-brand-600 disabled:opacity-40 disabled:pointer-events-none text-white px-6 py-3 rounded-full text-sm font-bold transition-all hover:shadow-lg hover:shadow-brand-500/30"
+        >
+          <span data-next-text>{v.next}</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-valuation]");
+  const form = document.getElementById("valuation-form") as HTMLFormElement | null;
+  if (!root || !form) {
+    // nothing to wire
+  } else {
+    const TOTAL = 5;
+    let step = 0;
+    const answers: Record<string, string> = {};
+
+    const panels = Array.from(root.querySelectorAll<HTMLElement>("[data-panel]"));
+    const progress = root.querySelector<HTMLElement>("[data-progress]");
+    const stepText = root.querySelector<HTMLElement>("[data-step-text]");
+    const stepNum = root.querySelector<HTMLElement>("[data-step-num]");
+    const backBtn = root.querySelector<HTMLButtonElement>("[data-back]");
+    const nextBtn = root.querySelector<HTMLButtonElement>("[data-next]");
+    const nextText = root.querySelector<HTMLElement>("[data-next-text]");
+    const actions = root.querySelector<HTMLElement>("[data-actions]");
+    const successEl = document.getElementById("valuation-success");
+    const errorEl = document.getElementById("valuation-error");
+
+    const stepLabelTpl = root.dataset.stepLabel ?? "Step {n} of 5";
+    const nextLabel = root.dataset.nextLabel ?? "Continue";
+    const submitLabel = root.dataset.submitLabel ?? "Submit";
+    const submittingLabel = root.dataset.submittingLabel ?? "Sending…";
+
+    function render() {
+      panels.forEach((panel) => {
+        const i = Number(panel.dataset.panel);
+        panel.classList.toggle("hidden", i !== step);
+        panel.classList.toggle("block", i === step);
+      });
+
+      const pct = ((step + 1) / TOTAL) * 100;
+      if (progress) progress.style.width = `${pct}%`;
+      if (stepNum) stepNum.textContent = String(step + 1);
+      if (stepText) stepText.textContent = stepLabelTpl.replace("{n}", String(step + 1));
+
+      if (backBtn) {
+        const showBack = step > 0;
+        backBtn.classList.toggle("invisible", !showBack);
+        backBtn.classList.toggle("pointer-events-none", !showBack);
+      }
+
+      if (nextText) nextText.textContent = step === TOTAL - 1 ? submitLabel : nextLabel;
+      syncNextEnabled();
+    }
+
+    function syncNextEnabled() {
+      if (!nextBtn) return;
+      if (step < 4) {
+        const panel = panels[step];
+        const field = panel?.querySelector<HTMLElement>("[data-option]")?.dataset.field;
+        nextBtn.disabled = !(field && answers[field]);
+      } else {
+        const business = form.querySelector<HTMLInputElement>("#valuation-business");
+        const name = form.querySelector<HTMLInputElement>("#valuation-name");
+        const email = form.querySelector<HTMLInputElement>("#valuation-email");
+        nextBtn.disabled = !(business?.value.trim() && name?.value.trim() && email?.validity.valid);
+      }
+    }
+
+    root.querySelectorAll<HTMLButtonElement>("[data-option]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const field = btn.dataset.field;
+        const value = btn.dataset.value;
+        if (!field || !value) return;
+
+        answers[field] = value;
+        const hidden = form.querySelector<HTMLInputElement>(`[data-answer="${field}"]`);
+        if (hidden) hidden.value = value;
+
+        const siblings = root.querySelectorAll<HTMLButtonElement>(`[data-option][data-field="${field}"]`);
+        siblings.forEach((s) => {
+          s.className = s.className
+            .replace(optionActive, "")
+            .replace(/\s+/g, " ")
+            .trim();
+          // reset to idle base classes
+          s.classList.remove(
+            "border-brand-500",
+            "bg-brand-50",
+            "dark:bg-brand-500/15",
+            "text-brand-700",
+            "dark:text-brand-300",
+            "shadow-sm",
+          );
+          s.classList.add(
+            "border-ink-200",
+            "dark:border-white/10",
+            "bg-white/70",
+            "dark:bg-white/5",
+            "text-ink-700",
+            "dark:text-ink-200",
+          );
+        });
+        btn.classList.remove(
+          "border-ink-200",
+          "dark:border-white/10",
+          "bg-white/70",
+          "dark:bg-white/5",
+          "text-ink-700",
+          "dark:text-ink-200",
+        );
+        btn.classList.add(
+          "border-brand-500",
+          "bg-brand-50",
+          "dark:bg-brand-500/15",
+          "text-brand-700",
+          "dark:text-brand-300",
+          "shadow-sm",
+        );
+
+        syncNextEnabled();
+      });
+    });
+
+    ["#valuation-business", "#valuation-name", "#valuation-email"].forEach((sel) => {
+      form.querySelector(sel)?.addEventListener("input", syncNextEnabled);
+    });
+
+    backBtn?.addEventListener("click", () => {
+      if (step > 0) {
+        step -= 1;
+        render();
+      }
+    });
+
+    nextBtn?.addEventListener("click", async () => {
+      if (nextBtn.disabled) return;
+
+      if (step < TOTAL - 1) {
+        step += 1;
+        render();
+        return;
+      }
+
+      // Submit final step
+      if (successEl) {
+        successEl.classList.add("hidden");
+        successEl.classList.remove("flex");
+        successEl.style.display = "none";
+      }
+      if (errorEl) {
+        errorEl.classList.add("hidden");
+        errorEl.classList.remove("flex");
+        errorEl.style.display = "none";
+      }
+
+      nextBtn.disabled = true;
+      if (nextText) nextText.textContent = submittingLabel;
+
+      const showSuccess = () => {
+        panels.forEach((p) => p.classList.add("hidden"));
+        if (actions) actions.classList.add("hidden");
+        if (progress) progress.style.width = "100%";
+        if (stepNum) stepNum.textContent = "5";
+        if (successEl) {
+          successEl.classList.remove("hidden");
+          successEl.classList.add("flex");
+          successEl.style.display = "flex";
+        }
+        form.reset();
+        Object.keys(answers).forEach((k) => delete answers[k]);
+      };
+
+      const showError = () => {
+        if (errorEl) {
+          errorEl.classList.remove("hidden");
+          errorEl.classList.add("flex");
+          errorEl.style.display = "flex";
+        }
+        nextBtn.disabled = false;
+        if (nextText) nextText.textContent = submitLabel;
+      };
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+
+        // Placeholder Formspree ID: treat as success so the flow works before wiring
+        if (response.ok || form.action.includes("YOUR_FORM_ID")) {
+          showSuccess();
+        } else {
+          showError();
+        }
+      } catch {
+        if (form.action.includes("YOUR_FORM_ID")) {
+          showSuccess();
+        } else {
+          showError();
+        }
+      }
+    });
+
+    render();
+  }
+</script>

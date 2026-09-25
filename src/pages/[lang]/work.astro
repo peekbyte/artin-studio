@@ -52,21 +52,7 @@ const pageText = {
     ctaTitle: "Stwórzmy coś razem",
     ctaDesc: "Opowiedz nam o swoim biznesie — pokażemy jak wizualne opowieści mogą pomóc Ci rosnąć.",
     ctaButton: "Zacznij swoją historię",
-  },
-  uk: {
-    ourWork: "Наші Роботи",
-    title: "Візуальні",
-    titleAccent: "Історії",
-    subtitle: "Реальні клієнти, реальні результати. Кожна історія показує, як ми допомогли бізнесу зростати через брендинг, фотографію, відео та цифрову стратегію.",
-    theChallenge: "Виклик",
-    whatWeDid: "Що Ми Зробили",
-    results: "Результати",
-    viewLarger: "Збільшити",
-    ctaKicker: "Ваша історія наступна?",
-    ctaTitle: "Давайте створимо щось разом",
-    ctaDesc: "Розкажіть нам про свій бізнес — ми покажемо як візуальні історії можуть допомогти вам зростати.",
-    ctaButton: "Почніть свою історію",
-  },
+  }
 };
 
 const text = pageText[lang];
@@ -75,31 +61,18 @@ const text = pageText[lang];
 const pageTitleFull = {
   en: "Visual Stories — Client Case Studies & Portfolio | Artin Studio",
   pl: "Wizualne Historie — Portfolio i Case Studies | Artin Studio",
-  uk: "Візуальні Історії — Портфоліо та Кейси | Artin Studio",
 };
 
 // Client stories with translations
 const stories = [
   {
     id: 'bakery',
-    client: lang === 'pl' ? "Warszawska Piekarnia" : lang === 'uk' ? "Варшавська Пекарня" : "Warsaw Sourdough Co.",
-    headline: lang === 'pl' ? "Z lokalnej piekarni do marki w całym mieście" : lang === 'uk' ? "Від локальної пекарні до міського бренду" : "From local bakery to city-wide brand",
-    challenge: lang === 'pl' 
-      ? "Mała rodzinna piekarnia z niesamowitymi produktami, ale bez obecności online. Tracili klientów na rzecz sieci z lepszym marketingiem."
-      : lang === 'uk'
-      ? "Маленька сімейна пекарня з чудовими продуктами, але без присутності онлайн. Вони втрачали клієнтів на користь мереж з кращим маркетингом."
-      : "A small family bakery with amazing products but no online presence. They were losing customers to chains with better marketing.",
-    solution: lang === 'pl'
-      ? "Kompletny rebranding, fotografia produktowa na nową stronę e-commerce, treści na social media i film promocyjny na Instagram."
-      : lang === 'uk'
-      ? "Повний ребрендинг, продуктова фотографія для нового e-commerce сайту, контент для соцмереж та промо-відео для Instagram."
-      : "Complete brand refresh, product photography for their new e-commerce site, social media content, and a promotional video for Instagram.",
-    results: lang === 'pl'
-      ? ["3x wzrost zamówień online", "12K nowych obserwujących", "Wyróżnienie w lokalnych blogach"]
-      : lang === 'uk'
-      ? ["3x зростання онлайн-замовлень", "12K нових підписників", "Згадка в місцевих блогах"]
-      : ["3x increase in online orders", "12K new Instagram followers", "Featured in local food blogs"],
-    services: ["Branding", lang === 'pl' ? "Fotografia" : lang === 'uk' ? "Фотографія" : "Photography", "Video", lang === 'pl' ? "Strona" : lang === 'uk' ? "Сайт" : "Website"],
+    client: lang === 'pl' ? "Warszawska Piekarnia" : "Warsaw Sourdough Co.",
+    headline: lang === 'pl' ? "Z lokalnej piekarni do marki w całym mieście" : "From local bakery to city-wide brand",
+    challenge: lang === 'pl' ? "Mała rodzinna piekarnia z niesamowitymi produktami, ale bez obecności online. Tracili klientów na rzecz sieci z lepszym marketingiem." : "A small family bakery with amazing products but no online presence. They were losing customers to chains with better marketing.",
+    solution: lang === 'pl' ? "Kompletny rebranding, fotografia produktowa na nową stronę e-commerce, treści na social media i film promocyjny na Instagram." : "Complete brand refresh, product photography for their new e-commerce site, social media content, and a promotional video for Instagram.",
+    results: lang === 'pl' ? ["3x wzrost zamówień online", "12K nowych obserwujących", "Wyróżnienie w lokalnych blogach"] : ["3x increase in online orders", "12K new Instagram followers", "Featured in local food blogs"],
+    services: ["Branding", lang === 'pl' ? "Fotografia" : "Photography", "Video", lang === 'pl' ? "Strona" : "Website"],
     images: ["01034900.webp", "11035239.webp"],
     video: false,
     color: "amber",
@@ -107,23 +80,11 @@ const stories = [
   {
     id: 'model',
     client: "Anna K.",
-    headline: lang === 'pl' ? "Aspirująca modelka, teraz z kontraktem" : lang === 'uk' ? "Початківець модель, тепер підписана" : "Aspiring model, now signed",
-    challenge: lang === 'pl'
-      ? "Anna chciała zostać modelką, ale nie miała profesjonalnego portfolio. Agencje nie odpowiadały na jej zdjęcia z telefonu."
-      : lang === 'uk'
-      ? "Анна хотіла стати моделлю, але не мала професійного портфоліо. Агенції не відповідали на її фото з телефону."
-      : "Anna wanted to break into modeling but had no professional portfolio. Agencies weren't responding to her phone photos.",
-    solution: lang === 'pl'
-      ? "Profesjonalna sesja portfolio z różnymi stylizacjami, projekt comp card i krótki showreel wideo."
-      : lang === 'uk'
-      ? "Професійна портфоліо-зйомка з різними образами, дизайн comp card та короткий відео-ріл."
-      : "Professional portfolio shoot with multiple looks, a comp card design, and a short video reel showcasing her range.",
-    results: lang === 'pl'
-      ? ["Kontrakt z agencją modelek", "3 sesje komercyjne w pierwszy miesiąc", "Profesjonalna comp card"]
-      : lang === 'uk'
-      ? ["Контракт з модельним агентством", "3 комерційні зйомки в перший місяць", "Професійна comp card"]
-      : ["Signed with Warsaw Model Agency", "3 commercial bookings in first month", "Professional comp card"],
-    services: [lang === 'pl' ? "Fotografia" : lang === 'uk' ? "Фотографія" : "Photography", "Video", lang === 'pl' ? "Projekt" : lang === 'uk' ? "Дизайн" : "Design"],
+    headline: lang === 'pl' ? "Aspirująca modelka, teraz z kontraktem" : "Aspiring model, now signed",
+    challenge: lang === 'pl' ? "Anna chciała zostać modelką, ale nie miała profesjonalnego portfolio. Agencje nie odpowiadały na jej zdjęcia z telefonu." : "Anna wanted to break into modeling but had no professional portfolio. Agencies weren't responding to her phone photos.",
+    solution: lang === 'pl' ? "Profesjonalna sesja portfolio z różnymi stylizacjami, projekt comp card i krótki showreel wideo." : "Professional portfolio shoot with multiple looks, a comp card design, and a short video reel showcasing her range.",
+    results: lang === 'pl' ? ["Kontrakt z agencją modelek", "3 sesje komercyjne w pierwszy miesiąc", "Profesjonalna comp card"] : ["Signed with Warsaw Model Agency", "3 commercial bookings in first month", "Professional comp card"],
+    services: [lang === 'pl' ? "Fotografia" : "Photography", "Video", lang === 'pl' ? "Projekt" : "Design"],
     images: ["11045368.webp", "11045382.webp"],
     video: true,
     color: "rose",
@@ -131,23 +92,11 @@ const stories = [
   {
     id: 'ecommerce',
     client: "Glow Cosmetics",
-    headline: lang === 'pl' ? "Nowa marka kosmetyczna, gotowa do sprzedaży" : lang === 'uk' ? "Новий бренд косметики, готовий продавати" : "New skincare brand, ready to sell",
-    challenge: lang === 'pl'
-      ? "Start nowej linii kosmetyków bez żadnych materiałów wizualnych. Potrzebowali wszystkiego — od zdjęć produktów po działający sklep."
-      : lang === 'uk'
-      ? "Запуск нової лінії косметики без жодних візуальних матеріалів. Потрібно було все — від фото продуктів до працюючого магазину."
-      : "Launching a new skincare line with no visual assets. Needed everything from product shots to a working online store.",
-    solution: lang === 'pl'
-      ? "Fotografia produktowa, identyfikacja wizualna, sklep e-commerce z SEO i reklamy wideo na Meta."
-      : lang === 'uk'
-      ? "Продуктова фотографія, візуальна ідентичність, e-commerce магазин з SEO та відео-реклами для Meta."
-      : "Product photography, brand identity, e-commerce website with SEO, and video ads for Meta campaigns.",
-    results: lang === 'pl'
-      ? ["€15K przychodu w pierwszym kwartale", "2.4% konwersji", "500+ sprzedanych produktów"]
-      : lang === 'uk'
-      ? ["€15K доходу в перший квартал", "2.4% конверсії", "500+ проданих продуктів"]
-      : ["€15K revenue in first quarter", "2.4% conversion rate", "500+ products sold"],
-    services: ["Branding", lang === 'pl' ? "Fotografia" : lang === 'uk' ? "Фотографія" : "Photography", lang === 'pl' ? "Strona" : lang === 'uk' ? "Сайт" : "Website", "Marketing"],
+    headline: lang === 'pl' ? "Nowa marka kosmetyczna, gotowa do sprzedaży" : "New skincare brand, ready to sell",
+    challenge: lang === 'pl' ? "Start nowej linii kosmetyków bez żadnych materiałów wizualnych. Potrzebowali wszystkiego — od zdjęć produktów po działający sklep." : "Launching a new skincare line with no visual assets. Needed everything from product shots to a working online store.",
+    solution: lang === 'pl' ? "Fotografia produktowa, identyfikacja wizualna, sklep e-commerce z SEO i reklamy wideo na Meta." : "Product photography, brand identity, e-commerce website with SEO, and video ads for Meta campaigns.",
+    results: lang === 'pl' ? ["€15K przychodu w pierwszym kwartale", "2.4% konwersji", "500+ sprzedanych produktów"] : ["€15K revenue in first quarter", "2.4% conversion rate", "500+ products sold"],
+    services: ["Branding", lang === 'pl' ? "Fotografia" : "Photography", lang === 'pl' ? "Strona" : "Website", "Marketing"],
     images: ["11045397.webp", "11045406.webp"],
     video: true,
     color: "sky",
@@ -155,23 +104,11 @@ const stories = [
   {
     id: 'restaurant',
     client: "Osteria Bella",
-    headline: lang === 'pl' ? "Puste stoliki, teraz rezerwacje na weekendy" : lang === 'uk' ? "Порожні столики, тепер бронювання на вихідні" : "Empty tables to weekend waitlists",
-    challenge: lang === 'pl'
-      ? "Świetna włoska restauracja walcząca o klientów. Stara strona i stockowe zdjęcia nie oddawały jakości jedzenia."
-      : lang === 'uk'
-      ? "Чудовий італійський ресторан, який бореться за клієнтів. Старий сайт і стокові фото не передавали якості їжі."
-      : "A great Italian restaurant struggling to attract customers. Their old website and stock photos weren't doing the food justice.",
-    solution: lang === 'pl'
-      ? "Fotografia menu, odświeżenie marki, nowa strona, optymalizacja Google Business i film brandingowy."
-      : lang === 'uk'
-      ? "Фотографія меню, оновлення бренду, новий сайт, оптимізація Google Business та бренд-фільм."
-      : "Menu photography, brand refresh, new website, Google Business optimization, and a brand film for social media.",
-    results: lang === 'pl'
-      ? ["Pełne weekendy", "Ocena 4.8★ w Google", "40% więcej rezerwacji"]
-      : lang === 'uk'
-      ? ["Повні вихідні", "Рейтинг 4.8★ в Google", "40% більше бронювань"]
-      : ["Fully booked weekends", "4.8★ Google rating", "40% more reservations"],
-    services: [lang === 'pl' ? "Fotografia" : lang === 'uk' ? "Фотографія" : "Photography", "Video", lang === 'pl' ? "Strona" : lang === 'uk' ? "Сайт" : "Website", "Marketing"],
+    headline: lang === 'pl' ? "Puste stoliki, teraz rezerwacje na weekendy" : "Empty tables to weekend waitlists",
+    challenge: lang === 'pl' ? "Świetna włoska restauracja walcząca o klientów. Stara strona i stockowe zdjęcia nie oddawały jakości jedzenia." : "A great Italian restaurant struggling to attract customers. Their old website and stock photos weren't doing the food justice.",
+    solution: lang === 'pl' ? "Fotografia menu, odświeżenie marki, nowa strona, optymalizacja Google Business i film brandingowy." : "Menu photography, brand refresh, new website, Google Business optimization, and a brand film for social media.",
+    results: lang === 'pl' ? ["Pełne weekendy", "Ocena 4.8★ w Google", "40% więcej rezerwacji"] : ["Fully booked weekends", "4.8★ Google rating", "40% more reservations"],
+    services: [lang === 'pl' ? "Fotografia" : "Photography", "Video", lang === 'pl' ? "Strona" : "Website", "Marketing"],
     images: ["11045319.webp", "11045412.webp"],
     video: true,
     color: "emerald",

@@ -6,9 +6,10 @@ import type { Translations, Lang } from '../i18n/translations';
 interface Props {
   lang: Lang;
   t: Translations;
+  showThemeToggle?: boolean;
 }
 
-const { lang, t } = Astro.props;
+const { lang, t, showThemeToggle = false } = Astro.props;
 
 // Helper to build language-aware paths (Polish is default, no prefix)
 const langPrefix = lang === 'pl' ? '' : `/${lang}`;
@@ -17,6 +18,7 @@ const navItems = [
   { href: `${langPrefix}/#home`,        label: t.nav.home },
   { href: `${langPrefix}/#journey`,     label: t.nav.services },
   // { href: `${langPrefix}/work`,         label: t.nav.work }, // Hidden for now
+  { href: `${langPrefix}/blog`,         label: t.nav.blog },
   { href: `${langPrefix}/#about`,       label: t.nav.about },
   { href: `${langPrefix}/#contact`,     label: t.nav.contact },
 ];
@@ -42,10 +44,16 @@ const navItems = [
         ))}
       </div>
 
-      <!-- Right: theme + language (close together) -->
-      <div class="flex items-center gap-1.5 shrink-0 z-10 -mr-0.5">
-        <ThemeToggle />
+      <!-- Right: language (+ theme on blog) + CTA -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0 z-10 -mr-0.5">
+        {showThemeToggle && <ThemeToggle />}
         <LanguageSwitcher currentLang={lang} />
+        <a
+          href={`${langPrefix}/#valuation`}
+          class="nav-cta hidden sm:inline-flex items-center gap-1.5 bg-brand-500 hover:bg-brand-600 text-white px-3.5 py-2 rounded-full text-xs font-bold tracking-wide whitespace-nowrap transition-all hover:shadow-lg hover:shadow-brand-500/30"
+        >
+          {t.hero.startProject}
+        </a>
         <button id="mobile-menu-btn" class="md:hidden text-white p-2 -mr-1" aria-label="Menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -60,6 +68,12 @@ const navItems = [
           {label}
         </a>
       ))}
+      <a
+        href={`${langPrefix}/#valuation`}
+        class="flex items-center justify-center mx-3 my-3 px-4 py-3 rounded-full bg-brand-500 hover:bg-brand-600 text-white text-sm font-bold transition-colors"
+      >
+        {t.hero.startProject}
+      </a>
     </div>
   </div>
 </nav>
@@ -71,7 +85,7 @@ const navItems = [
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  const lightSectionIds = ['home', 'photography', 'videography', 'about'];
+  const lightSectionIds = ['home', 'photography', 'videography', 'about', 'valuation'];
 
   function updateNav() {
     const scrollY = window.scrollY;

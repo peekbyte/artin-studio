@@ -31,26 +31,20 @@ const seoContent = {
     description: "Artin Studio pomaga firmom rosnąć dzięki brandingowi, fotografii, produkcji wideo, stronom internetowym, aplikacjom mobilnym i marketingowi. Jedno studio, wszystko czego potrzebuje Twoja marka.",
     keywords: "agencja brandingowa, fotografia, wideo, strony internetowe, aplikacje mobilne, oprogramowanie, sklepy internetowe, identyfikacja wizualna, fotografia produktowa, produkcja wideo, tworzenie aplikacji, marketing cyfrowy",
   },
-  uk: {
-    description: "Artin Studio допомагає бізнесам зростати через брендинг, фотографію, відеовиробництво, веб-сайти, мобільні застосунки та маркетинг. Одна студія — все, що потрібно вашому бренду.",
-    keywords: "брендингова агенція, фотографія, відео, веб-сайти, мобільні застосунки, розробка програм, інтернет-магазини, айдентика, продуктова фотографія, відеовиробництво, розробка додатків, цифровий маркетинг",
-  },
 };
 
 const seo = seoContent[lang] || seoContent.en;
 const description = descriptionProp ?? seo.description;
 
-// Polish is served at root; en/uk live under /<lang>/.
+// Polish is served at root; English lives under /en/.
 // Strip any leading lang prefix to derive the "base path" shared across locales.
-const langPrefix: Record<Lang, string> = { pl: '', en: '/en', uk: '/uk' };
-const localeCode: Record<Lang, string> = { pl: 'pl_PL', en: 'en_US', uk: 'uk_UA' };
-const hreflangCode: Record<Lang, string> = { pl: 'pl', en: 'en', uk: 'uk' };
+const langPrefix: Record<Lang, string> = { pl: '', en: '/en' };
+const localeCode: Record<Lang, string> = { pl: 'pl_PL', en: 'en_US' };
+const hreflangCode: Record<Lang, string> = { pl: 'pl', en: 'en' };
 
 function stripLangPrefix(pathname: string): string {
-  for (const code of ['en', 'uk'] as const) {
-    if (pathname === `/${code}` || pathname === `/${code}/`) return '/';
-    if (pathname.startsWith(`/${code}/`)) return pathname.slice(code.length + 1);
-  }
+  if (pathname === '/en' || pathname === '/en/') return '/';
+  if (pathname.startsWith('/en/')) return pathname.slice(3);
   return pathname;
 }
 
@@ -83,7 +77,7 @@ const orgSchema = {
     "addressLocality": "Warsaw",
     "addressCountry": "PL",
   },
-  "knowsLanguage": ["pl", "en", "uk"],
+  "knowsLanguage": ["pl", "en"],
 };
 
 const webSiteSchema = {
@@ -92,7 +86,7 @@ const webSiteSchema = {
   "@id": `${SITE_URL}/#website`,
   "url": SITE_URL,
   "name": "Artin Studio",
-  "inLanguage": ["pl", "en", "uk"],
+  "inLanguage": ["pl", "en"],
   "publisher": { "@id": `${SITE_URL}/#organization` },
 };
 
