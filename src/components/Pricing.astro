@@ -1,0 +1,171 @@
+---
+import type { Translations } from "../i18n/translations";
+import DotGrid from "./ui/DotGrid.astro";
+import ArrowIcon from "./ui/ArrowIcon.astro";
+
+interface Props {
+  t: Translations;
+}
+
+const { t } = Astro.props;
+const p = t.pricing;
+
+const plans = [
+  {
+    name: p.p1Name,
+    desc: p.p1Desc,
+    price: p.p1Price,
+    priceNote: p.p1PriceNote,
+    featured: false,
+    features: [p.p1F1, p.p1F2, p.p1F3, p.p1F4, p.p1F5, p.p1F6],
+  },
+  {
+    name: p.p2Name,
+    desc: p.p2Desc,
+    price: p.p2Price,
+    priceNote: p.p2PriceNote,
+    featured: true,
+    features: [p.p2F1, p.p2F2, p.p2F3, p.p2F4, p.p2F5, p.p2F6, p.p2F7, p.p2F8],
+  },
+  {
+    name: p.p3Name,
+    desc: p.p3Desc,
+    price: p.p3Price,
+    priceNote: p.p3PriceNote,
+    featured: false,
+    features: [p.p3F1, p.p3F2, p.p3F3, p.p3F4, p.p3F5, p.p3F6, p.p3F7, p.p3F8],
+  },
+];
+---
+
+<section
+  id="pricing"
+  class="scroll-mt-24 py-24 lg:min-h-screen lg:flex lg:items-center bg-sand dark:bg-ink-950 relative overflow-hidden"
+>
+  <DotGrid color="#ff7a55" dotSize="1.5px" opacity="0.03" />
+
+  <div class="w-full max-w-6xl mx-auto px-6 relative z-10">
+    <div class="mb-14 text-center max-w-2xl mx-auto">
+      <span class="inline-block text-warm-600 dark:text-warm-400 text-xs font-bold tracking-[0.2em] uppercase mb-4">
+        {p.badge}
+      </span>
+      <h2
+        class="font-display font-extrabold text-ink-950 dark:text-white leading-tight mb-4"
+        style="font-size:clamp(2.2rem,5vw,3.5rem)"
+      >
+        {p.title}{" "}
+        <span class="text-brand-500">{p.titleAccent}</span>
+      </h2>
+      <p class="text-ink-500 dark:text-ink-300 text-lg leading-relaxed">
+        {p.subtitle}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+      {
+        plans.map((plan) => (
+          <div
+            class:list={[
+              "relative flex flex-col rounded-3xl p-7 md:p-8 border transition-all duration-300",
+              plan.featured
+                ? "bg-ink-950 dark:bg-brand-500/10 border-brand-500/40 shadow-xl shadow-brand-500/10 md:-translate-y-2 md:scale-[1.02]"
+                : "bg-white/80 dark:bg-ink-900 border-ink-200/80 dark:border-white/8",
+            ]}
+          >
+            {plan.featured && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-500 text-white text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 rounded-full whitespace-nowrap">
+                {p.popular}
+              </span>
+            )}
+
+            <div class="mb-6">
+              <h3
+                class:list={[
+                  "font-display font-extrabold text-2xl mb-2",
+                  plan.featured ? "text-white" : "text-ink-900 dark:text-white",
+                ]}
+              >
+                {plan.name}
+              </h3>
+              <p
+                class:list={[
+                  "text-sm leading-relaxed",
+                  plan.featured ? "text-white/70" : "text-ink-500 dark:text-ink-400",
+                ]}
+              >
+                {plan.desc}
+              </p>
+            </div>
+
+            <div class="mb-7">
+              <p
+                class:list={[
+                  "font-display font-extrabold leading-none",
+                  plan.featured ? "text-white" : "text-ink-950 dark:text-white",
+                ]}
+                style="font-size:clamp(1.75rem,3vw,2.15rem)"
+              >
+                {plan.price}
+              </p>
+              <p
+                class:list={[
+                  "text-xs mt-2 font-medium tracking-wide uppercase",
+                  plan.featured ? "text-brand-300" : "text-ink-400 dark:text-ink-500",
+                ]}
+              >
+                {plan.priceNote}
+              </p>
+            </div>
+
+            <ul class="space-y-3 mb-8 flex-1">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-3 text-sm">
+                  <svg
+                    class:list={[
+                      "w-4 h-4 mt-0.5 shrink-0",
+                      plan.featured ? "text-brand-400" : "text-brand-500",
+                    ]}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    aria-hidden="true"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span
+                    class:list={[
+                      plan.featured ? "text-white/85" : "text-ink-600 dark:text-ink-300",
+                    ]}
+                  >
+                    {feature}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="#valuation"
+              class:list={[
+                "group inline-flex items-center justify-center gap-2 w-full rounded-full px-5 py-3.5 text-sm font-bold transition-all",
+                plan.featured
+                  ? "bg-brand-500 hover:bg-brand-400 text-white hover:shadow-lg hover:shadow-brand-500/30"
+                  : "bg-ink-900 hover:bg-ink-800 dark:bg-white dark:hover:bg-ink-100 text-white dark:text-ink-900",
+              ]}
+            >
+              {p.cta}
+              <ArrowIcon class="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-10 text-center text-sm text-ink-500 dark:text-ink-400">
+      {p.note}{" "}
+      <a href="#valuation" class="font-semibold text-brand-500 hover:text-brand-600 transition-colors">
+        {p.noteCta}
+      </a>
+    </p>
+  </div>
+</section>

@@ -17,6 +17,7 @@ const langPrefix = lang === 'pl' ? '' : `/${lang}`;
 const navItems = [
   { href: `${langPrefix}/#home`,        label: t.nav.home },
   { href: `${langPrefix}/#journey`,     label: t.nav.services },
+  { href: `${langPrefix}/#pricing`,     label: t.nav.pricing },
   // { href: `${langPrefix}/work`,         label: t.nav.work }, // Hidden for now
   { href: `${langPrefix}/blog`,         label: t.nav.blog },
   { href: `${langPrefix}/#about`,       label: t.nav.about },
@@ -85,7 +86,7 @@ const navItems = [
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  const lightSectionIds = ['home', 'photography', 'videography', 'about', 'valuation'];
+  const lightSectionIds = ['home', 'photography', 'videography', 'about', 'valuation', 'pricing'];
 
   function updateNav() {
     const scrollY = window.scrollY;
