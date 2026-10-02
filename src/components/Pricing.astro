@@ -97,25 +97,31 @@ const plans = [
               </p>
             </div>
 
-            <div class="mb-7">
-              <p
-                class:list={[
-                  "font-display font-extrabold leading-none",
-                  plan.featured ? "text-white" : "text-ink-950 dark:text-white",
-                ]}
-                style="font-size:clamp(1.75rem,3vw,2.15rem)"
-              >
-                {plan.price}
-              </p>
-              <p
-                class:list={[
-                  "text-xs mt-2 font-medium tracking-wide uppercase",
-                  plan.featured ? "text-brand-300" : "text-ink-400 dark:text-ink-500",
-                ]}
-              >
-                {plan.priceNote}
-              </p>
-            </div>
+            {(plan.price || plan.priceNote) && (
+              <div class="mb-7">
+                {plan.price && (
+                  <p
+                    class:list={[
+                      "font-display font-extrabold leading-none",
+                      plan.featured ? "text-white" : "text-ink-950 dark:text-white",
+                    ]}
+                    style="font-size:clamp(1.75rem,3vw,2.15rem)"
+                  >
+                    {plan.price}
+                  </p>
+                )}
+                {plan.priceNote && (
+                  <p
+                    class:list={[
+                      "text-xs mt-2 font-medium tracking-wide uppercase",
+                      plan.featured ? "text-brand-300" : "text-ink-400 dark:text-ink-500",
+                    ]}
+                  >
+                    {plan.priceNote}
+                  </p>
+                )}
+              </div>
+            )}
 
             <ul class="space-y-3 mb-8 flex-1">
               {plan.features.map((feature) => (
